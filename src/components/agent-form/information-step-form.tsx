@@ -16,10 +16,13 @@ interface InformationStepFormProps {
   formData: FormValues;
 }
 
+
+type StepValues = Pick<FormValues, 'casos_de_sucesso' | 'script_vendas'>;
+
 export function InformationStepForm({ onSave, onNext, submissionId, clientName, formData }: InformationStepFormProps) {
   const [uploadedFilePaths, setUploadedFilePaths] = useState<string[]>(formData.arquivos_base_conhecimento || []);
   
-  const { register, handleSubmit, watch, reset } = useForm<FormValues>({
+  const { register, handleSubmit, watch, reset } = useForm<StepValues>({
     resolver: zodResolver(formSchema.pick({
       casos_de_sucesso: true,
       script_vendas: true,
@@ -42,10 +45,11 @@ export function InformationStepForm({ onSave, onNext, submissionId, clientName, 
     return () => subscription.unsubscribe();
   }, [watch, debouncedSave]);
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = (data: StepValues) => {
     onSave({ ...data, arquivos_base_conhecimento: uploadedFilePaths });
     onNext();
   };
+
 
   const handleFilePathsChange = (paths: string[]) => {
     setUploadedFilePaths(paths);
