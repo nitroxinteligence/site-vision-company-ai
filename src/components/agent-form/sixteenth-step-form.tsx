@@ -14,8 +14,11 @@ interface SixteenthStepFormProps {
   formData: FormValues;
 }
 
+
+type StepValues = Pick<FormValues, 'info_adicional_final'>;
+
 export function SixteenthStepForm({ onSave, onNext, formData }: SixteenthStepFormProps) {
-  const { register, handleSubmit, watch, reset } = useForm<FormValues>({
+  const { register, handleSubmit, watch, reset } = useForm<StepValues>({
     resolver: zodResolver(formSchema.pick({
       info_adicional_final: true,
     })),
@@ -33,10 +36,11 @@ export function SixteenthStepForm({ onSave, onNext, formData }: SixteenthStepFor
     return () => subscription.unsubscribe();
   }, [watch, debouncedSave]);
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = (data: StepValues) => {
     onSave(data);
     onNext();
   };
+
 
   return (
     <div style={{ backgroundColor: "#000000", borderRadius: "0.5rem", padding: "1.5rem", border: "none", maxWidth: "100%" }}>
@@ -55,7 +59,7 @@ export function SixteenthStepForm({ onSave, onNext, formData }: SixteenthStepFor
           </label>
           <Textarea
             id="info_adicional_final"
-            placeholder="Insira aqui quaisquer informações adicionais que você considere relevantes..."
+            placeholder='Ex: "Gostaríamos que o agente tivesse um tom um pouco mais informal ao lidar com leads que se identificam como ''startups em estágio inicial''. Também temos uma lista de concorrentes que o agente NUNCA deve mencionar, posso enviar em anexo por email."'
             {...register("info_adicional_final")}
             style={{ color: "#FFFFFF", padding: "0.75rem", minHeight: "200px", backgroundColor: "#0a0a0a", borderRadius: "8px" }}
           />

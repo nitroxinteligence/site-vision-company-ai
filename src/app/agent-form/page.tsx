@@ -23,7 +23,6 @@ const SESSION_STORAGE_KEY = 'supabase_submission_id';
 export default function AgentFormPage() {
   const [submissionId, setSubmissionId] = useState<string | null>(null);
   const [pageLoaded, setPageLoaded] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
   const [showSummary, setShowSummary] = useState(false);
   const [targetEditStep] = useState<number | null>(null);
   const [showInitialForm, setShowInitialForm] = useState(true);

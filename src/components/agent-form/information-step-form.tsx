@@ -66,12 +66,12 @@ export function InformationStepForm({ onSave, onNext, submissionId, clientName, 
       <form id="form-wizard-form" onSubmit={handleSubmit(onSubmit)} style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
         <div>
           <label htmlFor="casos_de_sucesso" style={{ display: "block", fontSize: "0.875rem", fontWeight: "500", marginBottom: "0.5rem" }}>Casos de sucesso relevantes</label>
-          <Textarea id="casos_de_sucesso" placeholder='Ex: "Cliente conseguiu aposentadoria..."' {...register("casos_de_sucesso")} style={{ ...textareaStyle, minHeight: "150px" }} className="scrollbar" />
+          <Textarea id="casos_de_sucesso" placeholder='Ex: "A Empresa X, após usar nossa solução, aumentou seus agendamentos em 40% em 3 meses. O Cliente Y reduziu o custo por lead em 25%. Podemos usar esses exemplos nas conversas."' {...register("casos_de_sucesso")} style={{ ...textareaStyle, minHeight: "150px" }} className="scrollbar" />
         </div>
 
         <div>
           <label htmlFor="script_vendas" style={{ display: "block", fontSize: "0.875rem", fontWeight: "500", marginBottom: "0.5rem" }}>Script</label>
-          <Textarea id="script_vendas" placeholder="Você tem um script de vendas ou qualificação? Se sim, insira aqui." {...register("script_vendas")} style={textareaStyle} className="scrollbar" />
+          <Textarea id="script_vendas" placeholder='Ex: "Se o lead perguntar sobre o preço, o agente deve responder: "Nossos planos são flexíveis! Para te passar o valor exato, preciso entender um pouco mais sobre sua operação. Podemos agendar uma conversa rápida?"' {...register("script_vendas")} style={textareaStyle} className="scrollbar" />
         </div>
 
         <div>
