@@ -59,7 +59,7 @@ export function SixteenthStepForm({ onSave, onNext, formData }: SixteenthStepFor
           </label>
           <Textarea
             id="info_adicional_final"
-            placeholder='Ex: "Gostaríamos que o agente tivesse um tom um pouco mais informal ao lidar com leads que se identificam como ''startups em estágio inicial''. Também temos uma lista de concorrentes que o agente NUNCA deve mencionar, posso enviar em anexo por email."'
+            placeholder={`Ex: "Gostaríamos que o agente tivesse um tom um pouco mais informal ao lidar com leads que se identificam como 'startups em estágio inicial'. Também temos uma lista de concorrentes que o agente NUNCA deve mencionar, posso enviar em anexo por email."`}
             {...register("info_adicional_final")}
             style={{ color: "#FFFFFF", padding: "0.75rem", minHeight: "200px", backgroundColor: "#0a0a0a", borderRadius: "8px" }}
           />

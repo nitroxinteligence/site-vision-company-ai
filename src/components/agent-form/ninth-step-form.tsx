@@ -57,7 +57,7 @@ export function NinthStepForm({ onSave, onNext, formData }: NinthStepFormProps) 
 
         <div>
           <label htmlFor="regras_follow_up" style={fieldLabelStyle}>Quais regras o agente deve seguir para fazer follow-up? <span style={{ color: "#FF4D4F" }}>*</span></label>
-          <Textarea id="regras_follow_up" placeholder='Ex: "Se um lead qualificado não agendar a reunião em 24h, o agente deve enviar uma mensagem de follow-up. Ex: ''Olá, [Nome]! Notei que ainda não agendou nossa conversa. Há algum impedimento?'' Fazer no máximo 2 follow-ups."' {...register("regras_follow_up")} style={textareaStyle} />
+          <Textarea id="regras_follow_up" placeholder={`Ex: "Se um lead qualificado não agendar a reunião em 24h, o agente deve enviar uma mensagem de follow-up. Ex: 'Olá, [Nome]! Notei que ainda não agendou nossa conversa. Há algum impedimento?' Fazer no máximo 2 follow-ups."`} {...register("regras_follow_up")} style={textareaStyle} />
           {errors.regras_follow_up && <p style={errorMessageStyle}>{errors.regras_follow_up.message}</p>}
         </div>
 
