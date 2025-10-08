@@ -15,8 +15,11 @@ interface FirstStepFormProps {
   formData: FormValues;
 }
 
+
+type StepValues = Pick<FormValues, 'nome_agente' | 'descricao_agente' | 'personalidade_agente' | 'instrucoes_agente' | 'regras_agente' | 'tom_de_voz_agente' | 'comportamentos_agente' | 'habilidades_agente' | 'foco_agente' | 'procedimentos_agente' | 'limites_agente' | 'estilo_linguagem_agente' | 'objetivos_agente' | 'saudacao_agente' | 'politica_perguntas_nao_respondidas' | 'publico_alvo_agente'>;
+
 export function FirstStepForm({ onSave, onNext, formData }: FirstStepFormProps) {
-  const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
+  const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<StepValues>({
     resolver: zodResolver(formSchema.pick({
       nome_agente: true,
       descricao_agente: true,
@@ -49,10 +52,11 @@ export function FirstStepForm({ onSave, onNext, formData }: FirstStepFormProps) 
     return () => subscription.unsubscribe();
   }, [watch, debouncedSave]);
 
-  const onSubmit = (data: FormValues) => {
+  const onSubmit = (data: StepValues) => {
     onSave(data);
     onNext();
   };
+
 
   const inputStyle = { color: "#FFFFFF", padding: "0.75rem", minHeight: "2.75rem", width: "100%", borderRadius: "8px" };
   const textareaStyle = { color: "#FFFFFF", padding: "0.75rem", minHeight: "100px", width: "100%", borderRadius: "8px", overflow: "auto" };
