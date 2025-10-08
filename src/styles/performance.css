@@ -1,0 +1,123 @@
+/* Otimizações de Performance para Animações GSAP */
+
+/* Aceleração de hardware para elementos animados */
+.scroll-section,
+.scroll-reveal-word,
+.scroll-reveal-container {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Otimizações para elementos que serão animados */
+.scroll-section {
+  contain: layout style;
+  will-change: transform, opacity;
+}
+
+.scroll-reveal-word {
+  contain: layout;
+  will-change: transform, opacity;
+}
+
+.scroll-reveal-container {
+  contain: layout style;
+  will-change: transform;
+}
+
+/* Otimizações para texto animado */
+.scroll-reveal-word {
+  display: inline-block;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Remover will-change após animações (será controlado via JS) */
+.animation-complete {
+  will-change: auto;
+}
+
+/* Otimizações para dispositivos móveis */
+@media (max-width: 768px) {
+  .scroll-section,
+  .scroll-reveal-word,
+  .scroll-reveal-container {
+    /* Reduzir complexidade em dispositivos móveis */
+    transform: none;
+    will-change: auto;
+  }
+  
+  /* Apenas aplicar will-change durante animações ativas */
+  .mobile-animating {
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Otimizações para reduzir repaints */
+.scroll-container {
+  contain: layout style paint;
+  isolation: isolate;
+}
+
+/* Melhorar performance de scroll */
+.smooth-scroll {
+  /* scroll-behavior: smooth; - REMOVED: Conflicts with Lenis smooth scroll */
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Otimizações para elementos com backdrop-filter */
+.backdrop-blur-optimized {
+  contain: layout style;
+  isolation: isolate;
+  will-change: backdrop-filter;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.backdrop-blur-light {
+  contain: layout style;
+  isolation: isolate;
+  will-change: backdrop-filter;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+.backdrop-blur-strong {
+  contain: layout style;
+  isolation: isolate;
+  will-change: backdrop-filter;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+/* Classe específica para navbar com transições otimizadas */
+.navbar-backdrop {
+  contain: layout style;
+  isolation: isolate;
+  will-change: backdrop-filter, background-color, border-radius, max-width;
+  -webkit-backdrop-filter: blur(0px);
+  backdrop-filter: blur(0px);
+  transition: background-color 0.3s ease, border-radius 0.3s ease, max-width 0.3s ease;
+}
+
+.navbar-backdrop.scrolled {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.navbar-backdrop.not-scrolled {
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+
+/* Reduzir motion para usuários que preferem */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-section,
+  .scroll-reveal-word,
+  .scroll-reveal-container {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

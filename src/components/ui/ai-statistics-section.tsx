@@ -1,0 +1,117 @@
+'use client';
+
+import { useRef, useEffect } from 'react';
+
+import { useCountUp } from '@/hooks/useCountUp';
+
+export default function AiStatisticsSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const percentage2023Ref = useRef<HTMLDivElement>(null);
+  const percentage2030Ref = useRef<HTMLDivElement>(null);
+
+  // Hooks de contagem para os percentuais
+  const percentage2023 = useCountUp({ 
+    end: 37, 
+    duration: 2000, 
+    suffix: '%',
+    threshold: 0.3,
+    enableScrollTrigger: true,
+    scrollTriggerElement: sectionRef
+  });
+  
+  const percentage2030 = useCountUp({ 
+    end: 80, 
+    duration: 2500, 
+    suffix: '%',
+    threshold: 0.3,
+    enableScrollTrigger: true,
+    scrollTriggerElement: sectionRef
+  });
+
+
+
+  return (
+    <section 
+      ref={sectionRef}
+      className="relative w-full text-white py-32" 
+      style={{ backgroundColor: '#0a0a0a' }}
+    >
+
+      
+      {/* Glow branco na lateral esquerda */}
+      <div 
+        className="absolute left-0 top-1/2 -translate-y-1/2 w-96 h-96 z-5"
+        style={{
+          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 30%, rgba(255, 255, 255, 0.02) 60%, transparent 100%)',
+          filter: 'blur(40px)',
+          transform: 'translateY(-50%) translateX(-50%)'
+        }}
+      ></div>
+      
+      {/* Overlay escuro para melhor legibilidade */}
+      <div className="absolute inset-0 bg-black/20 z-10"></div>
+      
+      <div className="container mx-auto px-6 relative z-20">
+        {/* Título Principal */}
+        <div className="flex items-center justify-center mb-12">
+          <h2 className="title-section text-white text-center">
+            Em 2023, apenas <span style={{ color: '#343434' }}>{percentage2023.value}</span><br />
+            das empresas usavam IA
+          </h2>
+        </div>
+
+        {/* Texto Introdutório */}
+        <div className="flex justify-center mb-12">
+          <p className="text-description text-white/70 text-center max-w-4xl mx-auto font-medium leading-relaxed">
+            Até 2030, a previsão é que <span className="text-white font-semibold" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.3)' }}>{percentage2030.value}</span> utilizem diariamente.<br />
+            Esta é a sua oportunidade de estar à frente da curva.
+          </p>
+        </div>
+
+        {/* Seção de Estatísticas */}
+        <div className="flex justify-center mb-16">
+          <div 
+            className="max-w-5xl w-full p-2 rounded-3xl border"
+            style={{ 
+              backgroundColor: 'transparent',
+              borderColor: '#141414'
+            }}
+          >
+            <div 
+              className="w-full p-12 rounded-2xl border relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
+              style={{ 
+                backgroundColor: '#141414',
+                borderColor: '#323232',
+                boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)'
+              }}
+            >
+              <div className="text-center max-w-3xl mx-auto">
+                {/* Indicador visual */}
+                 <div className="flex justify-center items-center space-x-8 mb-8">
+                    <div className="text-center">
+                      <div ref={percentage2023Ref} className="text-5xl font-bold mb-2" style={{ color: '#343434' }}>{percentage2023.value}</div>
+                      <div className="text-sm text-white/70">2023</div>
+                    </div>
+                   
+                   <div className="flex items-center">
+                      <div className="w-16 h-0.5 bg-gradient-to-r from-black to-white"></div>
+                      <div className="w-3 h-3 bg-white rounded-full ml-2"></div>
+                    </div>
+                   
+                   <div className="text-center">
+                     <div ref={percentage2030Ref} className="text-5xl font-bold text-white mb-2" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.3)' }}>{percentage2030.value}</div>
+                     <div className="text-sm text-white/70">2030</div>
+                   </div>
+                 </div>
+                
+                <p className="text-description text-white/70 font-medium leading-relaxed">
+                  O mercado de IA está em crescimento exponencial. Empresas que adotarem essa tecnologia agora terão vantagem competitiva significativa nos próximos anos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
