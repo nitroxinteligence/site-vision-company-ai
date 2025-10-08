@@ -1,23 +1,26 @@
 "use client";
 
-import React, { ReactNode, useState, ReactElement, useEffect } from "react";
+import React, { useState, ReactElement, useEffect } from "react";
 import { Button } from "../ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { GlobalStyles } from "./form-styles";
 import { ProgressBar } from "./progress-bar";
+import { FormData } from './form-types';
 
-interface StepComponentProps {
-  onSave: (data: Record<string, any>) => void;
+export interface StepComponentProps {
+  onSave: (data: Partial<FormData>) => void;
   onNext: () => void;
   submissionId: string | null;
-  formData: Record<string, any>;
+  formData: FormData;
+  clientName?: string;
 }
 
 interface FormWizardProps {
-  children?: ReactNode | ReactNode[];
+  children?: ReactElement<StepComponentProps>[];
   initialStep?: number;
   onComplete?: () => void;
-  formData: Record<string, any>;
+  formData: FormData;
+  clientName?: string;
 }
 
 export function FormWizard({
@@ -25,6 +28,7 @@ export function FormWizard({
   initialStep = 1,
   onComplete,
   formData,
+  clientName,
 }: FormWizardProps) {
   const childrenArray = React.Children.toArray(children);
   const totalSteps = childrenArray.length;
@@ -55,6 +59,7 @@ export function FormWizard({
         ...component.props,
         onNext: nextStep,
         formData: formData,
+        clientName: clientName,
       });
     }
     return component;

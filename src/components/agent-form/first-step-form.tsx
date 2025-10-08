@@ -3,42 +3,38 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { useDebouncedCallback } from "use-debounce";
+import { formSchema, FormData as FormValues } from './form-types';
 
 interface FirstStepFormProps {
   onSave: (data: Partial<FormValues>) => void;
   onNext: () => void;
   submissionId: string | null;
-  formData: Record<string, any>;
+  formData: FormValues;
 }
 
-const formSchema = z.object({
-  nome_agente: z.string().min(1, { message: "Nome é obrigatório" }),
-  descricao_agente: z.string().min(5, { message: "Descrição é obrigatória" }),
-  personalidade_agente: z.string().min(5, { message: "Personalidade é obrigatória" }),
-  instrucoes_agente: z.string().min(5, { message: "Instruções são obrigatórias" }),
-  regras_agente: z.string().min(5, { message: "Regras são obrigatórias" }),
-  tom_de_voz_agente: z.string().min(2, { message: "Tom de voz é obrigatório" }),
-  comportamentos_agente: z.string().min(5, { message: "Comportamentos são obrigatórios" }),
-  habilidades_agente: z.string().min(5, { message: "Habilidades são obrigatórias" }),
-  foco_agente: z.string().min(5, { message: "Foco é obrigatório" }),
-  procedimentos_agente: z.string().min(5, { message: "Procedimentos são obrigatórios" }),
-  limites_agente: z.string().min(5, { message: "Limites são obrigatórias" }),
-  estilo_linguagem_agente: z.string().min(5, { message: "Estilo de linguagem é obrigatório" }),
-  objetivos_agente: z.string().min(5, { message: "Objetivos são obrigatórios" }),
-  saudacao_agente: z.string().min(5, { message: "Saudação é obrigatória" }),
-  politica_perguntas_nao_respondidas: z.string().min(5, { message: "Resposta para dúvidas é obrigatória" }),
-  publico_alvo_agente: z.string().min(5, { message: "Público-alvo é obrigatório" }),
-});
-
-type FormValues = z.infer<typeof formSchema>;
-
-export function FirstStepForm({ onSave, onNext, formData = {} }: FirstStepFormProps) {
+export function FirstStepForm({ onSave, onNext, formData }: FirstStepFormProps) {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema.pick({
+      nome_agente: true,
+      descricao_agente: true,
+      personalidade_agente: true,
+      instrucoes_agente: true,
+      regras_agente: true,
+      tom_de_voz_agente: true,
+      comportamentos_agente: true,
+      habilidades_agente: true,
+      foco_agente: true,
+      procedimentos_agente: true,
+      limites_agente: true,
+      estilo_linguagem_agente: true,
+      objetivos_agente: true,
+      saudacao_agente: true,
+      politica_perguntas_nao_respondidas: true,
+      publico_alvo_agente: true,
+    })),
     defaultValues: formData,
   });
 

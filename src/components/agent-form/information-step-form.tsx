@@ -3,31 +3,27 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Textarea } from "../ui/textarea";
 import { supabase } from "@/lib/supabaseClient";
 import { useDebouncedCallback } from "use-debounce";
+import { formSchema, FormData as FormValues } from './form-types';
 
 interface InformationStepFormProps {
   onSave: (data: Partial<FormValues>) => void;
   onNext: () => void;
   submissionId: string | null;
-  clientName: string;
-  formData: Record<string, any>;
+  clientName?: string;
+  formData: FormValues;
 }
 
-const formSchema = z.object({
-  casos_de_sucesso: z.string().optional(),
-  script_vendas: z.string().optional(),
-});
-
-type FormValues = z.infer<typeof formSchema>;
-
-export function InformationStepForm({ onSave, onNext, submissionId, clientName, formData = {} }: InformationStepFormProps) {
+export function InformationStepForm({ onSave, onNext, submissionId, clientName, formData }: InformationStepFormProps) {
   const [uploadedFilePaths, setUploadedFilePaths] = useState<string[]>(formData.arquivos_base_conhecimento || []);
   
   const { register, handleSubmit, watch, reset } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema.pick({
+      casos_de_sucesso: true,
+      script_vendas: true,
+    })),
     defaultValues: formData,
   });
 
@@ -82,7 +78,7 @@ export function InformationStepForm({ onSave, onNext, submissionId, clientName, 
           <label style={{ display: "block", fontSize: "0.875rem", fontWeight: "500", marginBottom: "0.5rem" }}>Acesso à base de conhecimentos</label>
           <FileUploadDocuments 
             submissionId={submissionId}
-            clientName={clientName}
+            clientName={clientName || 'cliente'}
             initialFilePaths={uploadedFilePaths}
             onFilePathsChange={handleFilePathsChange}
           />

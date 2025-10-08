@@ -3,31 +3,27 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Input } from "../ui/input";
 import { Textarea } from "../ui/textarea";
 import { useDebouncedCallback } from "use-debounce";
+import { formSchema, FormData as FormValues } from './form-types';
 
 interface ThirdStepFormProps {
   onSave: (data: Partial<FormValues>) => void;
   onNext: () => void;
   submissionId: string | null;
-  formData: Record<string, any>;
+  formData: FormValues;
 }
 
-const formSchema = z.object({
-  nome_produto: z.string().min(5, { message: "Nome do produto/serviço é obrigatório" }),
-  descricao_detalhada_produto: z.string().min(10, { message: "Descrição detalhada é obrigatória" }),
-  caracteristicas_e_beneficios_produto: z.string().min(10, { message: "Características e benefícios são obrigatórios" }),
-  diferenciais_competitivos_produto: z.string().min(10, { message: "Diferenciais competitivos são obrigatórios" }),
-  publico_alvo_produto: z.string().min(5, { message: "Público-alvo é obrigatório" }),
-});
-
-type FormValues = z.infer<typeof formSchema>;
-
-export function ThirdStepForm({ onSave, onNext, formData = {} }: ThirdStepFormProps) {
+export function ThirdStepForm({ onSave, onNext, formData }: ThirdStepFormProps) {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema.pick({
+      nome_produto: true,
+      descricao_detalhada_produto: true,
+      caracteristicas_e_beneficios_produto: true,
+      diferenciais_competitivos_produto: true,
+      publico_alvo_produto: true,
+    })),
     defaultValues: formData,
   });
 

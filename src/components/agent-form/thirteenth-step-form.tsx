@@ -3,27 +3,23 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Textarea } from "../ui/textarea";
 import { FormCard, textareaStyle, fieldLabelStyle, errorMessageStyle, helperTextStyle, hiddenButtonStyle } from "./form-styles";
 import { useDebouncedCallback } from "use-debounce";
+import { formSchema, FormData as FormValues } from './form-types';
 
 interface ThirteenthStepFormProps {
   onSave: (data: Partial<FormValues>) => void;
   onNext: () => void;
   submissionId: string | null;
-  formData: Record<string, any>;
+  formData: FormValues;
 }
 
-const formSchema = z.object({
-  links_importantes: z.string().min(1, { message: "Este campo é obrigatório" }),
-});
-
-type FormValues = z.infer<typeof formSchema>;
-
-export function ThirteenthStepForm({ onSave, onNext, formData = {} }: ThirteenthStepFormProps) {
+export function ThirteenthStepForm({ onSave, onNext, formData }: ThirteenthStepFormProps) {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema.pick({
+      links_importantes: true,
+    })),
     defaultValues: formData,
   });
 

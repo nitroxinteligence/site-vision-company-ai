@@ -3,29 +3,25 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Textarea } from "../ui/textarea";
 import { useDebouncedCallback } from "use-debounce";
+import { formSchema, FormData as FormValues } from './form-types';
 
 interface FourthStepFormProps {
   onSave: (data: Partial<FormValues>) => void;
   onNext: () => void;
   submissionId: string | null;
-  formData: Record<string, any>;
+  formData: FormValues;
 }
 
-const formSchema = z.object({
-  processo_vendas: z.string().min(5, { message: "Processo de vendas é obrigatório" }),
-  fluxograma_vendas: z.string().min(5, { message: "Fluxograma do processo é obrigatório" }),
-  canais_venda: z.string().min(5, { message: "Canais de venda são obrigatórios" }),
-  objecoes_vendas: z.string().min(5, { message: "Objeções de vendas são obrigatórias" }),
-});
-
-type FormValues = z.infer<typeof formSchema>;
-
-export function FourthStepForm({ onSave, onNext, formData = {} }: FourthStepFormProps) {
+export function FourthStepForm({ onSave, onNext, formData }: FourthStepFormProps) {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema.pick({
+      processo_vendas: true,
+      fluxograma_vendas: true,
+      canais_venda: true,
+      objecoes_vendas: true,
+    })),
     defaultValues: formData,
   });
 

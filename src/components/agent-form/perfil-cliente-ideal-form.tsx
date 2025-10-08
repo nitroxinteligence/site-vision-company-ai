@@ -3,30 +3,26 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Textarea } from "../ui/textarea";
 import { FormCard, textareaStyle, fieldLabelStyle, errorMessageStyle, hiddenButtonStyle } from "./form-styles";
 import { useDebouncedCallback } from "use-debounce";
+import { formSchema, FormData as FormValues } from './form-types';
 
 interface PerfilClienteIdealFormProps {
   onSave: (data: Partial<FormValues>) => void;
   onNext: () => void;
   submissionId: string | null;
-  formData: Record<string, any>;
+  formData: FormValues;
 }
 
-const formSchema = z.object({
-  perfil_cliente_ideal: z.string().min(5, { message: "Por favor, descreva o perfil do cliente ideal" }),
-  caracteristicas_cliente_ideal: z.string().min(5, { message: "Por favor, forneça as características principais do cliente ideal" }),
-  criterios_qualificacao_lead: z.string().min(5, { message: "Por favor, defina os critérios de qualificação de leads" }),
-  criterios_desqualificacao_lead: z.string().min(5, { message: "Por favor, defina os critérios de desqualificação de leads" }),
-});
-
-type FormValues = z.infer<typeof formSchema>;
-
-export function PerfilClienteIdealForm({ onSave, onNext, formData = {} }: PerfilClienteIdealFormProps) {
+export function PerfilClienteIdealForm({ onSave, onNext, formData }: PerfilClienteIdealFormProps) {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema.pick({
+      perfil_cliente_ideal: true,
+      caracteristicas_cliente_ideal: true,
+      criterios_qualificacao_lead: true,
+      criterios_desqualificacao_lead: true,
+    })),
     defaultValues: formData,
   });
 

@@ -3,29 +3,25 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Textarea } from "../ui/textarea";
 import { FormCard, textareaStyle, fieldLabelStyle, errorMessageStyle, helperTextStyle, hiddenButtonStyle } from "./form-styles";
 import { useDebouncedCallback } from "use-debounce";
+import { formSchema, FormData as FormValues } from './form-types';
 
 interface FifthStepFormProps {
   onSave: (data: Partial<FormValues>) => void;
   onNext: () => void;
   submissionId: string | null;
-  formData: Record<string, any>;
+  formData: FormValues;
 }
 
-const formSchema = z.object({
-  diferenciais_empresa: z.string().min(5, { message: "Por favor, forneça informações sobre os diferenciais" }),
-  vantagens_empresa: z.string().min(5, { message: "Por favor, forneça informações sobre as vantagens" }),
-  usp_empresa: z.string().min(5, { message: "Por favor, forneça informações sobre a USP" }),
-});
-
-type FormValues = z.infer<typeof formSchema>;
-
-export function FifthStepForm({ onSave, onNext, formData = {} }: FifthStepFormProps) {
+export function FifthStepForm({ onSave, onNext, formData }: FifthStepFormProps) {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema.pick({
+      diferenciais_empresa: true,
+      vantagens_empresa: true,
+      usp_empresa: true,
+    })),
     defaultValues: formData,
   });
 

@@ -21,6 +21,7 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 
 	useEffect(() => {
 		if (!containerRef.current) return;
+		const container = containerRef.current;
 
 		const SEPARATION = 150;
 		const AMOUNTX = 40;
@@ -47,8 +48,8 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 		renderer.setClearColor(scene.fog.color, 0);
 
 		// Safely append renderer to container
-		if (containerRef.current) {
-			containerRef.current.appendChild(renderer.domElement);
+		if (container) {
+			container.appendChild(renderer.domElement);
 		}
 
 		// Create particles
@@ -174,9 +175,9 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 
 				// Safely remove renderer DOM element
 				const rendererElement = sceneRef.current.renderer.domElement;
-				if (containerRef.current && rendererElement && rendererElement.parentNode === containerRef.current) {
+				if (container && rendererElement && rendererElement.parentNode === container) {
 					try {
-						containerRef.current.removeChild(rendererElement);
+						container.removeChild(rendererElement);
 					} catch (error) {
 						// Element may have already been removed, ignore the error
 						console.warn('DottedSurface: Element already removed from DOM', error);

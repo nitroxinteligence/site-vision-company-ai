@@ -3,28 +3,24 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Textarea } from "../ui/textarea";
 import { useDebouncedCallback } from "use-debounce";
+import { formSchema, FormData as FormValues } from './form-types';
 
 interface SeventhStepFormProps {
   onSave: (data: Partial<FormValues>) => void;
   onNext: () => void;
   submissionId: string | null;
-  formData: Record<string, any>;
+  formData: FormValues;
 }
 
-const formSchema = z.object({
-  sistemas_atuais: z.string().min(1, { message: "Sistema utilizado atualmente é obrigatório" }),
-  campos_personalizados_relevantes: z.string().min(5, { message: "Campos personalizados são obrigatórios" }),
-  regras_movimentacao_etapas: z.string().min(5, { message: "Regras de movimentação são obrigatórias" }),
-});
-
-type FormValues = z.infer<typeof formSchema>;
-
-export function SeventhStepForm({ onSave, onNext, formData = {} }: SeventhStepFormProps) {
+export function SeventhStepForm({ onSave, onNext, formData }: SeventhStepFormProps) {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema.pick({
+      sistemas_atuais: true,
+      campos_personalizados_relevantes: true,
+      regras_movimentacao_etapas: true,
+    })),
     defaultValues: formData,
   });
 

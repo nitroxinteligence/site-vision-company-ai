@@ -3,30 +3,26 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Textarea } from "../ui/textarea";
 import { FormCard, textareaStyle, fieldLabelStyle, errorMessageStyle, hiddenButtonStyle } from "./form-styles";
 import { useDebouncedCallback } from "use-debounce";
+import { formSchema, FormData as FormValues } from './form-types';
 
 interface NinthStepFormProps {
   onSave: (data: Partial<FormValues>) => void;
   onNext: () => void;
   submissionId: string | null;
-  formData: Record<string, any>;
+  formData: FormValues;
 }
 
-const formSchema = z.object({
-  regras_operacao: z.string().min(5, { message: "Por favor, forneça informações sobre as regras de operação" }),
-  regras_follow_up: z.string().min(5, { message: "Por favor, forneça informações sobre as regras de acompanhamento" }),
-  regras_lembrete: z.string().min(5, { message: "Por favor, forneça informações sobre as regras de lembretes" }),
-  expectativa_tempo_resposta: z.string().min(5, { message: "Por favor, forneça informações sobre o tempo de resposta" }),
-});
-
-type FormValues = z.infer<typeof formSchema>;
-
-export function NinthStepForm({ onSave, onNext, formData = {} }: NinthStepFormProps) {
+export function NinthStepForm({ onSave, onNext, formData }: NinthStepFormProps) {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema.pick({
+      regras_operacao: true,
+      regras_follow_up: true,
+      regras_lembrete: true,
+      expectativa_tempo_resposta: true,
+    })),
     defaultValues: formData,
   });
 

@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
-import { TrendingUp, DollarSign, Clock, Target, Calculator, ArrowRight } from 'lucide-react';
+import { TrendingUp, DollarSign, Clock, Target, Calculator } from 'lucide-react';
 import { useCountUp } from "@/hooks/useCountUp";
 import { useModal } from "@/components/providers/modal-provider";
 

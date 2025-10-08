@@ -3,26 +3,22 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Textarea } from "../ui/textarea";
 import { useDebouncedCallback } from "use-debounce";
+import { formSchema, FormData as FormValues } from './form-types';
 
 interface SixteenthStepFormProps {
   onSave: (data: Partial<FormValues>) => void;
   onNext: () => void;
   submissionId: string | null;
-  formData: Record<string, any>;
+  formData: FormValues;
 }
 
-const formSchema = z.object({
-  info_adicional_final: z.string().optional(),
-});
-
-type FormValues = z.infer<typeof formSchema>;
-
-export function SixteenthStepForm({ onSave, onNext, formData = {} }: SixteenthStepFormProps) {
+export function SixteenthStepForm({ onSave, onNext, formData }: SixteenthStepFormProps) {
   const { register, handleSubmit, watch, reset } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema.pick({
+      info_adicional_final: true,
+    })),
     defaultValues: formData,
   });
 

@@ -4,7 +4,6 @@ import { useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Users, TrendingUp, Clock, BarChart3 } from 'lucide-react';
 
 export default function AnimatedProblemsSection() {

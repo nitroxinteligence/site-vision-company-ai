@@ -24,7 +24,7 @@ export function DocumentUpload({ onChange, maxFiles = 100, maxSize = 25 * 1024 *
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + " " + sizes[i];
   };
 
-  const validateFile = (file: File): boolean => {
+  const validateFile = useCallback((file: File): boolean => {
     // Verificar o tamanho do arquivo
     if (file.size > maxSize) {
       setError(`O arquivo ${file.name} excede o tamanho máximo de ${formatFileSize(maxSize)}`);
@@ -45,7 +45,7 @@ export function DocumentUpload({ onChange, maxFiles = 100, maxSize = 25 * 1024 *
     }
 
     return true;
-  };
+  }, [maxSize]);
 
   const handleFiles = useCallback(
     (newFiles: FileList | null) => {
@@ -70,7 +70,7 @@ export function DocumentUpload({ onChange, maxFiles = 100, maxSize = 25 * 1024 *
         setError(null);
       }
     },
-    [files, maxFiles, maxSize, onChange]
+    [files, maxFiles, onChange, validateFile]
   );
 
   const handleDragEnter = useCallback((e: React.DragEvent) => {

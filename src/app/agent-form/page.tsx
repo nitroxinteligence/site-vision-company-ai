@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import { FormWizard } from "@/components/agent-form/form-wizard";
+import { FormWizard, StepComponentProps } from "@/components/agent-form/form-wizard";
 import { ThankYouStep } from "@/components/agent-form/ThankYouStep";
 import { FirstStepForm } from "@/components/agent-form/first-step-form";
 import { ThirdStepForm } from "@/components/agent-form/third-step-form";
@@ -16,10 +16,7 @@ import { NinthStepForm } from "@/components/agent-form/ninth-step-form";
 import { ThirteenthStepForm } from "@/components/agent-form/thirteenth-step-form";
 import { SixteenthStepForm } from "@/components/agent-form/sixteenth-step-form";
 import { CustomSelect } from "@/components/ui/custom-select";
-
-interface SubmissionData {
-  [key: string]: any;
-}
+import { FormData } from "@/components/agent-form/form-types";
 
 const SESSION_STORAGE_KEY = 'supabase_submission_id';
 
@@ -28,12 +25,12 @@ export default function AgentFormPage() {
   const [pageLoaded, setPageLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [showSummary, setShowSummary] = useState(false);
-  const [targetEditStep, setTargetEditStep] = useState<number | null>(null);
+  const [targetEditStep] = useState<number | null>(null);
   const [showInitialForm, setShowInitialForm] = useState(true);
   const [name, setName] = useState('');
   const [agentType, setAgentType] = useState('');
   const [isValid, setIsValid] = useState(false);
-  const [fullFormData, setFullFormData] = useState<SubmissionData>({});
+    const [fullFormData, setFullFormData] = useState<FormData>({} as FormData);
 
   const agentOptions = [
     "Agente SDR", "Agente Closer", "Agente CS", "Agente Financeiro",
@@ -82,7 +79,6 @@ export default function AgentFormPage() {
     e.preventDefault();
     if (!isValid) return;
 
-    setIsLoading(true);
     const initialData = {
       nome_cliente: name,
       tipo_agente: agentType,
@@ -97,18 +93,16 @@ export default function AgentFormPage() {
     if (error) {
       console.error("Error creating submission:", JSON.stringify(error, null, 2));
       alert(`Ocorreu um erro ao iniciar o formulário: ${error.message}`);
-      setIsLoading(false);
       return;
     }
 
     sessionStorage.setItem(SESSION_STORAGE_KEY, data.id);
     setSubmissionId(data.id);
-    setFullFormData(initialData);
+    setFullFormData(prevData => ({ ...prevData, ...initialData }));
     setShowInitialForm(false);
-    setIsLoading(false);
   };
 
-  const handleSaveStepData = async (stepData: SubmissionData) => {
+  const handleSaveStepData = async (stepData: Partial<FormData>) => {
     if (!submissionId) return;
 
     const { error } = await supabase
@@ -130,12 +124,8 @@ export default function AgentFormPage() {
   };
 
   const renderContent = () => {
-    if (!hasCheckedSession || isLoading) {
-      return (
-        <div className="flex min-h-screen items-center justify-center bg-black">
-          <div className="animate-pulse"><div className="h-16 w-16 rounded-full bg-white/20"></div></div>
-        </div>
-      );
+    if (!hasCheckedSession) {
+      return null;
     }
 
     if (showInitialForm) {
@@ -179,18 +169,25 @@ export default function AgentFormPage() {
               <h1 style={{ fontSize: '2rem', fontWeight: 'bold', color: '#FFFFFF', marginBottom: '8px' }}>Briefing de {name} para {agentTitle}</h1>
               <p style={{ color: 'rgba(255, 255, 255, 0.7)', fontSize: '1rem' }}>Lembre-se: é extremamente necessário que você responda todas as perguntas corretamente.</p>
             </div>
-            <FormWizard onComplete={handleShowSummary} initialStep={targetEditStep || 1} formData={fullFormData}>
-              <FirstStepForm onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} />
-              <ThirdStepForm onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} />
-              <FourthStepForm onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} />
-              <PerfilClienteIdealForm onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} />
-              <FifthStepForm onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} />
-              <InformationStepForm onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} clientName={name} />
-              <SeventhStepForm onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} />
-              <EighthStepForm onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} />
-              <NinthStepForm onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} />
-              <ThirteenthStepForm onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} />
-              <SixteenthStepForm onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} />
+            <FormWizard
+              onComplete={handleShowSummary}
+              initialStep={targetEditStep || 1}
+              formData={fullFormData}
+              clientName={name}
+            >
+              {([
+                <FirstStepForm key="step1" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
+                <ThirdStepForm key="step2" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
+                <FourthStepForm key="step3" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
+                <PerfilClienteIdealForm key="step4" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
+                <FifthStepForm key="step5" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
+                <InformationStepForm key="step6" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
+                <SeventhStepForm key="step7" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
+                <EighthStepForm key="step8" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
+                <NinthStepForm key="step9" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
+                <ThirteenthStepForm key="step10" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
+                <SixteenthStepForm key="step11" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
+              ] as React.ReactElement<StepComponentProps>[])}
             </FormWizard>
           </div>
         </div>

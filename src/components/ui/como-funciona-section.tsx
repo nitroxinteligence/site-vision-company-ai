@@ -7,7 +7,7 @@ import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useInView } from "react-intersection-observer";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Users, Cog, CreditCard, TrendingUp } from "lucide-react";
+import { Users, Cog, CreditCard, TrendingUp } from "lucide-react";
 import { useModal } from "@/components/providers/modal-provider";
 
 // Registrar plugins GSAP

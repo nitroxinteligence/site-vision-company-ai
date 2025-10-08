@@ -3,28 +3,24 @@
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Textarea } from "../ui/textarea";
 import { useDebouncedCallback } from "use-debounce";
+import { formSchema, FormData as FormValues } from './form-types';
 
 interface EighthStepFormProps {
   onSave: (data: Partial<FormValues>) => void;
   onNext: () => void;
   submissionId: string | null;
-  formData: Record<string, any>;
+  formData: FormValues;
 }
 
-const formSchema = z.object({
-  ferramenta_agendamento: z.string().min(1, { message: "Ferramenta de agendamento é obrigatória" }),
-  disponibilidade_agendamento: z.string().min(5, { message: "Horários disponíveis são obrigatórios" }),
-  info_necessaria_agendamento: z.string().min(5, { message: "Informações para agendamento são obrigatórias" }),
-});
-
-type FormValues = z.infer<typeof formSchema>;
-
-export function EighthStepForm({ onSave, onNext, formData = {} }: EighthStepFormProps) {
+export function EighthStepForm({ onSave, onNext, formData }: EighthStepFormProps) {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema.pick({
+      ferramenta_agendamento: true,
+      disponibilidade_agendamento: true,
+      info_necessaria_agendamento: true,
+    })),
     defaultValues: formData,
   });
 
