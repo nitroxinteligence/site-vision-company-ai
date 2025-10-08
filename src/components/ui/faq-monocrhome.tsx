@@ -80,7 +80,6 @@ function FAQ1() {
   };
 
   const [theme, setTheme] = useState<Theme>(getRootTheme);
-  const [introReady, setIntroReady] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [hasEntered, setHasEntered] = useState(false);
 
@@ -217,14 +216,7 @@ function FAQ1() {
     };
   }, []);
 
-  useEffect(() => {
-    if (typeof window === "undefined") {
-      setIntroReady(true);
-      return;
-    }
-    const frame = window.requestAnimationFrame(() => setIntroReady(true));
-    return () => window.cancelAnimationFrame(frame);
-  }, []);
+
 
   useEffect(() => {
     if (typeof document === "undefined") return;
@@ -253,18 +245,7 @@ function FAQ1() {
 
   const palette = useMemo(() => palettes[theme], [theme]);
 
-  const toggleTheme = () => {
-    if (typeof document === "undefined") return;
-    const root = document.documentElement;
-    const next = root.classList.contains("dark") ? "light" : "dark";
-    root.classList.toggle("dark", next === "dark");
-    setTheme(next);
-    try {
-      window.localStorage?.setItem("bento-theme", next);
-    } catch (_err) {
-      /* ignore */
-    }
-  };
+
   const toggleQuestion = (index: number) => setActiveIndex((prev) => (prev === index ? -1 : index));
 
   useEffect(() => {

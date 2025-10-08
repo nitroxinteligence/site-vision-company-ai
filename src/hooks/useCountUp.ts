@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 
 interface UseCountUpOptions {
   start?: number;
@@ -41,7 +41,7 @@ export const useCountUp = ({
   };
 
   // Função de animação usando requestAnimationFrame para performance
-  const animateCount = () => {
+  const animateCount = useCallback(() => {
     const startTime = Date.now();
     const startValue = start;
     const endValue = end;
@@ -65,7 +65,7 @@ export const useCountUp = ({
     };
 
     requestAnimationFrame(updateCount);
-  };
+  }, [start, end, duration]);
 
   // Intersection Observer para detectar quando o elemento entra na viewport
   useEffect(() => {
@@ -108,7 +108,7 @@ export const useCountUp = ({
     if (hasStarted) {
       animateCount();
     }
-  }, [hasStarted]);
+  }, [hasStarted, animateCount]);
 
   const formattedValue = `${prefix}${formatNumber(count)}${suffix}`;
 

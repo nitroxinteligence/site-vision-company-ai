@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/ui/navbar";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { ConditionalNavbar } from "@/components/ui/conditional-navbar";
 // Teste de scroll em desenvolvimento

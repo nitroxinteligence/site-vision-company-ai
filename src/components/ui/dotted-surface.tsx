@@ -52,7 +52,6 @@ export function DottedSurface({ className, ...props }: DottedSurfaceProps) {
 		}
 
 		// Create particles
-		const particles: THREE.Points[] = [];
 		const positions: number[] = [];
 		const colors: number[] = [];
 

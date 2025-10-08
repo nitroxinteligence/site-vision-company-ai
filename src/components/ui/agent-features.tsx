@@ -1,5 +1,7 @@
 "use client";
 
+import Image from 'next/image';
+
 interface AgentFeaturesProps {
   description: string;
   features: string[];
@@ -20,9 +22,11 @@ export const AgentFeatures = ({ description, features, layout = "grid", imageUrl
         }}
       >
         {imageUrl ? (
-          <img 
+          <Image 
             src={imageUrl} 
             alt="Agent illustration" 
+            width={400}
+            height={300}
             className="w-4/5 h-full object-contain"
           />
         ) : (

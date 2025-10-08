@@ -15,7 +15,6 @@ import FAQAccordion from "@/components/ui/faq-accordion";
 import ContactSection from "@/components/ui/contact-section";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { ContactModal } from "@/components/ui/contact-modal";
-import { Users, TrendingUp, Clock, BarChart3 } from 'lucide-react';
 
 export default function Home() {
   const scrollSections = [

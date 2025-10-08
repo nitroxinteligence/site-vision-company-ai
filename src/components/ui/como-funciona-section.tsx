@@ -55,6 +55,74 @@ const benefits = [
   "Acompanhamento do crescimento e reuniões periódicas"
 ];
 
+// Componente separado para cada item de benefício
+interface BenefitItemProps {
+  benefit: string;
+  videoUrl: string;
+  index: number;
+}
+
+function BenefitItem({ benefit, videoUrl, index }: BenefitItemProps) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const handleMouseEnter = () => {
+    if (videoRef.current) {
+      videoRef.current.play();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (videoRef.current) {
+      videoRef.current.pause();
+    }
+  };
+
+  return (
+    <div
+      key={index}
+      className="benefit-item flex flex-col p-10 rounded-2xl border h-full min-h-[400px] relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
+      style={{
+        backgroundColor: '#141414',
+        borderColor: '#323232',
+        boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)',
+      }}
+    >
+      {/* Container para vídeo */}
+      <div 
+        className="w-full h-80 rounded-lg mb-6 overflow-hidden border relative"
+        style={{
+          backgroundColor: '#202020',
+          borderColor: '#3D3D3D'
+        }}
+        aria-label={`Vídeo para ${benefit}`}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <video 
+           ref={videoRef}
+           className="w-full h-full object-cover"
+           style={{ filter: 'grayscale(100%)' }}
+           muted
+           loop
+           playsInline
+         >
+           <source src={videoUrl} type="video/mp4" />
+           Seu navegador não suporta vídeos.
+         </video>
+      </div>
+      
+      {/* Área de Texto */}
+      <div className="text-center flex-1 flex flex-col justify-between">
+        <div>
+          <h4 className="text-white mb-4 font-medium text-2xl">
+            {benefit}
+          </h4>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Hook personalizado para uma única etapa
 function useStepTracking() {
   const { ref, inView } = useInView({
@@ -356,65 +424,13 @@ export default function ComoFuncionaSection() {
                 "https://nxbcmrqcadrgzhrengsc.supabase.co/storage/v1/object/sign/documents%20vision-site/5-5-video-page-capt.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yOTNhNjgzZC1kYmQwLTRiZDctOGUzMy1hYjZmMjEwZGNhMjYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJkb2N1bWVudHMgdmlzaW9uLXNpdGUvNS01LXZpZGVvLXBhZ2UtY2FwdC5tcDQiLCJpYXQiOjE3NTk5MjkxMzEsImV4cCI6MjEwNjgyNTEzMX0.cCle9krnKUJFl8EevoTWP_20B0_rHfwaePcG6rZtS3k"
               ];
 
-              // Criar ref para cada vídeo
-              const videoRef = useRef<HTMLVideoElement>(null);
-
-              // Funções de hover para cada vídeo
-              const handleMouseEnter = () => {
-                if (videoRef.current) {
-                  videoRef.current.play();
-                }
-              };
-
-              const handleMouseLeave = () => {
-                if (videoRef.current) {
-                  videoRef.current.pause();
-                }
-              };
-              
               return (
-                <div
+                <BenefitItem 
                   key={index}
-                  className="benefit-item flex flex-col p-10 rounded-2xl border h-full min-h-[400px] relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
-                  style={{
-                    backgroundColor: '#141414',
-                    borderColor: '#323232',
-                    boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)',
-                  }}
-                >
-                  {/* Container para vídeo */}
-                  <div 
-                    className="w-full h-80 rounded-lg mb-6 overflow-hidden border relative"
-                    style={{
-                      backgroundColor: '#202020',
-                      borderColor: '#3D3D3D'
-                    }}
-                    aria-label={`Vídeo para ${benefit}`}
-                    onMouseEnter={handleMouseEnter}
-                    onMouseLeave={handleMouseLeave}
-                  >
-                    <video 
-                       ref={videoRef}
-                       className="w-full h-full object-cover"
-                       style={{ filter: 'grayscale(100%)' }}
-                       muted
-                       loop
-                       playsInline
-                     >
-                       <source src={videoUrls[index]} type="video/mp4" />
-                       Seu navegador não suporta vídeos.
-                     </video>
-                  </div>
-                  
-                  {/* Área de Texto */}
-                  <div className="text-center flex-1 flex flex-col justify-between">
-                    <div>
-                      <h4 className="text-white mb-4 font-medium text-2xl">
-                        {benefit}
-                      </h4>
-                    </div>
-                  </div>
-                </div>
+                  benefit={benefit}
+                  videoUrl={videoUrls[index]}
+                  index={index}
+                />
               );
             })}
           </div>
