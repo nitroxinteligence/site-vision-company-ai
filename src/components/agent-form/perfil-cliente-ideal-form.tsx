@@ -24,7 +24,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export function PerfilClienteIdealForm({ onSave, onNext, submissionId, formData = {} }: PerfilClienteIdealFormProps) {
+export function PerfilClienteIdealForm({ onSave, onNext, formData = {} }: PerfilClienteIdealFormProps) {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: formData,

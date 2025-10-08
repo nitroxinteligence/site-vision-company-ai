@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
 import { FormWizard } from "@/components/agent-form/form-wizard";
 import { ThankYouStep } from "@/components/agent-form/ThankYouStep";
@@ -25,7 +24,6 @@ interface SubmissionData {
 const SESSION_STORAGE_KEY = 'supabase_submission_id';
 
 export default function AgentFormPage() {
-  const router = useRouter();
   const [submissionId, setSubmissionId] = useState<string | null>(null);
   const [pageLoaded, setPageLoaded] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
@@ -110,7 +108,7 @@ export default function AgentFormPage() {
     setIsLoading(false);
   };
 
-  const handleSaveStepData = async (stepData: Record<string, any>) => {
+  const handleSaveStepData = async (stepData: SubmissionData) => {
     if (!submissionId) return;
 
     const { error } = await supabase
@@ -126,23 +124,9 @@ export default function AgentFormPage() {
   };
 
   const handleShowSummary = () => {
+    sessionStorage.removeItem(SESSION_STORAGE_KEY);
     setShowSummary(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-  
-  const handleEditStep = (stepIndex: number) => {
-    setTargetEditStep(stepIndex);
-    setShowSummary(false);
-  };
-  
-  const handleFinalSubmit = () => {
-    sessionStorage.removeItem(SESSION_STORAGE_KEY);
-    alert("Briefing enviado com sucesso! Agradecemos por compartilhar suas informações.");
-    router.push("/");
-  };
-  
-  const handleBackToForm = () => {
-    setShowSummary(false);
   };
 
   const renderContent = () => {
@@ -218,7 +202,7 @@ export default function AgentFormPage() {
     <>
       <div style={{ position: 'fixed', top: '20px', right: '20px', width: '180px', height: '100px', backgroundColor: '#1C1C1C', borderRadius: '8px', border: '1px solid #272727', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.5)' }}>
         <div style={{ width: '40px', height: '40px', backgroundColor: 'rgba(0, 0, 0, 0.5)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <svg width="20" height="20" viewBox="0 '0' 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 5V19L19 12L8 5Z" fill="white"/></svg>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 5V19L19 12L8 5Z" fill="white"/></svg>
         </div>
       </div>
       {renderContent()}

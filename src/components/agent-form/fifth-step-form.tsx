@@ -23,7 +23,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export function FifthStepForm({ onSave, onNext, submissionId, formData = {} }: FifthStepFormProps) {
+export function FifthStepForm({ onSave, onNext, formData = {} }: FifthStepFormProps) {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: formData,

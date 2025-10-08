@@ -36,7 +36,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export function FirstStepForm({ onSave, onNext, submissionId, formData = {} }: FirstStepFormProps) {
+export function FirstStepForm({ onSave, onNext, formData = {} }: FirstStepFormProps) {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: formData,

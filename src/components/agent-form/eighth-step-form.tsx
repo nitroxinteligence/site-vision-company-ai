@@ -22,7 +22,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export function EighthStepForm({ onSave, onNext, submissionId, formData = {} }: EighthStepFormProps) {
+export function EighthStepForm({ onSave, onNext, formData = {} }: EighthStepFormProps) {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: formData,

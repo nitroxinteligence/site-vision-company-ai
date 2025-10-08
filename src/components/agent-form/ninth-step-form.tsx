@@ -24,7 +24,7 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export function NinthStepForm({ onSave, onNext, submissionId, formData = {} }: NinthStepFormProps) {
+export function NinthStepForm({ onSave, onNext, formData = {} }: NinthStepFormProps) {
   const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: formData,

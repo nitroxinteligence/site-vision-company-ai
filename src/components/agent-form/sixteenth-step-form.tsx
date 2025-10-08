@@ -20,8 +20,8 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export function SixteenthStepForm({ onSave, onNext, submissionId, formData = {} }: SixteenthStepFormProps) {
-  const { register, handleSubmit, formState: { errors }, watch, reset } = useForm<FormValues>({
+export function SixteenthStepForm({ onSave, onNext, formData = {} }: SixteenthStepFormProps) {
+  const { register, handleSubmit, watch, reset } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: formData,
   });
