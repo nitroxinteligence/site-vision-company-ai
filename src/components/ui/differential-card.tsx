@@ -11,16 +11,6 @@ interface DifferentialCardProps {
 export const DifferentialCard = ({ title, description, videoUrl }: DifferentialCardProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handleVideoClick = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-      } else {
-        videoRef.current.pause();
-      }
-    }
-  };
-
   return (
     <div 
       className="w-full p-6 sm:p-8 md:p-12 rounded-2xl border relative min-h-80 flex flex-col"
@@ -32,17 +22,17 @@ export const DifferentialCard = ({ title, description, videoUrl }: DifferentialC
     >
       {/* Caixa de imagem/vídeo */}
       <div 
-        className="w-full h-48 sm:h-56 md:h-64 mb-6 rounded-lg border overflow-hidden flex items-center justify-center cursor-pointer"
+        className="w-full h-48 sm:h-56 md:h-64 mb-6 rounded-lg border overflow-hidden flex items-center justify-center"
         style={{
           backgroundColor: '#202020',
           borderColor: '#3D3D3D'
         }}
-        onClick={handleVideoClick}
       >
         {videoUrl ? (
           <video
             ref={videoRef}
             src={videoUrl}
+            autoPlay
             muted
             loop
             playsInline

@@ -95,57 +95,30 @@ export default function InfiniteHero() {
 		<div
 			ref={rootRef}
 			className="relative h-svh w-full overflow-hidden text-white"
-			style={{ backgroundColor: "#141414" }}
+			style={{ backgroundColor: "#0A0A0A" }}
 		>
 			{/* WebGL Shader Background */}
 			<div className="absolute inset-0 z-0">
 				<WebGLShader />
 			</div>
 
-			<div className="relative z-10 flex h-svh w-full items-center justify-center px-6 pb-10 md:pb-20">
-				<div className="text-center">
-					{/* Fallback content visible immediately */}
-					{!isLoaded && (
-						<>
-							<div>
-								<h1 className="mx-auto max-w-2xl lg:max-w-6xl text-[clamp(3rem,7vw,5rem)] md:text-[clamp(2.75rem,7vw,5rem)] font-bold md:font-medium leading-[0.95] tracking-tight">
-									Sua empresa na Era da IA
-								</h1>
-							</div>
-							<div className="mx-auto mt-4 max-w-2xl md:max-w-2xl text-balance text-base/6 md:text-lg/7 font-medium tracking-tight text-white/70">
-								Somos quem tira o peso das suas costas: <br />
-								reduz custo, automatiza processos e gera vendas, <br />
-								enquanto você curte liberdade com quem ama.
-							</div>
-							<div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-								<div className="border border-white/30 bg-gradient-to-r from-white/20 to-white/10 px-4 py-2 text-sm rounded-lg font-medium tracking-wide text-white backdrop-blur-sm">
-									Quero uma consultoria
-								</div>
-								<div className="px-4 py-2 text-sm font-medium tracking-wide text-white/90">
-									Conheça nossas soluções
-								</div>
-							</div>
-						</>
-					)}
-
-					{/* GSAP animated content */}
-					<div className={!isLoaded ? "opacity-0 absolute" : ""}>
-						<h1
-							ref={h1Ref}
-							className="mx-auto max-w-2xl lg:max-w-6xl text-[clamp(3rem,7vw,5rem)] md:text-[clamp(2.75rem,7vw,5rem)] font-bold md:font-medium leading-[0.95] tracking-tight"
-						>
-							Sua empresa na Era da IA
-
-						</h1>
-					</div>
+			<div 
+				className="relative z-10 flex h-full items-center justify-center text-center px-4 sm:px-6"
+				style={{ opacity: isLoaded ? 1 : 0 }}
+			>
+				<div>
+					<h1
+						ref={h1Ref}
+						className="text-heading-1 text-balance"
+					>
+						Sua empresa na Era da IA
+					</h1>
 
 					<p
 						ref={pRef}
-						className={`mx-auto mt-4 max-w-2xl md:max-w-2xl text-balance text-base/6 md:text-lg/7 font-medium tracking-tight text-white/70 ${
-							!isLoaded ? "opacity-0 absolute" : ""
-						}`}
+						className="text-body-lg mx-auto mt-4 max-w-xl text-balance text-white/70"
 					>
-						Somos quem tira o peso das suas costas: <br />
+						Somos quem tira o peso das suas costas:
 						reduz custo, automatiza processos 
 						e gera vendas, enquanto você curte
 						liberdade com quem ama.
@@ -153,14 +126,12 @@ export default function InfiniteHero() {
 
 					<div
 						ref={ctaRef}
-						className={`mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 ${
-							!isLoaded ? "opacity-0 absolute" : ""
-						}`}
+						className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
 					>
 						<button
 							type="button"
 							onClick={() => window.open('https://wa.me/5581992690667', '_blank')}
-							className="group relative overflow-hidden border border-white/30 bg-gradient-to-r from-white/20 to-white/10 px-4 py-2 text-base rounded-lg font-medium tracking-wide text-white backdrop-blur-sm hover:from-white/30 hover:to-white/20 transition-all duration-300"
+							className="w-full sm:w-auto border border-white/30 bg-gradient-to-r from-white/20 to-white/10 px-6 py-3 text-base rounded-lg font-medium tracking-wide text-white backdrop-blur-sm hover:from-white/30 hover:to-white/20 transition-all duration-300"
 						>
 							Quero uma consultoria
 						</button>
@@ -173,7 +144,7 @@ export default function InfiniteHero() {
 									solucoesSection.scrollIntoView({ behavior: "smooth" });
 								}
 							}}
-							className="group relative px-4 py-2 text-sm font-medium tracking-wide text-white/90 transition-[filter,color] duration-500 hover:drop-shadow-[0_0_6px_rgba(255,255,255,0.6)] hover:text-white cursor-pointer"
+							className="group relative px-4 py-2 text-base font-medium tracking-wide text-white/90 transition-[filter,color] duration-500 hover:drop-shadow-[0_0_6px_rgba(255,255,255,0.6)] hover:text-white cursor-pointer"
 						>
 							Conheça nossas soluções
 						</button>

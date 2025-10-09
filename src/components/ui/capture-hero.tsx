@@ -98,85 +98,43 @@ export default function CaptureHero() {
 	return (
 			<div
 				ref={rootRef}
-				className="relative min-h-svh w-full overflow-hidden text-white pt-20 md:pt-28 pb-16 md:pb-20"
-				style={{ backgroundColor: '#141414' }}
+				className="relative min-h-svh w-full overflow-hidden text-white pt-24 pb-16 md:pt-32 md:pb-20"
+				style={{ backgroundColor: '#0A0A0A' }}
 			>
 				{/* WebGL Shader Background */}
 				<div className="absolute inset-0 z-0">
 					<WebGLShader />
 				</div>
 
-				<div className="relative z-10 flex min-h-full w-full items-center justify-center px-4 sm:px-6">
-					<div className="text-center">
-						{/* Fallback content visible immediately */}
-						{!isLoaded && (
-							<>
-								<h1 className="mx-auto max-w-4xl lg:max-w-7xl text-[clamp(2.25rem,6vw,4rem)] font-bold md:font-medium leading-[1] tracking-tight text-balance">
-									De zero a R$ 70.610/mês <br className="md:hidden" />em 12 meses.
-								</h1>
-								<h2 className="mx-auto mt-3 max-w-3xl text-[clamp(1.25rem,4vw,1.75rem)] font-medium leading-[1.1] tracking-tight text-white/80 text-balance">
-									A 1ª franquia de agência de IA do mundo.
-								</h2>
-								<div className="mx-auto mt-6 max-w-3xl text-balance text-lg/7 font-medium tracking-tight text-white/80">
-									Alta margem. Zero equipe fixa. Operação global.
-								</div>
-								
-								{/* Placeholder para vídeo */}
-								<div className="mx-auto mt-8 max-w-2xl aspect-video bg-gradient-to-br from-white/10 to-white/5 rounded-xl border border-white/20 backdrop-blur-sm flex items-center justify-center group cursor-pointer hover:border-white/30 hover:bg-white/15 transition-all duration-500">
-									<div className="flex flex-col items-center justify-center space-y-3">
-										<div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
-											<svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-												<path d="M8 5v14l11-7z"/>
-											</svg>
-										</div>
-										<div className="text-white/70 text-lg font-medium group-hover:text-white/90 transition-colors duration-300">
-											Vídeo de Apresentação
-										</div>
-										<div className="text-white/50 text-sm">
-											Clique para assistir
-										</div>
-									</div>
-								</div>
-								
-								<div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-									<Button 
-										size="lg"
-										onClick={openModal}
-										className="border border-white/30 bg-gradient-to-r from-white/20 to-white/10 px-6 py-3 text-base rounded-lg font-medium tracking-wide text-white backdrop-blur-sm hover:border-white/50 hover:bg-white/20 hover:shadow-lg hover:shadow-white/10 transition-[border-color,background-color,box-shadow] duration-500"
-									>
-										Quero fazer negócio com a Vision AI
-									</Button>
-								</div>
-							</>
-						)}
-						
-						{/* GSAP animated content */}
-						<div className={!isLoaded ? 'opacity-0 absolute' : ''}>
-							<h1
-								ref={h1Ref}
-								className="mx-auto max-w-4xl lg:max-w-7xl text-[clamp(2.25rem,6vw,4rem)] font-bold md:font-medium leading-[1] tracking-tight text-balance"
-							>
-								De zero a R$ 70.610/mês <br className="md:hidden" />em 12 meses.
-							</h1>
-							<h2
-								ref={h2Ref}
-								className="mx-auto mt-3 max-w-3xl text-[clamp(1.25rem,4vw,1.75rem)] font-medium leading-[1.1] tracking-tight text-white/80 text-balance"
-							>
-								A 1ª franquia de agência de IA do mundo.
-							</h2>
-						</div>
+				<div 
+					className="relative z-10 flex h-full items-center justify-center text-center px-4 sm:px-6"
+					style={{ opacity: isLoaded ? 1 : 0 }}
+				>
+					<div>
+						<h1
+							ref={h1Ref}
+							className="text-heading-1 text-balance"
+						>
+							De zero a R$ 70.610/mês <br className="md:hidden" />em 12 meses.
+						</h1>
+						<h2
+							ref={h2Ref}
+							className="text-heading-3 mx-auto mt-4 max-w-3xl text-white/80 text-balance"
+						>
+							A 1ª franquia de agência de IA do mundo.
+						</h2>
 						
 						<p
 							ref={pRef}
-							className={`mx-auto mt-6 max-w-3xl text-balance text-lg/7 font-medium tracking-tight text-white/80 ${!isLoaded ? 'opacity-0 absolute' : ''}`}
+							className="text-body-lg mx-auto mt-6 max-w-3xl text-balance text-white/80"
 						>
 							Alta margem. Zero equipe fixa. Operação global.
 						</p>
 
-						{/* Placeholder para vídeo - versão animada */}
+						{/* Placeholder para vídeo */}
 						<div 
 							ref={videoPlaceholderRef}
-							className={`mx-auto mt-8 max-w-2xl aspect-video bg-gradient-to-br from-white/10 to-white/5 rounded-xl border border-white/20 backdrop-blur-sm flex items-center justify-center group cursor-pointer hover:border-white/30 hover:bg-white/15 transition-all duration-500 ${!isLoaded ? 'opacity-0 absolute' : ''}`}
+							className="mx-auto mt-8 max-w-2xl aspect-video bg-gradient-to-br from-white/10 to-white/5 rounded-xl border border-white/20 backdrop-blur-sm flex items-center justify-center group cursor-pointer hover:border-white/30 hover:bg-white/15 transition-all duration-500"
 							onClick={openModal}
 						>
 							<div className="flex flex-col items-center justify-center space-y-3">
@@ -196,12 +154,12 @@ export default function CaptureHero() {
 
 						<div
 							ref={ctaRef}
-							className={`mt-8 flex flex-col sm:flex-row items-center justify-center gap-4 ${!isLoaded ? 'opacity-0 absolute' : ''}`}
+							className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4"
 						>
 							<Button 
 								size="lg"
 								onClick={openModal}
-								className="border border-white/30 bg-gradient-to-r from-white/20 to-white/10 px-6 py-3 text-base rounded-lg font-medium tracking-wide text-white backdrop-blur-sm hover:border-white/50 hover:bg-white/20 hover:shadow-lg hover:shadow-white/10 transition-[border-color,background-color,box-shadow] duration-500"
+								className="w-full sm:w-auto border border-white/30 bg-gradient-to-r from-white/20 to-white/10 px-6 py-3 text-base rounded-lg font-medium tracking-wide text-white backdrop-blur-sm hover:border-white/50 hover:bg-white/20 hover:shadow-lg hover:shadow-white/10 transition-[border-color,background-color,box-shadow] duration-500"
 							>
 								Quero fazer negócio com a Vision AI
 							</Button>

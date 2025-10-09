@@ -36,7 +36,7 @@ export const AgentFeatures = ({ description, features, layout = "grid", imageUrl
         )}
       </div>
       
-      <p className="text-description text-neutral-300 mb-4">
+      <p className="text-body-md text-neutral-300 mb-4">
         {description}
       </p>
       <div className={`grid ${layout === "grid" ? "grid-cols-1 md:grid-cols-2" : "grid-cols-1"} gap-2 mb-4`}>
@@ -83,7 +83,7 @@ export const AgentFeatures = ({ description, features, layout = "grid", imageUrl
                 strokeLinejoin="round"
               />
             </svg>
-            <p className="text-feature text-white font-medium">{feature}</p>
+            <p className="text-body-sm text-white font-medium">{feature}</p>
           </div>
         ))}
       </div>

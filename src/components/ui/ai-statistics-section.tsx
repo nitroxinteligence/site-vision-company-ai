@@ -43,7 +43,7 @@ export default function AiStatisticsSection() {
       <div className="container mx-auto px-4 sm:px-6 relative z-20">
         {/* Título Principal */}
         <div className="flex items-center justify-center mb-12">
-          <h2 className="title-section text-white text-center text-balance">
+          <h2 className="text-heading-2 text-white text-center text-balance">
             Em 2023, apenas <span style={{ color: '#343434' }}>{percentage2023.value}</span><br className="hidden md:block" />
             das empresas usavam IA
           </h2>
@@ -51,7 +51,7 @@ export default function AiStatisticsSection() {
 
         {/* Texto Introdutório */}
         <div className="flex justify-center mb-12">
-          <p className="text-description text-white/70 text-center max-w-4xl mx-auto font-medium leading-relaxed text-balance">
+          <p className="text-body-lg text-white/70 text-center max-w-4xl mx-auto font-medium leading-relaxed text-balance">
             Até 2030, a previsão é que <span className="text-white font-semibold" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.3)' }}>{percentage2030.value}</span> utilizem diariamente.<br className="hidden md:block" />
             Esta é a sua oportunidade de estar à frente da curva.
           </p>

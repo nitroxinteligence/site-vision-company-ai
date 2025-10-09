@@ -172,69 +172,56 @@ body {
     @apply bg-background text-foreground;
   }
 
-  /* Configurações específicas da fonte Inter */
-  h1, h2, h3, h4, h5, h6, .font-title {
-    font-weight: 500;
-  }
+  /* --- Nova Arquitetura de Tipografia Fluida --- */
 
-  p, span, div, .font-text {
+  /* Títulos Principais (Seções e Heros) */
+  .text-heading-1 {
+    font-size: clamp(2.75rem, 7vw, 5rem); /* 44px a 80px */
     font-weight: 500;
-  }
-
-  .font-medium {
-    font-weight: 500;
-  }
-
-  /* Padrões tipográficos consistentes */
-  .title-hero {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 500; /* medium */
     line-height: 0.95;
     letter-spacing: -0.025em;
   }
 
-  .title-section {
-    font-size: clamp(2rem, 7vw, 5rem);
-    font-weight: 500; /* medium */
-    line-height: 0.95;
+  .text-heading-2 {
+    font-size: clamp(2rem, 5vw, 3rem); /* 32px a 48px */
+    font-weight: 500;
+    line-height: 1;
     letter-spacing: -0.025em;
   }
 
-  .title-card {
-    font-size: 1.125rem; /* text-lg */
-    font-weight: 500; /* medium */
+  .text-heading-3 {
+    font-size: clamp(1.5rem, 4vw, 2.25rem); /* 24px a 36px */
+    font-weight: 500;
+    line-height: 1.1;
     letter-spacing: -0.025em;
   }
 
-  .title-timeline {
-    font-size: 24px;
-    font-weight: 600; /* semibold */
-    letter-spacing: -0.025em;
-    color: #898989;
-  }
-
-  .title-statistic {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    font-weight: 500; /* medium */
-    line-height: 1.2;
-  }
-
-  .text-description {
-    font-size: clamp(0.9rem, 2vw, 1rem);
-    font-weight: 500; /* medium */
+  /* Textos de Corpo e Descrições */
+  .text-body-lg {
+    font-size: clamp(1rem, 2.5vw, 1.125rem); /* 16px a 18px */
+    font-weight: 500;
     line-height: 1.6;
-    letter-spacing: -0.025em;
   }
 
-  .text-card {
-    font-size: clamp(0.8rem, 1.8vw, 0.875rem);
-    font-weight: 500; /* medium */
+  .text-body-md {
+    font-size: clamp(0.9rem, 2vw, 1rem); /* 14.4px a 16px */
+    font-weight: 500;
+    line-height: 1.6;
+  }
+
+  .text-body-sm {
+    font-size: clamp(0.8rem, 1.8vw, 0.875rem); /* 12.8px a 14px */
+    font-weight: 500;
     line-height: 1.5;
   }
 
-  .text-feature {
-    font-size: 14px;
-    font-weight: 500; /* medium */
-    line-height: 1.4;
-  }
+  /* Classes Antigas (serão removidas gradualmente) */
+  .title-hero { font-size: clamp(2.75rem, 7vw, 5rem); font-weight: 500; line-height: 0.95; letter-spacing: -0.025em; }
+  .title-section { font-size: clamp(2.75rem, 7vw, 5rem); font-weight: 500; line-height: 0.95; letter-spacing: -0.025em; }
+  .title-card { font-size: 1.125rem; font-weight: 500; letter-spacing: -0.025em; }
+  .title-timeline { font-size: 24px; font-weight: 600; letter-spacing: -0.025em; color: #898989; }
+  .title-statistic { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.025em; }
+  .text-description { font-size: clamp(1rem, 2.5vw, 1.125rem); font-weight: 500; line-height: 1.6; }
+  .text-card { font-size: clamp(0.8rem, 1.8vw, 0.875rem); font-weight: 500; line-height: 1.5; }
+  .text-feature { font-size: 14px; font-weight: 500; line-height: 1.4; }
 }

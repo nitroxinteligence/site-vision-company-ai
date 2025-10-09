@@ -88,65 +88,25 @@ export default function AnimatedAboutSection() {
 	return (
 		<section 
 			ref={rootRef}
-			className="relative w-full text-white pt-0 pb-20 md:pb-40" 
+			className="relative w-full text-white py-16 md:py-24" 
 			style={{ backgroundColor: '#0a0a0a' }}
 		>
-			<div className="container mx-auto px-6">
-				{/* Fallback content visible immediately */}
-				{!isLoaded && (
-					<>
-						<div className="flex items-center justify-center mb-12">
-							<div className="title-section text-white text-center text-balance">
-								Empresários ajudando empresários a crescer com IA
-							</div>
-						</div>
-						
-						<div className="flex justify-center mb-16">
-							<div 
-								className="max-w-6xl w-full p-2 rounded-3xl border"
-								style={{ 
-									backgroundColor: 'transparent',
-									borderColor: '#141414'
-								}}
-							>
-								<div 
-									className="w-full p-6 sm:p-8 md:p-12 rounded-2xl border relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer min-h-80"
-									style={{ 
-										backgroundColor: '#141414',
-										borderColor: '#323232',
-										boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)'
-									}}
-								>
-									<div className="text-center max-w-2xl mx-auto">
-										<p className="text-description text-white/70 font-medium mb-4">
-											Vision AI nasceu para resolver o maior dilema do dono de negócio:
-										</p>
-										<p className="text-white font-medium leading-8 mb-6 text-[clamp(1.25rem,4vw,1.5rem)]">
-											Crescer sem se tornar refém do próprio trabalho.
-										</p>
-										<p className="text-description text-white/70 font-medium">
-											Combinamos experiência prática de mais de 10 anos escalando empresas reais com a tecnologia de IA mais avançada do mercado, desenvolvida sob medida para cada negócio. Nosso time é especialista em transformar processos complexos em operações leves, lucrativas e escaláveis.
-										</p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</>
-				)}
-
-				{/* GSAP animated content */}
+			<div 
+				className="container mx-auto px-4 sm:px-6"
+				style={{ opacity: isLoaded ? 1 : 0 }}
+			>
 				<div className="flex items-center justify-center mb-12">
 					<h2 
 						ref={h2Ref}
-						className={`title-section text-white text-center text-balance ${!isLoaded ? 'opacity-0 absolute' : ''}`}
+						className="text-heading-2 text-center text-balance"
 					>
 						Empresários ajudando empresários a crescer com IA
 					</h2>
 				</div>
 				
-				<div className="flex justify-center mb-16">
+				<div className="flex justify-center">
 					<div 
-						className="max-w-6xl w-full p-2 rounded-3xl border"
+						className="max-w-6xl w-full p-1 sm:p-2 rounded-3xl border"
 						style={{ 
 							backgroundColor: 'transparent',
 							borderColor: '#141414'
@@ -154,7 +114,7 @@ export default function AnimatedAboutSection() {
 					>
 						<div 
 							ref={cardRef}
-							className={`w-full p-6 sm:p-8 md:p-12 rounded-2xl border relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer min-h-80 ${!isLoaded ? 'opacity-0 absolute' : ''}`}
+							className="w-full p-6 sm:p-8 md:p-12 rounded-2xl border relative min-h-[20rem]"
 							style={{ 
 								backgroundColor: '#141414',
 								borderColor: '#323232',
@@ -163,15 +123,15 @@ export default function AnimatedAboutSection() {
 						>
 							<div 
 								ref={pRef}
-								className={`text-center max-w-2xl mx-auto ${!isLoaded ? 'opacity-0 absolute' : ''}`}
+								className="text-center max-w-3xl mx-auto"
 							>
-								<p className="text-description text-white/70 font-medium mb-4">
+								<p className="text-body-md text-white/70 mb-4">
 									Vision AI nasceu para resolver o maior dilema do dono de negócio:
 								</p>
-								<p className="text-white font-semibold leading-8 mb-6 text-[clamp(1.25rem,4vw,1.5rem)]">
+								<p className="text-heading-3 text-white font-semibold mb-6 text-balance">
 									Crescer sem se tornar refém do próprio trabalho.
 								</p>
-								<p className="text-description text-white/70 font-medium">
+								<p className="text-body-md text-white/70">
 									Combinamos experiência prática de mais de 10 anos escalando empresas reais com a tecnologia de IA mais avançada do mercado, desenvolvida sob medida para cada negócio. Nosso time é especialista em transformar processos complexos em operações leves, lucrativas e escaláveis.
 								</p>
 							</div>

@@ -15,16 +15,6 @@ interface ProfileCardProps {
 export function ProfileCard({ name, role, description, imageAlt, videoUrl, videoScale = 2.1, videoTranslateY = '20%' }: ProfileCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handleVideoClick = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-      } else {
-        videoRef.current.pause();
-      }
-    }
-  };
-
   return (
     <div 
       className="flex flex-col p-6 sm:p-8 md:p-10 rounded-2xl border h-full min-h-[400px] relative"
@@ -36,18 +26,18 @@ export function ProfileCard({ name, role, description, imageAlt, videoUrl, video
     >
       {/* Container para imagem ou vídeo */}
       <div 
-        className="w-full h-64 md:h-80 rounded-lg mb-6 overflow-hidden border relative cursor-pointer"
+        className="w-full h-64 md:h-80 rounded-lg mb-6 overflow-hidden border relative"
         style={{
           backgroundColor: '#202020',
           borderColor: '#3D3D3D'
         }}
         aria-label={imageAlt || `Vídeo de ${name}`}
-        onClick={handleVideoClick}
       >
         {videoUrl ? (
           <video 
             ref={videoRef}
             className="w-full h-full object-cover"
+            autoPlay
             muted 
             loop 
             playsInline
@@ -86,15 +76,15 @@ export function ProfileCard({ name, role, description, imageAlt, videoUrl, video
       {/* Área de Texto */}
       <div className="text-left flex-1 flex flex-col justify-between">
         <div>
-          <h3 className="text-white mb-2 font-medium text-[clamp(1.25rem,4vw,1.5rem)]">
+          <h3 className="text-heading-3 text-white mb-2 font-medium">
             {name}
           </h3>
-          <div className="text-card font-medium mb-4 text-[#929292]">
+          <div className="text-body-md font-medium mb-4 text-[#929292]">
             {role}
           </div>
         </div>
         
-        <p className="text-card font-medium leading-relaxed text-[#929292]">
+        <p className="text-body-sm font-medium leading-relaxed text-[#929292]">
           {description}
         </p>
       </div>

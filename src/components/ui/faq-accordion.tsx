@@ -82,10 +82,10 @@ export default function FAQAccordion() {
               >
                 FAQ
               </div>
-              <h2 className="title-section text-white text-center">
+              <h2 className="text-heading-2 text-white text-center">
                 Perguntas Frequentes
               </h2>
-              <p className="text-description text-white/70 text-center max-w-2xl mx-auto">
+              <p className="text-body-lg text-white/70 text-center max-w-2xl mx-auto">
                 Respostas para as principais dúvidas sobre implementação e resultados com IA.
               </p>
             </div>

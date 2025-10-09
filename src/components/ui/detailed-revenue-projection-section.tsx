@@ -101,7 +101,7 @@ export default function DetailedRevenueProjectionSection() {
         <div className="flex items-center justify-center mb-16">
           <h2 
             ref={h2Ref}
-            className={`title-section text-white text-center ${!isLoaded ? 'opacity-0' : ''}`}
+            className={`text-heading-2 text-white text-center ${!isLoaded ? 'opacity-0' : ''}`}
           >
             De 0 à 66 clientes <br />em 12 meses
           </h2>

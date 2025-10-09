@@ -65,16 +65,6 @@ interface BenefitItemProps {
 function BenefitItem({ benefit, videoUrl, index }: BenefitItemProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handleVideoClick = () => {
-    if (videoRef.current) {
-      if (videoRef.current.paused) {
-        videoRef.current.play();
-      } else {
-        videoRef.current.pause();
-      }
-    }
-  };
-
   return (
     <div
       key={index}
@@ -93,12 +83,12 @@ function BenefitItem({ benefit, videoUrl, index }: BenefitItemProps) {
           borderColor: '#3D3D3D'
         }}
         aria-label={`Vídeo para ${benefit}`}
-        onClick={handleVideoClick}
       >
         <video 
            ref={videoRef}
            className="w-full h-full object-cover"
            style={{ filter: 'grayscale(100%)' }}
+           autoPlay
            muted
            loop
            playsInline
@@ -282,14 +272,14 @@ export default function ComoFuncionaSection() {
         <div className="text-center mb-16 md:mb-24">
           <h2
             ref={titleRef}
-            className="title-section text-white text-center mb-6"
+            className="text-heading-2 text-white text-center mb-6"
             style={{ opacity: isLoaded ? undefined : 1 }}
           >
             Como funciona
           </h2>
           <p
             ref={subtitleRef}
-            className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed"
+            className="text-body-lg text-gray-300 max-w-3xl mx-auto leading-relaxed"
             style={{ opacity: isLoaded ? undefined : 1 }}
           >
             Um modelo de negócio simples e eficiente que permite você focar no relacionamento enquanto nós cuidamos da tecnologia.

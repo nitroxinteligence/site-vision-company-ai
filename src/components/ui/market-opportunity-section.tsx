@@ -25,27 +25,6 @@ export default function MarketOpportunitySection() {
   const video1Ref = useRef<HTMLVideoElement>(null);
   const video2Ref = useRef<HTMLVideoElement>(null);
 
-  // Funções para controlar os vídeos com clique
-  const handleVideo1Click = () => {
-    if (video1Ref.current) {
-      if (video1Ref.current.paused) {
-        video1Ref.current.play();
-      } else {
-        video1Ref.current.pause();
-      }
-    }
-  };
-
-  const handleVideo2Click = () => {
-    if (video2Ref.current) {
-      if (video2Ref.current.paused) {
-        video2Ref.current.play();
-      } else {
-        video2Ref.current.pause();
-      }
-    }
-  };
-
   useGSAP(
     () => {
       const bulletPoints = bulletPointsRef.current ? Array.from(bulletPointsRef.current.children) : [];
@@ -204,7 +183,7 @@ export default function MarketOpportunitySection() {
         <div className="flex items-center justify-center mb-12">
           <h2 
             ref={h2Ref}
-            className={`title-section text-white text-center text-balance ${!isLoaded ? 'opacity-0' : ''}`}
+            className={`text-heading-2 text-white text-center text-balance ${!isLoaded ? 'opacity-0' : ''}`}
           >
             Por que empreender <br className="hidden md:block" />com IA agora?
           </h2>
@@ -214,7 +193,7 @@ export default function MarketOpportunitySection() {
         <div className="flex justify-center mb-12">
           <p 
             ref={introTextRef}
-            className={`text-description text-white/70 text-center max-w-4xl mx-auto font-medium leading-relaxed text-balance ${!isLoaded ? 'opacity-0' : ''}`}
+            className={`text-body-lg text-white/70 text-center max-w-4xl mx-auto font-medium leading-relaxed text-balance ${!isLoaded ? 'opacity-0' : ''}`}
           >
             O mercado de Inteligência Artificial deve movimentar mais de US$ 1,8 trilhão até 2030. Grande fatia desse mercado será SUA! Quem entra cedo, colhe os maiores frutos.
           </p>
@@ -240,7 +219,7 @@ export default function MarketOpportunitySection() {
               <div className="text-center max-w-3xl mx-auto">
                 <p 
                   ref={visionAITextRef}
-                  className={`text-description text-white/70 font-medium leading-relaxed text-balance ${!isLoaded ? 'opacity-0' : ''}`}
+                  className={`text-body-lg text-white/70 font-medium leading-relaxed text-balance ${!isLoaded ? 'opacity-0' : ''}`}
                 >
                   A Vision AI é a primeira franquia de agência de IA do mundo. Isso significa que você não está só abrindo um negócio: <br className="hidden md:block" />
                   Você está empreendendo em um setor que ainda está em fase inicial e tem MUITO PRA CRESCER.
@@ -252,7 +231,7 @@ export default function MarketOpportunitySection() {
 
         {/* Bullet Points - Expansão do Mercado */}
         <div className="max-w-6xl mx-auto mb-16">
-          <h3 className="text-white font-semibold text-center mb-12 text-[clamp(1.25rem,4vw,1.5rem)]">
+          <h3 className="text-heading-3 text-white font-semibold text-center mb-12">
             Um mercado em expansão exponencial
           </h3>
           
@@ -276,12 +255,12 @@ export default function MarketOpportunitySection() {
                   backgroundColor: '#202020',
                   borderColor: '#3D3D3D'
                 }}
-                onClick={handleVideo1Click}
               >
                 <video 
                   ref={video1Ref}
                   className="w-full h-full object-cover"
                   style={{ filter: 'grayscale(100%)' }}
+                  autoPlay
                   muted
                   loop
                   playsInline
@@ -294,7 +273,7 @@ export default function MarketOpportunitySection() {
 
               {/* Conteúdo do card */}
               <div className="flex-1 flex flex-col justify-center text-center">
-                <p className="text-card text-white/70 font-medium leading-relaxed">
+                <p className="text-body-md text-white/70 font-medium leading-relaxed">
                   Isso abre espaço para milhares de agências que vão implementar soluções de IA.
                 </p>
               </div>
@@ -316,12 +295,12 @@ export default function MarketOpportunitySection() {
                   backgroundColor: '#202020',
                   borderColor: '#3D3D3D'
                 }}
-                onClick={handleVideo2Click}
               >
                 <video 
                   ref={video2Ref}
                   className="w-full h-full object-cover"
                   style={{ filter: 'grayscale(100%)' }}
+                  autoPlay
                   muted
                   loop
                   playsInline
@@ -334,7 +313,7 @@ export default function MarketOpportunitySection() {
 
               {/* Conteúdo do card */}
               <div className="flex-1 flex flex-col justify-center text-center">
-                <p className="text-card text-white/70 font-medium leading-relaxed">
+                <p className="text-body-md text-white/70 font-medium leading-relaxed">
                   Você, um franqueado VISION AI, entra com vantagem competitiva única: produto pronto, suporte e marca forte.
                 </p>
               </div>
