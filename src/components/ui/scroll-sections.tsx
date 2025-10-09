@@ -34,11 +34,13 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: container,
-        start: "top center",
-        end: "bottom center",
-        scrub: 0.5,
+        pin: true,
+        start: "top top",
+        end: "+=200%", // Reduzido de 400% para 200% - menos cálculos
+        scrub: 0.5, // Reduzido de 1 para 0.5 - mais responsivo
+        anticipatePin: 1,
         invalidateOnRefresh: true,
-        refreshPriority: -1,
+        refreshPriority: -1, // Otimização de refresh
         markers: false,
       }
     });
@@ -198,7 +200,7 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
   return (
     <div 
       ref={containerRef}
-      className={`relative w-full h-auto py-40 flex items-center justify-center overflow-hidden ${className}`}
+      className={`relative w-full h-screen flex items-center justify-center overflow-hidden ${className}`}
       style={{ backgroundColor: '#0A0A0A', marginTop: 0, paddingTop: 0, marginBottom: 0, paddingBottom: 0 }}
     >
       {sections.map((section, index) => (
