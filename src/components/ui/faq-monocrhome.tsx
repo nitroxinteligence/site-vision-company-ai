@@ -285,9 +285,11 @@ function FAQ1() {
   };
 
   return (
-    <section className={`relative w-full transition-colors duration-700 ${palette.surface} ${
+    <section className={`relative w-full transition-colors duration-700 pb-16 border-b ${palette.surface} ${
       hasEntered ? "faq1-fade--ready" : "faq1-fade"
-    }`}>
+    }`}
+    style={{ borderColor: '#323232' }}
+    >
       <header className="flex flex-col gap-8">
         <div className="space-y-4">
           <p className={`text-feature uppercase tracking-[0.35em] ${palette.muted}`}>Dúvidas</p>

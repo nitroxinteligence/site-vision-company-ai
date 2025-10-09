@@ -76,19 +76,9 @@ export default function DetailedRevenueProjectionSection() {
   return (
     <section 
       ref={rootRef}
-      className="relative py-20 overflow-hidden"
-      style={{ backgroundColor: '#0c0c0c' }}
+      className="relative py-28 overflow-hidden border-t"
+      style={{ backgroundColor: '#0c0c0c', borderColor: '#323232' }}
     >
-      <div 
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-        style={{
-          width: '800px',
-          height: '800px',
-          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%)',
-          filter: 'blur(40px)',
-        }}
-      />
-
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex justify-center mb-8">
           <div 

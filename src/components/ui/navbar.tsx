@@ -32,7 +32,7 @@ export function Navbar() {
                 style={{
                     animationFillMode: 'both'
                 }}>
-                <div className={cn('mx-auto mt-2 max-w-6xl px-6 lg:px-12 bg-black/20 navbar-backdrop', !isScrolled && 'not-scrolled', isScrolled && 'scrolled bg-black/60 max-w-4xl rounded-2xl lg:px-5')}>
+                <div className={cn('mx-auto mt-2 max-w-6xl px-6 lg:px-12 bg-black/20 navbar-backdrop', !isScrolled && 'not-scrolled', isScrolled && 'scrolled bg-black/30 backdrop-blur-lg max-w-4xl rounded-2xl lg:px-5')}>
                     <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
                         <div className="flex w-full justify-between lg:w-auto">
                             <Link

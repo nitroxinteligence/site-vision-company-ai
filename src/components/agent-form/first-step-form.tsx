@@ -4,14 +4,12 @@ import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import { Textarea } from "../ui/textarea";
 import { Label } from "../ui/label";
 import { z } from "zod";
 import { formSchema, FormData as FormValues } from './form-types';
 
 // Key for localStorage
-const FIRST_STEP_FORM_DATA = 'first_step_form_data';
 
 interface FirstStepFormProps {
   onNext: (data: Partial<FormValues>) => void;
@@ -47,7 +45,6 @@ export function FirstStepForm({ onNext, onSave, formData }: FirstStepFormProps) 
     register,
     handleSubmit,
     formState: { errors },
-    reset,
     watch
   } = useForm<StepValues>({
     resolver: zodResolver(stepSchema),

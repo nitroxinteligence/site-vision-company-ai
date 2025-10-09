@@ -63,7 +63,7 @@ export default function FAQAccordion() {
   };
 
   return (
-    <section className={`relative w-full py-20 transition-colors duration-700 ${palette.surface}`} style={{ backgroundColor: '#0A0A0A' }}>
+    <section className={`relative w-full pt-20 pb-36 transition-colors duration-700 border-b ${palette.surface}`} style={{ backgroundColor: '#0A0A0A', borderColor: '#323232' }}>
       <div className="container mx-auto px-6">
         <div className="max-w-4xl mx-auto">
           <header className="flex flex-col gap-8 mb-16">

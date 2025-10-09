@@ -34,22 +34,11 @@ export default function AiStatisticsSection() {
     <section 
       ref={sectionRef}
       className="relative w-full text-white py-20 md:py-32 overflow-hidden" 
-      style={{ backgroundColor: '#0a0a0a' }}
+      style={{ backgroundColor: '#0A0A0A' }}
     >
-
-      
-      {/* Glow branco na lateral esquerda */}
-      <div 
-        className="absolute left-0 top-1/2 -translate-y-1/2 w-96 h-96 z-5"
-        style={{
-          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 30%, rgba(255, 255, 255, 0.02) 60%, transparent 100%)',
-          filter: 'blur(40px)',
-          transform: 'translateY(-50%) translateX(-50%)'
-        }}
-      ></div>
       
       {/* Overlay escuro para melhor legibilidade */}
-      <div className="absolute inset-0 bg-black/20 z-10"></div>
+      
       
       <div className="container mx-auto px-4 sm:px-6 relative z-20">
         {/* Título Principal */}

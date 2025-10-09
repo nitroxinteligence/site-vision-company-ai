@@ -109,13 +109,8 @@ export default function InfiniteHero() {
 						<>
 							<div>
 								<h1 className="mx-auto max-w-2xl lg:max-w-6xl text-[clamp(3rem,7vw,5rem)] md:text-[clamp(2.75rem,7vw,5rem)] font-bold md:font-medium leading-[0.95] tracking-tight">
-									De zero a R$ 70.610/mês
-									<br />
-									em 12 meses.
+									Sua empresa na Era da IA
 								</h1>
-								<h2 className="mx-auto mt-4 max-w-2xl lg:max-w-4xl text-[clamp(1.25rem,3vw,2rem)] md:text-[clamp(1.25rem,3vw,2rem)] font-medium leading-[1.1] tracking-tight text-white/80">
-									A 1ª franquia de agência de IA do mundo.
-								</h2>
 							</div>
 							<div className="mx-auto mt-4 max-w-2xl md:max-w-2xl text-balance text-base/6 md:text-lg/7 font-medium tracking-tight text-white/70">
 								Somos quem tira o peso das suas costas: <br />
@@ -139,16 +134,9 @@ export default function InfiniteHero() {
 							ref={h1Ref}
 							className="mx-auto max-w-2xl lg:max-w-6xl text-[clamp(3rem,7vw,5rem)] md:text-[clamp(2.75rem,7vw,5rem)] font-bold md:font-medium leading-[0.95] tracking-tight"
 						>
-							De zero a R$ 70.610/mês
-							<br />
-							em 12 meses.
+							Sua empresa na Era da IA
+
 						</h1>
-						<h2
-							ref={h2Ref}
-							className="mx-auto mt-4 max-w-2xl lg:max-w-4xl text-[clamp(1.25rem,3vw,2rem)] md:text-[clamp(1.25rem,3vw,2rem)] font-medium leading-[1.1] tracking-tight text-white/80"
-						>
-							A 1ª franquia de agência de IA do mundo.
-						</h2>
 					</div>
 
 					<p
@@ -158,7 +146,8 @@ export default function InfiniteHero() {
 						}`}
 					>
 						Somos quem tira o peso das suas costas: <br />
-						reduz custo, automatiza processos e gera vendas, enquanto você curte
+						reduz custo, automatiza processos 
+						e gera vendas, enquanto você curte
 						liberdade com quem ama.
 					</p>
 

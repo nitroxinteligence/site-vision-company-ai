@@ -298,14 +298,6 @@ export default function ComoFuncionaSection() {
 
         {/* Timeline */}
         <div ref={timelineRef} className="relative mb-20 md:mb-32">
-          {/* Glow branco no centro da timeline */}
-          <div 
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] md:w-[600px] md:h-[600px] z-0"
-            style={{
-              background: 'radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 30%, rgba(255, 255, 255, 0.02) 60%, transparent 100%)',
-              filter: 'blur(60px)'
-            }}
-          ></div>
           {/* Linha vertical com gradient branco para preto */}
           <div 
             className="absolute left-6 md:left-1/2 md:-translate-x-0.5 top-0 bottom-0 w-0.5 timeline-line"
@@ -400,14 +392,6 @@ export default function ComoFuncionaSection() {
 
         {/* O que Você Recebe */}
         <div ref={benefitsRef} className="relative text-center mb-16">
-          {/* Radial glow de fundo */}
-          <div 
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 15%, transparent 80%)',
-              zIndex: 0
-            }}
-          />
           
           <div className="relative z-10">
             <h3 className="title-section text-white text-center mb-12">

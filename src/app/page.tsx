@@ -57,17 +57,6 @@ export default function Home() {
 
       {/* Timeline Section */}
       <section className="relative w-full text-white min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0A0A0A', overflow: 'visible' }}>
-        {/* Radial glow na lateral direita */}
-        <div 
-          className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none"
-          style={{
-            background: 'radial-gradient(circle at right center, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 15%, transparent 40%)',
-            width: '50%',
-            height: '100%',
-            zIndex: 0
-          }}
-        />
-        
         <Timeline data={[
           {
             title: "Agente de SDR",

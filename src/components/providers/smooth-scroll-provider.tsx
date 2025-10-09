@@ -34,26 +34,26 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
 
     lenisRef.current = lenis
 
-    // Integrate with GSAP - CORRECTED IMPLEMENTATION
-    function raf(time: number) {
-      lenis.raf(time * 1000) // CRITICAL: Multiply by 1000 for correct timing
+    // Integrate with GSAP and ScrollTrigger
+    const raf = (time: number) => {
+      lenis.raf(time * 1000)
     }
 
-    gsap.ticker.add(raf)
-    gsap.ticker.lagSmoothing(0) // CRITICAL: Disable lag smoothing for immediate responsiveness
-
-    // Handle ScrollTrigger updates
-    lenis.on('scroll', () => {
-      // Update ScrollTrigger on scroll
+    const stUpdate = () => {
       const windowWithST = window as WindowWithScrollTrigger
-      if (typeof window !== 'undefined' && windowWithST.ScrollTrigger) {
+      if (windowWithST.ScrollTrigger) {
         windowWithST.ScrollTrigger.update()
       }
-    })
+    }
+
+    lenis.on('scroll', stUpdate)
+
+    gsap.ticker.add(raf)
 
     // Cleanup function
     return () => {
       gsap.ticker.remove(raf)
+      lenis.off('scroll', stUpdate)
       lenis.destroy()
     }
   }, [])

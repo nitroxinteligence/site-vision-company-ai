@@ -129,17 +129,6 @@ export default function RevenueProjectionSection() {
       className="relative w-full text-white py-20 overflow-hidden" 
       style={{ backgroundColor: '#0a0a0a' }}
     >
-      {/* Radial glow effect */}
-      <div 
-        className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
-        style={{
-          width: '800px',
-          height: '800px',
-          background: 'radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%)',
-          filter: 'blur(40px)',
-        }}
-      />
-
       <div className="container mx-auto px-6 relative z-10">
         {/* Badge */}
         <div className="flex justify-center mb-8">
