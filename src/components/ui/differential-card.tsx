@@ -11,20 +11,19 @@ interface DifferentialCardProps {
 export const DifferentialCard = ({ title, description, videoUrl }: DifferentialCardProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handleMouseEnter = () => {
+  const handleVideoClick = () => {
     if (videoRef.current) {
-      videoRef.current.play();
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+      } else {
+        videoRef.current.pause();
+      }
     }
   };
 
-  const handleMouseLeave = () => {
-    if (videoRef.current) {
-      videoRef.current.pause();
-    }
-  };
   return (
     <div 
-      className="w-full p-12 rounded-2xl border relative min-h-80 flex flex-col"
+      className="w-full p-6 sm:p-8 md:p-12 rounded-2xl border relative min-h-80 flex flex-col"
       style={{ 
         backgroundColor: '#141414',
         borderColor: '#323232',
@@ -33,11 +32,12 @@ export const DifferentialCard = ({ title, description, videoUrl }: DifferentialC
     >
       {/* Caixa de imagem/vídeo */}
       <div 
-        className="w-full h-64 mb-6 rounded-lg border overflow-hidden flex items-center justify-center"
+        className="w-full h-48 sm:h-56 md:h-64 mb-6 rounded-lg border overflow-hidden flex items-center justify-center cursor-pointer"
         style={{
           backgroundColor: '#202020',
           borderColor: '#3D3D3D'
         }}
+        onClick={handleVideoClick}
       >
         {videoUrl ? (
           <video
@@ -46,8 +46,7 @@ export const DifferentialCard = ({ title, description, videoUrl }: DifferentialC
             muted
             loop
             playsInline
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
+            preload="metadata"
             className="w-full h-full object-cover"
             style={{
               objectPosition: 'center center',
@@ -64,7 +63,7 @@ export const DifferentialCard = ({ title, description, videoUrl }: DifferentialC
 
       {/* Conteúdo do card */}
       <div className="flex-1 flex flex-col justify-center text-center">
-        <h3 className="title-card text-white mb-4 font-medium text-xl">
+        <h3 className="title-card text-white mb-4 font-medium text-[clamp(1.1rem,3vw,1.25rem)]">
           {title}
         </h3>
         <p className="text-card text-white/70 font-medium leading-relaxed">

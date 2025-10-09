@@ -187,14 +187,14 @@ body {
 
   /* Padrões tipográficos consistentes */
   .title-hero {
-    font-size: clamp(2.25rem, 6vw, 4rem);
+    font-size: clamp(2.5rem, 6vw, 4rem);
     font-weight: 500; /* medium */
     line-height: 0.95;
     letter-spacing: -0.025em;
   }
 
   .title-section {
-    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-size: clamp(2rem, 7vw, 5rem);
     font-weight: 500; /* medium */
     line-height: 0.95;
     letter-spacing: -0.025em;
@@ -220,14 +220,14 @@ body {
   }
 
   .text-description {
-    font-size: 1rem; /* text-base */
+    font-size: clamp(0.9rem, 2vw, 1rem);
     font-weight: 500; /* medium */
     line-height: 1.6;
     letter-spacing: -0.025em;
   }
 
   .text-card {
-    font-size: 0.875rem; /* text-sm */
+    font-size: clamp(0.8rem, 1.8vw, 0.875rem);
     font-weight: 500; /* medium */
     line-height: 1.5;
   }

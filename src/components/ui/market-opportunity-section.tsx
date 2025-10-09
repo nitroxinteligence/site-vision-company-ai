@@ -25,28 +25,24 @@ export default function MarketOpportunitySection() {
   const video1Ref = useRef<HTMLVideoElement>(null);
   const video2Ref = useRef<HTMLVideoElement>(null);
 
-  // Funções para controlar os vídeos
-  const handleVideo1MouseEnter = () => {
+  // Funções para controlar os vídeos com clique
+  const handleVideo1Click = () => {
     if (video1Ref.current) {
-      video1Ref.current.play();
+      if (video1Ref.current.paused) {
+        video1Ref.current.play();
+      } else {
+        video1Ref.current.pause();
+      }
     }
   };
 
-  const handleVideo1MouseLeave = () => {
-    if (video1Ref.current) {
-      video1Ref.current.pause();
-    }
-  };
-
-  const handleVideo2MouseEnter = () => {
+  const handleVideo2Click = () => {
     if (video2Ref.current) {
-      video2Ref.current.play();
-    }
-  };
-
-  const handleVideo2MouseLeave = () => {
-    if (video2Ref.current) {
-      video2Ref.current.pause();
+      if (video2Ref.current.paused) {
+        video2Ref.current.play();
+      } else {
+        video2Ref.current.pause();
+      }
     }
   };
 
@@ -170,7 +166,7 @@ export default function MarketOpportunitySection() {
   return (
     <section 
       ref={rootRef}
-      className="relative w-full text-white py-20" 
+      className="relative w-full text-white py-20 overflow-hidden" 
       style={{ backgroundColor: '#0a0a0a' }}
     >
       {/* Radial glow effect */}
@@ -184,7 +180,7 @@ export default function MarketOpportunitySection() {
         }}
       />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Badge */}
         <div className="flex justify-center mb-8">
           <div 
@@ -208,9 +204,9 @@ export default function MarketOpportunitySection() {
         <div className="flex items-center justify-center mb-12">
           <h2 
             ref={h2Ref}
-            className={`title-section text-white text-center ${!isLoaded ? 'opacity-0' : ''}`}
+            className={`title-section text-white text-center text-balance ${!isLoaded ? 'opacity-0' : ''}`}
           >
-            Por que empreender <br />com IA agora?
+            Por que empreender <br className="hidden md:block" />com IA agora?
           </h2>
         </div>
 
@@ -218,10 +214,9 @@ export default function MarketOpportunitySection() {
         <div className="flex justify-center mb-12">
           <p 
             ref={introTextRef}
-            className={`text-description text-white/70 text-center max-w-4xl mx-auto font-medium leading-relaxed ${!isLoaded ? 'opacity-0' : ''}`}
+            className={`text-description text-white/70 text-center max-w-4xl mx-auto font-medium leading-relaxed text-balance ${!isLoaded ? 'opacity-0' : ''}`}
           >
-            O mercado de Inteligência Artificial deve movimentar mais de US$ 1,8 trilhão até 2030.<br />
-            Grande fatia desse mercado será SUA! Quem entra cedo, colhe os maiores frutos.
+            O mercado de Inteligência Artificial deve movimentar mais de US$ 1,8 trilhão até 2030. Grande fatia desse mercado será SUA! Quem entra cedo, colhe os maiores frutos.
           </p>
         </div>
 
@@ -235,7 +230,7 @@ export default function MarketOpportunitySection() {
             }}
           >
             <div 
-              className="w-full p-12 rounded-2xl border relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
+              className="w-full p-6 sm:p-8 md:p-12 rounded-2xl border relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
               style={{ 
                 backgroundColor: '#141414',
                 borderColor: '#323232',
@@ -245,9 +240,9 @@ export default function MarketOpportunitySection() {
               <div className="text-center max-w-3xl mx-auto">
                 <p 
                   ref={visionAITextRef}
-                  className={`text-description text-white/70 font-medium leading-relaxed ${!isLoaded ? 'opacity-0' : ''}`}
+                  className={`text-description text-white/70 font-medium leading-relaxed text-balance ${!isLoaded ? 'opacity-0' : ''}`}
                 >
-                  A Vision AI é a primeira franquia de agência de IA do mundo. <br />Isso significa que você não está só abrindo um negócio:<br />
+                  A Vision AI é a primeira franquia de agência de IA do mundo. Isso significa que você não está só abrindo um negócio: <br className="hidden md:block" />
                   Você está empreendendo em um setor que ainda está em fase inicial e tem MUITO PRA CRESCER.
                 </p>
               </div>
@@ -257,7 +252,7 @@ export default function MarketOpportunitySection() {
 
         {/* Bullet Points - Expansão do Mercado */}
         <div className="max-w-6xl mx-auto mb-16">
-          <h3 className="text-white font-semibold text-center mb-12" style={{ fontSize: '24px' }}>
+          <h3 className="text-white font-semibold text-center mb-12 text-[clamp(1.25rem,4vw,1.5rem)]">
             Um mercado em expansão exponencial
           </h3>
           
@@ -267,7 +262,7 @@ export default function MarketOpportunitySection() {
           >
             {/* Card 1 */}
             <div 
-              className={`flex flex-col p-12 w-full relative rounded-2xl border min-h-80 transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
+              className={`flex flex-col p-6 sm:p-8 md:p-12 w-full relative rounded-2xl border min-h-80 transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
               style={{ 
                 backgroundColor: '#141414',
                 borderColor: '#323232',
@@ -276,13 +271,12 @@ export default function MarketOpportunitySection() {
             >
               {/* Caixa de vídeo */}
               <div 
-                className="w-full h-64 mb-6 rounded-lg border overflow-hidden"
+                className="w-full h-48 sm:h-56 md:h-64 mb-6 rounded-lg border overflow-hidden"
                 style={{
                   backgroundColor: '#202020',
                   borderColor: '#3D3D3D'
                 }}
-                onMouseEnter={handleVideo1MouseEnter}
-                onMouseLeave={handleVideo1MouseLeave}
+                onClick={handleVideo1Click}
               >
                 <video 
                   ref={video1Ref}
@@ -291,6 +285,7 @@ export default function MarketOpportunitySection() {
                   muted
                   loop
                   playsInline
+                  preload="metadata"
                 >
                   <source src="https://nxbcmrqcadrgzhrengsc.supabase.co/storage/v1/object/sign/documents%20vision-site/2-video-page-capt.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yOTNhNjgzZC1kYmQwLTRiZDctOGUzMy1hYjZmMjEwZGNhMjYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJkb2N1bWVudHMgdmlzaW9uLXNpdGUvMi12aWRlby1wYWdlLWNhcHQubXA0IiwiaWF0IjoxNzU5OTI3MDE0LCJleHAiOjIxMDY4MjMwMTR9.kgIVGsC-Yhflw4oUHLV3rzLBf-NGdEKMsYqwbTHPWYY" type="video/mp4" />
                   Seu navegador não suporta vídeos.
@@ -307,7 +302,7 @@ export default function MarketOpportunitySection() {
 
             {/* Card 2 */}
             <div 
-              className={`flex flex-col p-12 w-full relative rounded-2xl border min-h-80 transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
+              className={`flex flex-col p-6 sm:p-8 md:p-12 w-full relative rounded-2xl border min-h-80 transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
               style={{ 
                 backgroundColor: '#141414',
                 borderColor: '#323232',
@@ -316,13 +311,12 @@ export default function MarketOpportunitySection() {
             >
               {/* Caixa de vídeo */}
               <div 
-                className="w-full h-64 mb-6 rounded-lg border overflow-hidden"
+                className="w-full h-48 sm:h-56 md:h-64 mb-6 rounded-lg border overflow-hidden"
                 style={{
                   backgroundColor: '#202020',
                   borderColor: '#3D3D3D'
                 }}
-                onMouseEnter={handleVideo2MouseEnter}
-                onMouseLeave={handleVideo2MouseLeave}
+                onClick={handleVideo2Click}
               >
                 <video 
                   ref={video2Ref}
@@ -331,6 +325,7 @@ export default function MarketOpportunitySection() {
                   muted
                   loop
                   playsInline
+                  preload="metadata"
                 >
                   <source src="https://nxbcmrqcadrgzhrengsc.supabase.co/storage/v1/object/sign/documents%20vision-site/1-video-page-capt.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yOTNhNjgzZC1kYmQwLTRiZDctOGUzMy1hYjZmMjEwZGNhMjYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJkb2N1bWVudHMgdmlzaW9uLXNpdGUvMS12aWRlby1wYWdlLWNhcHQubXA0IiwiaWF0IjoxNzU5OTI3MDQyLCJleHAiOjIxMDY4MjMwNDJ9.dzDsTXBAqXCQ86YvGedmkaOSAgdhl6XQ-eJ5atSq4JM" type="video/mp4" />
                   Seu navegador não suporta vídeos.

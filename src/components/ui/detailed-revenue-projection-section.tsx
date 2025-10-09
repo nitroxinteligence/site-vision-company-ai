@@ -21,105 +21,40 @@ export default function DetailedRevenueProjectionSection() {
   const paybackRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const { openModal } = useModal();
-  
-  // Refs específicos para os elementos de contagem
-  const monthlyRef = useRef<HTMLHeadingElement>(null);
-  const commissionRef = useRef<HTMLHeadingElement>(null);
-  const mrrRef = useRef<HTMLHeadingElement>(null);
-  const revenueRef = useRef<HTMLHeadingElement>(null);
 
-  // Hooks de contagem para os números dos cards
-  const monthlyValue = useCountUp({ 
-    end: 1950, 
-    duration: 2000, 
-    prefix: 'R$ ', 
-    separator: '.',
-    threshold: 0.3,
-    enableScrollTrigger: true,
-    scrollTriggerElement: rootRef
-  });
-  
-  const commissionValue = useCountUp({ 
-    end: 30, 
-    duration: 1800, 
-    suffix: '%',
-    threshold: 0.3,
-    enableScrollTrigger: true,
-    scrollTriggerElement: rootRef
-  });
-  
-  const mrrValue = useCountUp({ 
-    end: 38610, 
-    duration: 2200, 
-    prefix: 'R$ ', 
-    separator: '.',
-    threshold: 0.3,
-    enableScrollTrigger: true,
-    scrollTriggerElement: rootRef
-  });
-  
-  const revenueValue = useCountUp({ 
-    end: 70610, 
-    duration: 2500, 
-    prefix: 'R$ ', 
-    separator: '.',
-    threshold: 0.3,
-    enableScrollTrigger: true,
-    scrollTriggerElement: rootRef
-  });
+  // Hooks de contagem chamados no nível superior, com gatilho desativado
+  const monthlyCounter = useCountUp({ end: 1950, duration: 2000, prefix: 'R$ ', separator: '.', enableScrollTrigger: false });
+  const commissionCounter = useCountUp({ end: 30, duration: 1800, suffix: '%', enableScrollTrigger: false });
+  const mrrCounter = useCountUp({ end: 38610, duration: 2200, prefix: 'R$ ', separator: '.', enableScrollTrigger: false });
+  const revenueCounter = useCountUp({ end: 70610, duration: 2500, prefix: 'R$ ', separator: '.', enableScrollTrigger: false });
 
   useGSAP(
     () => {
+      // Aciona manualmente os contadores quando a seção entra na tela
+      ScrollTrigger.create({
+        trigger: rootRef.current,
+        start: "top 80%",
+        onEnter: () => {
+          monthlyCounter.start();
+          commissionCounter.start();
+          mrrCounter.start();
+          revenueCounter.start();
+        },
+        once: true // Garante que a animação só aconteça uma vez
+      });
+
       const metrics = metricsRef.current ? Array.from(metricsRef.current.children) : [];
       const paybackCards = paybackRef.current ? Array.from(paybackRef.current.children) : [];
 
-      // Divisão do texto em linhas para animação
       const h2Split = new SplitText(h2Ref.current, { type: "lines" });
-
-      // Mostrar conteúdo imediatamente para evitar flash
       setIsLoaded(true);
 
-      // Estados iniciais dos elementos (invisíveis e deslocados)
-      gsap.set(badgeRef.current, {
-        opacity: 0,
-        y: 20,
-        scale: 0.98,
-        rotationX: 5,
-      });
+      gsap.set(badgeRef.current, { opacity: 0, y: 20, scale: 0.98, rotationX: 5 });
+      gsap.set(h2Split.lines, { opacity: 0, y: 24, filter: "blur(8px)" });
+      if (metrics.length) gsap.set(metrics, { opacity: 0, y: 24, scale: 0.96, rotationX: 8 });
+      if (paybackCards.length) gsap.set(paybackCards, { opacity: 0, y: 24, scale: 0.96, rotationX: 8 });
+      gsap.set(ctaRef.current, { opacity: 0, y: 20, scale: 0.98 });
 
-      gsap.set(h2Split.lines, {
-        opacity: 0,
-        y: 24,
-        filter: "blur(8px)",
-      });
-
-      if (metrics.length) {
-        gsap.set(metrics, { 
-          opacity: 0, 
-          y: 24,
-          scale: 0.96,
-          rotationX: 8,
-        });
-      }
-
-      if (paybackCards.length) {
-        gsap.set(paybackCards, { 
-          opacity: 0, 
-          y: 24,
-          scale: 0.96,
-          rotationX: 8,
-        });
-      }
-
-      gsap.set(ctaRef.current, { 
-        opacity: 0, 
-        y: 20,
-        scale: 0.98,
-      });
-
-
-
-      // Timeline de animação
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: rootRef.current,
@@ -129,54 +64,14 @@ export default function DetailedRevenueProjectionSection() {
         },
       });
 
-      // Sequência de animações
-      tl.to(badgeRef.current, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        rotationX: 0,
-        duration: 0.6,
-        ease: "power2.out",
-      })
-      .to(h2Split.lines, {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power2.out",
-      }, "-=0.3")
-      .to(metrics, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        rotationX: 0,
-        duration: 0.7,
-        stagger: 0.15,
-        ease: "power2.out",
-      }, "-=0.4")
-      .to(paybackCards, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        rotationX: 0,
-        duration: 0.7,
-        stagger: 0.1,
-        ease: "power2.out",
-      }, "-=0.3")
-      .to(ctaRef.current, {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        duration: 0.6,
-        ease: "power2.out",
-      }, "-=0.2")
-
+      tl.to(badgeRef.current, { opacity: 1, y: 0, scale: 1, rotationX: 0, duration: 0.6, ease: "power2.out" })
+        .to(h2Split.lines, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, stagger: 0.1, ease: "power2.out" }, "-=0.3")
+        .to(metrics, { opacity: 1, y: 0, scale: 1, rotationX: 0, duration: 0.7, stagger: 0.15, ease: "power2.out" }, "-=0.4")
+        .to(paybackCards, { opacity: 1, y: 0, scale: 1, rotationX: 0, duration: 0.7, stagger: 0.1, ease: "power2.out" }, "-=0.3")
+        .to(ctaRef.current, { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: "power2.out" }, "-=0.2");
     },
     { scope: rootRef }
   );
-
-
 
   return (
     <section 
@@ -184,7 +79,6 @@ export default function DetailedRevenueProjectionSection() {
       className="relative py-20 overflow-hidden"
       style={{ backgroundColor: '#0c0c0c' }}
     >
-      {/* Radial glow de fundo */}
       <div 
         className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none"
         style={{
@@ -196,7 +90,6 @@ export default function DetailedRevenueProjectionSection() {
       />
 
       <div className="container mx-auto px-6 relative z-10">
-        {/* Badge */}
         <div className="flex justify-center mb-8">
           <div 
             ref={badgeRef}
@@ -215,23 +108,20 @@ export default function DetailedRevenueProjectionSection() {
           </div>
         </div>
 
-        {/* Título Principal */}
         <div className="flex items-center justify-center mb-16">
           <h2 
             ref={h2Ref}
             className={`title-section text-white text-center ${!isLoaded ? 'opacity-0' : ''}`}
           >
-            De 0 à 66 clientes em 12 meses
+            De 0 à 66 clientes <br />em 12 meses
           </h2>
         </div>
 
-        {/* Métricas de Receita */}
         <div className="max-w-6xl mx-auto mb-16">
           <div 
             ref={metricsRef}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
           >
-            {/* Mensalidade */}
             <div 
               className={`flex flex-col items-center justify-center p-8 h-64 w-full relative rounded-2xl border transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
               style={{ 
@@ -251,8 +141,8 @@ export default function DetailedRevenueProjectionSection() {
                 <DollarSign size={32} className="text-white" />
               </div>
               <div className="text-center">
-                <h3 ref={monthlyRef} className="font-bold mb-2 text-3xl text-white">
-                  {monthlyValue.value}
+                <h3 className="font-bold mb-2 text-3xl text-white">
+                  {monthlyCounter.value}
                 </h3>
                 <p className="font-medium text-white/70">
                   Mensalidade por cliente
@@ -260,7 +150,6 @@ export default function DetailedRevenueProjectionSection() {
               </div>
             </div>
 
-            {/* Comissão */}
             <div 
               className={`flex flex-col items-center justify-center p-8 h-64 w-full relative rounded-2xl border transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
               style={{ 
@@ -280,8 +169,8 @@ export default function DetailedRevenueProjectionSection() {
                 <TrendingUp size={32} className="text-white" />
               </div>
               <div className="text-center">
-                <h3 ref={commissionRef} className="font-bold mb-2 text-3xl text-white">
-                  {commissionValue.value}
+                <h3 className="font-bold mb-2 text-3xl text-white">
+                  {commissionCounter.value}
                 </h3>
                 <p className="font-medium text-white/70">
                   Comissão recorrente
@@ -289,7 +178,6 @@ export default function DetailedRevenueProjectionSection() {
               </div>
             </div>
 
-            {/* MRR */}
             <div 
               className={`flex flex-col items-center justify-center p-8 h-64 w-full relative rounded-2xl border transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
               style={{ 
@@ -309,8 +197,8 @@ export default function DetailedRevenueProjectionSection() {
                 <Target size={32} className="text-white" />
               </div>
               <div className="text-center">
-                <h3 ref={mrrRef} className="font-bold mb-2 text-3xl text-white">
-                  {mrrValue.value}
+                <h3 className="font-bold mb-2 text-3xl text-white">
+                  {mrrCounter.value}
                 </h3>
                 <p className="font-medium text-white/70">
                   MRR no mês 12
@@ -318,7 +206,6 @@ export default function DetailedRevenueProjectionSection() {
               </div>
             </div>
 
-            {/* Faturamento Total */}
             <div 
               className={`flex flex-col items-center justify-center p-8 h-64 w-full relative rounded-2xl border transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
               style={{ 
@@ -338,8 +225,8 @@ export default function DetailedRevenueProjectionSection() {
                 <Calculator size={32} className="text-white" />
               </div>
               <div className="text-center">
-                <h3 ref={revenueRef} className="font-bold mb-2 text-3xl text-white">
-                  {revenueValue.value}
+                <h3 className="font-bold mb-2 text-3xl text-white">
+                  {revenueCounter.value}
                 </h3>
                 <p className="font-medium text-white/70">
                   Faturamento mensal
@@ -349,14 +236,12 @@ export default function DetailedRevenueProjectionSection() {
           </div>
         </div>
 
-        {/* Observação sobre recorrência */}
         <div className="text-center mb-16">
           <p className="text-white/80 font-medium text-lg italic">
-            Obs.: recorrência é o que constrói seu futuro!
+            Obs.: recorrência é o que constrói <br />seu futuro!
           </p>
         </div>
 
-        {/* Payback & ROI */}
         <div className="max-w-4xl mx-auto mb-16">
           <h3 className="text-white text-center font-semibold text-3xl mb-12">
             Payback & ROI
@@ -366,7 +251,6 @@ export default function DetailedRevenueProjectionSection() {
             ref={paybackRef}
             className="grid grid-cols-1 md:grid-cols-2 gap-8"
           >
-            {/* Investimento */}
             <div 
               className={`flex flex-col items-center justify-center p-10 h-64 w-full relative rounded-2xl border transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
               style={{ 
@@ -395,7 +279,6 @@ export default function DetailedRevenueProjectionSection() {
               </div>
             </div>
 
-            {/* Payback */}
             <div 
               className={`flex flex-col items-center justify-center p-10 h-64 w-full relative rounded-2xl border transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
               style={{ 
@@ -426,7 +309,6 @@ export default function DetailedRevenueProjectionSection() {
           </div>
         </div>
 
-        {/* CTA Button */}
         <div className="text-center mb-16">
           <div ref={ctaRef}>
             <Button
@@ -438,8 +320,6 @@ export default function DetailedRevenueProjectionSection() {
             </Button>
           </div>
         </div>
-
-
       </div>
     </section>
   );

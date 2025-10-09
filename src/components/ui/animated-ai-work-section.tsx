@@ -101,15 +101,15 @@ export function AnimatedAIWorkSection({ title, statistics }: AnimatedAIWorkSecti
       className="text-white py-20" 
       style={{ backgroundColor: '#0A0A0A' }}
     >
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <div 
-          className="border rounded-2xl p-16 md:p-20 mx-2 md:mx-4 max-w-8xl mx-auto min-h-96"
+          className="border rounded-2xl p-6 sm:p-10 md:p-16 mx-2 md:mx-4 max-w-8xl mx-auto min-h-96"
           style={{ borderColor: '#161616' }}
         >
           {/* Fallback content visible immediately */}
           {!isLoaded && (
             <>
-              <h2 className="title-section text-white text-center mb-16">
+              <h2 className="title-section text-white text-center mb-16 text-balance">
                 {title}
               </h2>
               
@@ -128,7 +128,7 @@ export function AnimatedAIWorkSection({ title, statistics }: AnimatedAIWorkSecti
           {/* Animated content */}
           <h2 
             ref={titleRef}
-            className={`title-section text-white text-center mb-16 ${!isLoaded ? 'opacity-0 absolute' : ''}`}
+            className={`title-section text-white text-center mb-16 text-balance ${!isLoaded ? 'opacity-0 absolute' : ''}`}
           >
             {title}
           </h2>

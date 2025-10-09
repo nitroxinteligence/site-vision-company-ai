@@ -32,7 +32,7 @@ const TimelineItem = ({ item }: TimelineItemProps) => {
       className="flex justify-center pt-10 md:pt-40 md:gap-10"
     >
       <div className="sticky flex flex-col md:flex-row z-40 items-center top-40 self-start max-w-xs lg:max-w-sm md:w-full">
-        <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#0A0A0A' }}>
+        <div className="h-10 absolute left-8 -translate-x-1/2 md:left-3 md:translate-x-0 w-10 rounded-full flex items-center justify-center" style={{ backgroundColor: '#0A0A0A' }}>
           <div 
             className={`h-4 w-4 rounded-full border p-2 transition-all duration-300 ${
               isInView 

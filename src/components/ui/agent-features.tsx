@@ -14,9 +14,8 @@ export const AgentFeatures = ({ description, features, layout = "grid", imageUrl
     <div>
       {/* Caixa para imagem */}
       <div 
-        className="w-full mb-6 bg-neutral-800 border border-neutral-600 rounded-lg flex items-center justify-center overflow-hidden"
+        className="w-full mb-6 bg-neutral-800 border border-neutral-600 rounded-lg flex items-center justify-center overflow-hidden h-[200px] md:h-[300px]"
         style={{
-          height: '300px',
           backgroundColor: '#1a1a1a',
           borderColor: '#404040'
         }}

@@ -115,16 +115,15 @@ export default function AnimatedProblemsSection() {
     >
       {/* Radial glow na parte inferior */}
       <div 
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none"
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none w-full md:w-[60%]"
         style={{
           background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 15%, transparent 100%)',
-          width: '60%',
           height: '90%',
           zIndex: 0
         }}
       />
       
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {/* Badge acima do título */}
         <div className="flex justify-center mb-6">
           <div 
@@ -147,18 +146,18 @@ export default function AnimatedProblemsSection() {
         {/* Título centralizado verticalmente na seção */}
         <div className="flex items-center justify-center mb-16">
           <h2 ref={h2Ref} className="title-section text-white text-center">
-            Por que a maioria <br />dos empresários travam?
+            Por que a maioria dos empresários travam?
           </h2>
         </div>
         
         {/* Grid de cards com ícones */}
         <div 
           ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 max-w-8xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 max-w-8xl mx-auto px-8 sm:px-0"
         >
           {/* Card 1: Equipes sobrecarregadas */}
           <div 
-            className="flex flex-col items-center justify-between p-10 rounded-2xl border h-96 w-full relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
+            className="flex flex-col items-center justify-start md:justify-between gap-8 p-6 sm:p-8 md:p-10 rounded-2xl border h-auto min-h-[18rem] md:min-h-[24rem] w-full relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
             style={{ 
               backgroundColor: '#141414',
               borderColor: '#323232',
@@ -176,10 +175,10 @@ export default function AnimatedProblemsSection() {
               <Users size={32} className="text-white" />
             </div>
             <div className="text-center">
-              <h3 className="font-medium text-white mb-4" style={{ fontSize: '24px' }}>
-                Equipes sobrecarregadas
+              <h3 className="font-medium text-white mb-4 text-[clamp(1.25rem,4vw,1.5rem)]">
+                Equipes <br />sobrecarregadas
               </h3>
-              <p className="font-medium leading-relaxed" style={{ fontSize: '16px', color: '#929292' }}>
+              <p className="text-card font-medium leading-relaxed text-[#929292]">
                 Funcionários fazendo tarefas repetitivas que poderiam ser automatizadas
               </p>
             </div>
@@ -187,7 +186,7 @@ export default function AnimatedProblemsSection() {
 
           {/* Card 2: Custos crescentes */}
           <div 
-            className="flex flex-col items-center justify-between p-10 rounded-2xl border h-96 w-full relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
+            className="flex flex-col items-center justify-start md:justify-between gap-8 p-6 sm:p-8 md:p-10 rounded-2xl border h-auto min-h-[18rem] md:min-h-[24rem] w-full relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
             style={{ 
               backgroundColor: '#141414',
               borderColor: '#323232',
@@ -205,10 +204,10 @@ export default function AnimatedProblemsSection() {
               <TrendingUp size={32} className="text-white" />
             </div>
             <div className="text-center">
-              <h3 className="font-medium text-white mb-4" style={{ fontSize: '24px' }}>
+              <h3 className="font-medium text-white mb-4 text-[clamp(1.25rem,4vw,1.5rem)]">
                 Crescimento <br />limitado
               </h3>
-              <p className="font-medium leading-relaxed" style={{ fontSize: '16px', color: '#929292' }}>
+              <p className="text-card font-medium leading-relaxed text-[#929292]">
                 Receita estagnada porque não consegue escalar sem aumentar custos
               </p>
             </div>
@@ -216,7 +215,7 @@ export default function AnimatedProblemsSection() {
 
           {/* Card 3: Falta de tempo */}
           <div 
-            className="flex flex-col items-center justify-between p-10 rounded-2xl border h-96 w-full relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
+            className="flex flex-col items-center justify-start md:justify-between gap-8 p-6 sm:p-8 md:p-10 rounded-2xl border h-auto min-h-[18rem] md:min-h-[24rem] w-full relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
             style={{ 
               backgroundColor: '#141414',
               borderColor: '#323232',
@@ -234,10 +233,10 @@ export default function AnimatedProblemsSection() {
               <Clock size={32} className="text-white" />
             </div>
             <div className="text-center">
-              <h3 className="font-medium text-white mb-4" style={{ fontSize: '24px' }}>
+              <h3 className="font-medium text-white mb-4 text-[clamp(1.25rem,4vw,1.5rem)]">
                 Tempo <br />desperdiçado
               </h3>
-              <p className="font-medium leading-relaxed" style={{ fontSize: '16px', color: '#929292' }}>
+              <p className="text-card font-medium leading-relaxed text-[#929292]">
                 Horas perdidas em processos manuais que deveriam ser instantâneos
               </p>
             </div>
@@ -245,7 +244,7 @@ export default function AnimatedProblemsSection() {
 
           {/* Card 4: Dificuldade em escalar */}
           <div 
-            className="flex flex-col items-center justify-between p-10 rounded-2xl border h-96 w-full relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
+            className="flex flex-col items-center justify-start md:justify-between gap-8 p-6 sm:p-8 md:p-10 rounded-2xl border h-auto min-h-[18rem] md:min-h-[24rem] w-full relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
             style={{ 
               backgroundColor: '#141414',
               borderColor: '#323232',
@@ -263,10 +262,10 @@ export default function AnimatedProblemsSection() {
               <BarChart3 size={32} className="text-white" />
             </div>
             <div className="text-center">
-              <h3 className="font-medium text-white mb-4" style={{ fontSize: '24px' }}>
+              <h3 className="font-medium text-white mb-4 text-[clamp(1.25rem,4vw,1.5rem)]">
                 Dados <br />desorganizados
               </h3>
-              <p className="font-medium leading-relaxed" style={{ fontSize: '16px', color: '#929292' }}>
+              <p className="text-card font-medium leading-relaxed text-[#929292]">
                 Informações espalhadas que impedem decisões rápidas e precisas
               </p>
             </div>

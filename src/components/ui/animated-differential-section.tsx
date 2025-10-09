@@ -153,7 +153,7 @@ export const AnimatedDifferentialSection = ({
             className="title-section text-white text-center"
             style={{ opacity: isLoaded ? undefined : 1 }}
           >
-            {title}
+            Por que Vision AI <br />é diferente
           </h2>
         </div>
         

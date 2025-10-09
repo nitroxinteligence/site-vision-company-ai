@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useModal } from '@/components/providers/modal-provider';
 import { Button } from '@/components/ui/button';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { X } from 'lucide-react';
 
 interface FormData {
@@ -25,6 +26,7 @@ export const ContactModal: React.FC = () => {
     prazoFranquia: '',
     investimento: ''
   });
+  const [emailError, setEmailError] = useState('');
 
   // Controla o fade in/out
   useEffect(() => {
@@ -36,11 +38,44 @@ export const ContactModal: React.FC = () => {
     }
   }, [isOpen]);
 
-  // Verifica se todos os campos estão preenchidos
-  const isFormValid = Object.values(formData).every(value => value.trim() !== '');
+  // Validação do email
+  const validateEmail = (email: string) => {
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setEmailError('Por favor, insira um email válido.');
+      return false;
+    } else {
+      setEmailError('');
+      return true;
+    }
+  };
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  // Verifica se todos os campos estão preenchidos e se o email é válido
+  const isFormValid = Object.values(formData).every(value => value.trim() !== '') && formData.telefone.replace(/\D/g, '').length >= 10 && emailError === '';
+
+  const formatPhoneNumber = (value: string) => {
+    const digits = value.replace(/\D/g, '');
+    if (digits.length <= 2) return `(${digits}`;
+    if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7, 11)}`;
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+
+    if (name === 'telefone') {
+      const formattedValue = formatPhoneNumber(value);
+      setFormData(prev => ({ ...prev, [name]: formattedValue }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+
+    if (name === 'email') {
+      validateEmail(value);
+    }
+  };
+
+  const handleSelectChange = (name: keyof FormData, value: string) => {
     setFormData(prev => ({
       ...prev,
       [name]: value
@@ -49,15 +84,15 @@ export const ContactModal: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isFormValid) return;
+    const isEmailValid = validateEmail(formData.email);
+    if (!isFormValid || !isEmailValid) return;
     
-    // Aqui você pode implementar a lógica de envio do formulário
     console.log('Dados do formulário:', formData);
     
-    // Fechar modal após envio
+    window.open('https://wa.me/5581992690667', '_blank');
+
     closeModal();
     
-    // Reset form
     setFormData({
       nome: '',
       email: '',
@@ -66,6 +101,7 @@ export const ContactModal: React.FC = () => {
       prazoFranquia: '',
       investimento: ''
     });
+    setEmailError('');
   };
 
   const handleClose = () => {
@@ -79,13 +115,11 @@ export const ContactModal: React.FC = () => {
     <div className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-200 ${
       isOpen && isVisible ? 'opacity-100' : 'opacity-0'
     }`}>
-      {/* Backdrop com blur */}
       <div 
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={handleClose}
       />
       
-      {/* Modal Content */}
       <div 
         className={`relative w-full max-w-md mx-4 rounded-2xl border transition-all duration-200 ${
           isOpen && isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
@@ -96,10 +130,8 @@ export const ContactModal: React.FC = () => {
           boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08), 0 25px 50px -12px rgba(0, 0, 0, 0.8)',
         }}
       >
-        {/* Conteúdo com scroll */}
         <div className="max-h-[90vh] overflow-y-auto p-8">
-          {/* Header */}
-          <div className="flex items-center justify-end mb-6">
+          <div className="flex items-center justify-end mb-4">
             <button
               onClick={handleClose}
               className="p-1 rounded border transition-colors hover:bg-white/10"
@@ -112,30 +144,50 @@ export const ContactModal: React.FC = () => {
             </button>
           </div>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Nome */}
-            <div>
-              <label htmlFor="nome" className="block text-sm font-medium text-white mb-2">
-                Nome
-              </label>
-              <input
-                type="text"
-                id="nome"
-                name="nome"
-                value={formData.nome}
-                onChange={handleInputChange}
-                required
-                className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors placeholder-[#404040]"
-                style={{
-                  backgroundColor: '#202020',
-                  borderColor: '#3D3D3D',
-                }}
-                placeholder="Seu nome completo"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="nome" className="block text-sm font-medium text-white mb-2">
+                  Nome
+                </label>
+                <input
+                  type="text"
+                  id="nome"
+                  name="nome"
+                  value={formData.nome}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors placeholder-[#404040]"
+                  style={{
+                    backgroundColor: '#202020',
+                    borderColor: '#3D3D3D',
+                  }}
+                  placeholder="Seu nome"
+                />
+              </div>
+
+              <div>
+                <label htmlFor="telefone" className="block text-sm font-medium text-white mb-2">
+                  Telefone
+                </label>
+                <input
+                  type="tel"
+                  id="telefone"
+                  name="telefone"
+                  value={formData.telefone}
+                  onChange={handleInputChange}
+                  required
+                  className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors placeholder-[#404040]"
+                  style={{
+                    backgroundColor: '#202020',
+                    borderColor: '#3D3D3D',
+                  }}
+                  placeholder="(11) 99999-9999"
+                  maxLength={15}
+                />
+              </div>
             </div>
 
-            {/* Email */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
                 Email
@@ -146,130 +198,71 @@ export const ContactModal: React.FC = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
+                onBlur={(e) => validateEmail(e.target.value)}
                 required
-                className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors placeholder-[#404040]"
+                className={`w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors placeholder-[#404040] ${emailError ? 'border-red-500' : ''}`}
                 style={{
                   backgroundColor: '#202020',
-                  borderColor: '#3D3D3D',
+                  borderColor: emailError ? '#f87171' : '#3D3D3D',
                 }}
                 placeholder="seu@email.com"
               />
+              {emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
             </div>
 
-            {/* Telefone */}
-            <div>
-              <label htmlFor="telefone" className="block text-sm font-medium text-white mb-2">
-                Telefone com DDD
-              </label>
-              <input
-                type="tel"
-                id="telefone"
-                name="telefone"
-                value={formData.telefone}
-                onChange={handleInputChange}
-                required
-                className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors placeholder-[#404040]"
-                style={{
-                  backgroundColor: '#202020',
-                  borderColor: '#3D3D3D',
-                }}
-                placeholder="(11) 99999-9999"
-              />
-            </div>
-
-            {/* Atuação */}
             <div>
               <label htmlFor="atuacao" className="block text-sm font-medium text-white mb-2">
                 Qual sua atuação hoje?
               </label>
-              <select
-                id="atuacao"
-                name="atuacao"
-                value={formData.atuacao}
-                onChange={handleInputChange}
-                required
-                className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors appearance-none cursor-pointer"
-                style={{
-                  backgroundColor: '#202020',
-                  borderColor: '#3D3D3D',
-                  backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
-                  backgroundPosition: 'right 0.75rem center',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: '1.5em 1.5em',
-                  paddingRight: '2.5rem',
-                }}
-              >
-                <option value="" className="bg-gray-800 text-white">Selecione uma opção</option>
-                <option value="empregado-clt" className="bg-gray-800 text-white">Empregado CLT</option>
-                <option value="autonomo" className="bg-gray-800 text-white">Autônomo</option>
-                <option value="empresario" className="bg-gray-800 text-white">Empresário(a)</option>
-                <option value="dono-casa" className="bg-gray-800 text-white">Dono(a) de casa</option>
-                <option value="servidor-publico" className="bg-gray-800 text-white">Servidor público</option>
-              </select>
+              <Select name="atuacao" value={formData.atuacao} onValueChange={(value) => handleSelectChange('atuacao', value)}>
+                <SelectTrigger className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors placeholder-[#404040]" style={{ backgroundColor: '#202020', borderColor: '#3D3D3D' }}>
+                  <SelectValue placeholder="Selecione uma opção" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="empregado-clt">Empregado CLT</SelectItem>
+                  <SelectItem value="autonomo">Autônomo</SelectItem>
+                  <SelectItem value="empresario">Empresário(a)</SelectItem>
+                  <SelectItem value="dono-casa">Dono(a) de casa</SelectItem>
+                  <SelectItem value="servidor-publico">Servidor público</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
-            {/* Prazo Franquia */}
             <div>
               <label htmlFor="prazoFranquia" className="block text-sm font-medium text-white mb-2">
                 Quando você pretende assumir a sua franquia?
               </label>
-              <select
-                id="prazoFranquia"
-                name="prazoFranquia"
-                value={formData.prazoFranquia}
-                onChange={handleInputChange}
-                required
-                className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors appearance-none cursor-pointer"
-                style={{
-                  backgroundColor: '#202020',
-                  borderColor: '#3D3D3D',
-                  backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
-                  backgroundPosition: 'right 0.75rem center',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: '1.5em 1.5em',
-                  paddingRight: '2.5rem',
-                }}
-              >
-                <option value="" className="bg-gray-800 text-white">Selecione uma opção</option>
-                <option value="ate-30-dias" className="bg-gray-800 text-white">Em até 30 dias</option>
-                <option value="ate-60-dias" className="bg-gray-800 text-white">Em até 60 dias</option>
-                <option value="ate-90-dias" className="bg-gray-800 text-white">Em até 90 dias</option>
-                <option value="preciso-mais-tempo" className="bg-gray-800 text-white">Preciso de mais tempo</option>
-              </select>
+              <Select name="prazoFranquia" value={formData.prazoFranquia} onValueChange={(value) => handleSelectChange('prazoFranquia', value)}>
+                <SelectTrigger className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors placeholder-[#404040]" style={{ backgroundColor: '#202020', borderColor: '#3D3D3D' }}>
+                  <SelectValue placeholder="Selecione uma opção" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ate-30-dias">Em até 30 dias</SelectItem>
+                  <SelectItem value="ate-60-dias">Em até 60 dias</SelectItem>
+                  <SelectItem value="ate-90-dias">Em até 90 dias</SelectItem>
+                  <SelectItem value="preciso-mais-tempo">Preciso de mais tempo</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
 
-            {/* Investimento */}
             <div>
               <label htmlFor="investimento" className="block text-sm font-medium text-white mb-2">
                 Quanto tem para investir?
               </label>
-              <select
-                id="investimento"
-                name="investimento"
-                value={formData.investimento}
-                onChange={handleInputChange}
-                required
-                className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors appearance-none cursor-pointer"
-                style={{
-                  backgroundColor: '#202020',
-                  borderColor: '#3D3D3D',
-                  backgroundImage: `url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e")`,
-                  backgroundPosition: 'right 0.75rem center',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundSize: '1.5em 1.5em',
-                  paddingRight: '2.5rem',
-                }}
-              >
-                <option value="" className="bg-gray-800 text-white">Selecione uma opção</option>
-                <option value="ate-70mil" className="bg-gray-800 text-white">Tenho até 70mil</option>
-                <option value="70mil-140mil" className="bg-gray-800 text-white">Tenho entre 70mil e 140mil</option>
-                <option value="mais-140mil" className="bg-gray-800 text-white">Tenho mais de 140mil</option>
-              </select>
+              <Select name="investimento" value={formData.investimento} onValueChange={(value) => handleSelectChange('investimento', value)}>
+                <SelectTrigger className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors placeholder-[#404040]" style={{ backgroundColor: '#202020', borderColor: '#3D3D3D' }}>
+                  <SelectValue placeholder="Selecione uma opção" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="ate-70mil">Tenho até 70mil</SelectItem>
+                  <SelectItem value="70mil-140mil">Tenho entre 70mil e 140mil</SelectItem>
+                  <SelectItem value="mais-140mil">Tenho mais de 140mil</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </form>
         </div>
 
-        {/* Submit Button - Fixo na parte inferior */}
         <div className="sticky bottom-0 p-6 pt-4 border-t" style={{ 
           backgroundColor: '#141414',
           borderColor: '#323232'

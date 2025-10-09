@@ -53,7 +53,7 @@ export default function FinalCtaSection() {
   return (
     <section 
       ref={sectionRef}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden border-t"
+      className="relative overflow-hidden border-t pt-32 pb-40 md:pt-48 md:pb-56"
       style={{ 
         backgroundColor: '#000000',
         borderTopColor: '#323232'

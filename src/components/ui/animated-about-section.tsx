@@ -88,7 +88,7 @@ export default function AnimatedAboutSection() {
 	return (
 		<section 
 			ref={rootRef}
-			className="relative w-full text-white pt-0 pb-40" 
+			className="relative w-full text-white pt-0 pb-20 md:pb-40" 
 			style={{ backgroundColor: '#0a0a0a' }}
 		>
 			<div className="container mx-auto px-6">
@@ -96,8 +96,8 @@ export default function AnimatedAboutSection() {
 				{!isLoaded && (
 					<>
 						<div className="flex items-center justify-center mb-12">
-							<div className="title-section text-white text-center">
-								Empresários ajudando<br /> empresários a crescer com IA
+							<div className="title-section text-white text-center text-balance">
+								Empresários ajudando empresários a crescer com IA
 							</div>
 						</div>
 						
@@ -110,7 +110,7 @@ export default function AnimatedAboutSection() {
 								}}
 							>
 								<div 
-									className="w-full p-12 rounded-2xl border relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer min-h-80"
+									className="w-full p-6 sm:p-8 md:p-12 rounded-2xl border relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer min-h-80"
 									style={{ 
 										backgroundColor: '#141414',
 										borderColor: '#323232',
@@ -118,13 +118,13 @@ export default function AnimatedAboutSection() {
 									}}
 								>
 									<div className="text-center max-w-2xl mx-auto">
-										<p className="text-description text-white/70 font-medium leading-7 mb-4 text-balance">
+										<p className="text-description text-white/70 font-medium mb-4">
 											Vision AI nasceu para resolver o maior dilema do dono de negócio:
 										</p>
-										<p className="text-white font-medium leading-8 mb-6 text-pretty" style={{ fontSize: '24px' }}>
+										<p className="text-white font-medium leading-8 mb-6 text-[clamp(1.25rem,4vw,1.5rem)]">
 											Crescer sem se tornar refém do próprio trabalho.
 										</p>
-										<p className="text-description text-white/70 font-medium leading-7 wrap-break-word text-pretty">
+										<p className="text-description text-white/70 font-medium">
 											Combinamos experiência prática de mais de 10 anos escalando empresas reais com a tecnologia de IA mais avançada do mercado, desenvolvida sob medida para cada negócio. Nosso time é especialista em transformar processos complexos em operações leves, lucrativas e escaláveis.
 										</p>
 									</div>
@@ -138,9 +138,9 @@ export default function AnimatedAboutSection() {
 				<div className="flex items-center justify-center mb-12">
 					<h2 
 						ref={h2Ref}
-						className={`title-section text-white text-center ${!isLoaded ? 'opacity-0 absolute' : ''}`}
+						className={`title-section text-white text-center text-balance ${!isLoaded ? 'opacity-0 absolute' : ''}`}
 					>
-						Empresários ajudando<br />empresários a crescer com IA
+						Empresários ajudando empresários a crescer com IA
 					</h2>
 				</div>
 				
@@ -154,7 +154,7 @@ export default function AnimatedAboutSection() {
 					>
 						<div 
 							ref={cardRef}
-							className={`w-full p-12 rounded-2xl border relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer min-h-80 ${!isLoaded ? 'opacity-0 absolute' : ''}`}
+							className={`w-full p-6 sm:p-8 md:p-12 rounded-2xl border relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer min-h-80 ${!isLoaded ? 'opacity-0 absolute' : ''}`}
 							style={{ 
 								backgroundColor: '#141414',
 								borderColor: '#323232',
@@ -165,13 +165,13 @@ export default function AnimatedAboutSection() {
 								ref={pRef}
 								className={`text-center max-w-2xl mx-auto ${!isLoaded ? 'opacity-0 absolute' : ''}`}
 							>
-								<p className="text-description text-white/70 font-medium leading-7 mb-4 text-balance">
+								<p className="text-description text-white/70 font-medium mb-4">
 									Vision AI nasceu para resolver o maior dilema do dono de negócio:
 								</p>
-								<p className="text-white font-semibold leading-8 mb-6 text-pretty" style={{ fontSize: '24px' }}>
+								<p className="text-white font-semibold leading-8 mb-6 text-[clamp(1.25rem,4vw,1.5rem)]">
 									Crescer sem se tornar refém do próprio trabalho.
 								</p>
-								<p className="text-description text-white/70 font-medium leading-7 wrap-break-word text-pretty">
+								<p className="text-description text-white/70 font-medium">
 									Combinamos experiência prática de mais de 10 anos escalando empresas reais com a tecnologia de IA mais avançada do mercado, desenvolvida sob medida para cada negócio. Nosso time é especialista em transformar processos complexos em operações leves, lucrativas e escaláveis.
 								</p>
 							</div>

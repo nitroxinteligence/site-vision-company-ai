@@ -29,7 +29,7 @@ export default function Home() {
 
   return (
     <ModalProvider>
-      <main>
+      <main className="overflow-x-clip">
       <InfiniteHero />
       
       {/* Componente MinimalistTextEffect acima da seção 2 */}
@@ -56,7 +56,7 @@ export default function Home() {
       </div>
 
       {/* Timeline Section */}
-      <section className="relative w-full text-white min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0A0A0A' }}>
+      <section className="relative w-full text-white min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0A0A0A', overflow: 'visible' }}>
         {/* Radial glow na lateral direita */}
         <div 
           className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none"
@@ -213,7 +213,7 @@ export default function Home() {
 
       {/* SEÇÃO 8. SOBRE - FUNDADORES */}
       <div id="fundadores">
-        <section className="relative w-full py-20" style={{ backgroundColor: '#0A0A0A' }}>
+        <section className="relative w-full py-20" style={{ backgroundColor: '#0A0A0A', overflow: 'visible' }}>
         {/* Radial glow na lateral esquerda */}
         <div 
           className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none"

@@ -13,8 +13,10 @@ gsap.registerPlugin(SplitText);
 export default function CaptureHero() {
 	const rootRef = useRef<HTMLDivElement>(null);
 	const h1Ref = useRef<HTMLHeadingElement>(null);
+	const h2Ref = useRef<HTMLHeadingElement>(null); // Ref for the new h2
 	const pRef = useRef<HTMLParagraphElement>(null);
 	const ctaRef = useRef<HTMLDivElement>(null);
+	const videoPlaceholderRef = useRef<HTMLDivElement>(null); // Ref for video placeholder
 	const [isLoaded, setIsLoaded] = useState(false);
 	const { openModal } = useModal();
 
@@ -23,6 +25,7 @@ export default function CaptureHero() {
 			const ctas = ctaRef.current ? Array.from(ctaRef.current.children) : [];
 
 			const h1Split = new SplitText(h1Ref.current, { type: "lines" });
+			const h2Split = new SplitText(h2Ref.current, { type: "lines" }); // Split for h2
 			const pSplit = new SplitText(pRef.current, { type: "lines" });
 
 			// Mostrar conteúdo imediatamente para evitar flash
@@ -33,11 +36,17 @@ export default function CaptureHero() {
 				y: 24,
 				filter: "blur(8px)",
 			});
+			gsap.set(h2Split.lines, { // Initial state for h2
+				opacity: 0,
+				y: 20,
+				filter: "blur(7px)",
+			});
 			gsap.set(pSplit.lines, {
 				opacity: 0,
 				y: 16,
 				filter: "blur(6px)",
 			});
+			if (videoPlaceholderRef.current) gsap.set(videoPlaceholderRef.current, { opacity: 0, y: 16 });
 			if (ctas.length) gsap.set(ctas, { opacity: 0, y: 16 });
 
 			const tl = gsap.timeline({ defaults: { ease: "power2.out" } });
@@ -53,6 +62,17 @@ export default function CaptureHero() {
 					0.3,
 				)
 				.to(
+					h2Split.lines, // Animate h2
+					{
+						opacity: 1,
+						y: 0,
+						filter: "blur(0px)",
+						duration: 0.7,
+						stagger: 0.09,
+					},
+					"-=0.6",
+				)
+				.to(
 					pSplit.lines,
 					{
 						opacity: 1,
@@ -61,12 +81,14 @@ export default function CaptureHero() {
 						duration: 0.6,
 						stagger: 0.08,
 					},
-					"-=0.3",
+					"-=0.4",
 				)
-				.to(ctas, { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 }, "-=0.2");
+				.to(videoPlaceholderRef.current, { opacity: 1, y: 0, duration: 0.6 }, "-=0.3")
+				.to(ctas, { opacity: 1, y: 0, duration: 0.6, stagger: 0.08 }, "-=0.3");
 
 			return () => {
 				h1Split.revert();
+				h2Split.revert();
 				pSplit.revert();
 			};
 		},
@@ -76,7 +98,7 @@ export default function CaptureHero() {
 	return (
 			<div
 				ref={rootRef}
-				className="relative min-h-svh w-full overflow-hidden text-white pt-28 pb-20"
+				className="relative min-h-svh w-full overflow-hidden text-white pt-20 md:pt-28 pb-16 md:pb-20"
 				style={{ backgroundColor: '#141414' }}
 			>
 				{/* WebGL Shader Background */}
@@ -84,15 +106,18 @@ export default function CaptureHero() {
 					<WebGLShader />
 				</div>
 
-				<div className="relative z-10 flex min-h-full w-full items-center justify-center px-6">
+				<div className="relative z-10 flex min-h-full w-full items-center justify-center px-4 sm:px-6">
 					<div className="text-center">
 						{/* Fallback content visible immediately */}
 						{!isLoaded && (
 							<>
-								<div className="mx-auto max-w-4xl lg:max-w-7xl text-[clamp(2.5rem,6vw,4.5rem)] md:text-[clamp(2.25rem,6vw,4rem)] font-bold md:font-medium leading-[0.95] tracking-tight">
-									De zero a R$ 70.610/mês em 12 meses. A 1ª franquia de agência de IA do mundo.
-								</div>
-								<div className="mx-auto mt-6 max-w-3xl text-balance text-xl/8 md:text-lg/7 font-medium tracking-tight text-white/80">
+								<h1 className="mx-auto max-w-4xl lg:max-w-7xl text-[clamp(2.25rem,6vw,4rem)] font-bold md:font-medium leading-[1] tracking-tight text-balance">
+									De zero a R$ 70.610/mês <br className="md:hidden" />em 12 meses.
+								</h1>
+								<h2 className="mx-auto mt-3 max-w-3xl text-[clamp(1.25rem,4vw,1.75rem)] font-medium leading-[1.1] tracking-tight text-white/80 text-balance">
+									A 1ª franquia de agência de IA do mundo.
+								</h2>
+								<div className="mx-auto mt-6 max-w-3xl text-balance text-lg/7 font-medium tracking-tight text-white/80">
 									Alta margem. Zero equipe fixa. Operação global.
 								</div>
 								
@@ -126,21 +151,34 @@ export default function CaptureHero() {
 						)}
 						
 						{/* GSAP animated content */}
-						<h1
-							ref={h1Ref}
-							className={`mx-auto max-w-4xl lg:max-w-7xl text-[clamp(2.5rem,6vw,4.5rem)] md:text-[clamp(2.25rem,6vw,4rem)] font-bold md:font-medium leading-[0.95] tracking-tight ${!isLoaded ? 'opacity-0 absolute' : ''}`}
-						>
-							De zero a R$ 70.610/mês em 12 meses.<br /> A 1ª franquia de agência de IA do mundo.
-						</h1>
+						<div className={!isLoaded ? 'opacity-0 absolute' : ''}>
+							<h1
+								ref={h1Ref}
+								className="mx-auto max-w-4xl lg:max-w-7xl text-[clamp(2.25rem,6vw,4rem)] font-bold md:font-medium leading-[1] tracking-tight text-balance"
+							>
+								De zero a R$ 70.610/mês <br className="md:hidden" />em 12 meses.
+							</h1>
+							<h2
+								ref={h2Ref}
+								className="mx-auto mt-3 max-w-3xl text-[clamp(1.25rem,4vw,1.75rem)] font-medium leading-[1.1] tracking-tight text-white/80 text-balance"
+							>
+								A 1ª franquia de agência de IA do mundo.
+							</h2>
+						</div>
+						
 						<p
 							ref={pRef}
-							className={`mx-auto mt-6 max-w-3xl text-balance text-xl/8 md:text-lg/7 font-medium tracking-tight text-white/80 ${!isLoaded ? 'opacity-0 absolute' : ''}`}
+							className={`mx-auto mt-6 max-w-3xl text-balance text-lg/7 font-medium tracking-tight text-white/80 ${!isLoaded ? 'opacity-0 absolute' : ''}`}
 						>
 							Alta margem. Zero equipe fixa. Operação global.
 						</p>
 
 						{/* Placeholder para vídeo - versão animada */}
-						<div className={`mx-auto mt-8 max-w-2xl aspect-video bg-gradient-to-br from-white/10 to-white/5 rounded-xl border border-white/20 backdrop-blur-sm flex items-center justify-center group cursor-pointer hover:border-white/30 hover:bg-white/15 transition-all duration-500 ${!isLoaded ? 'opacity-0 absolute' : ''}`}>
+						<div 
+							ref={videoPlaceholderRef}
+							className={`mx-auto mt-8 max-w-2xl aspect-video bg-gradient-to-br from-white/10 to-white/5 rounded-xl border border-white/20 backdrop-blur-sm flex items-center justify-center group cursor-pointer hover:border-white/30 hover:bg-white/15 transition-all duration-500 ${!isLoaded ? 'opacity-0 absolute' : ''}`}
+							onClick={openModal}
+						>
 							<div className="flex flex-col items-center justify-center space-y-3">
 								<div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
 									<svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">

@@ -126,7 +126,7 @@ export default function RevenueProjectionSection() {
   return (
     <section 
       ref={rootRef}
-      className="relative w-full text-white py-20" 
+      className="relative w-full text-white py-20 overflow-hidden" 
       style={{ backgroundColor: '#0a0a0a' }}
     >
       {/* Radial glow effect */}

@@ -65,15 +65,13 @@ interface BenefitItemProps {
 function BenefitItem({ benefit, videoUrl, index }: BenefitItemProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const handleMouseEnter = () => {
+  const handleVideoClick = () => {
     if (videoRef.current) {
-      videoRef.current.play();
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (videoRef.current) {
-      videoRef.current.pause();
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+      } else {
+        videoRef.current.pause();
+      }
     }
   };
 
@@ -95,8 +93,7 @@ function BenefitItem({ benefit, videoUrl, index }: BenefitItemProps) {
           borderColor: '#3D3D3D'
         }}
         aria-label={`Vídeo para ${benefit}`}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        onClick={handleVideoClick}
       >
         <video 
            ref={videoRef}
@@ -105,6 +102,7 @@ function BenefitItem({ benefit, videoUrl, index }: BenefitItemProps) {
            muted
            loop
            playsInline
+           preload="metadata"
          >
            <source src={videoUrl} type="video/mp4" />
            Seu navegador não suporta vídeos.
@@ -274,7 +272,7 @@ export default function ComoFuncionaSection() {
   return (
     <section
       ref={containerRef}
-      className="w-full py-20 md:py-32 relative"
+      className="w-full py-20 md:py-32 relative overflow-hidden"
       style={{ backgroundColor: '#0A0A0A' }}
     >
 
@@ -302,7 +300,7 @@ export default function ComoFuncionaSection() {
         <div ref={timelineRef} className="relative mb-20 md:mb-32">
           {/* Glow branco no centro da timeline */}
           <div 
-            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] z-0"
+            className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] md:w-[600px] md:h-[600px] z-0"
             style={{
               background: 'radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.08) 30%, rgba(255, 255, 255, 0.02) 60%, transparent 100%)',
               filter: 'blur(60px)'
@@ -330,7 +328,7 @@ export default function ComoFuncionaSection() {
                 >
                   {/* Círculo do step - menor e com estados ativo/inativo */}
                   <div 
-                    className={`absolute left-6 md:left-1/2 md:-translate-x-1/2 w-10 h-10 rounded-full flex items-center justify-center font-bold text-base z-10 transition-all duration-300 border-2 ${
+                    className={`absolute left-6 -translate-x-1/2 md:left-1/2 md:-translate-x-1/2 w-10 h-10 rounded-full flex items-center justify-center font-bold text-base z-10 transition-all duration-300 border-2 ${
                       stepRef.isActive 
                         ? 'bg-white text-black border-white' 
                         : 'text-white border-[#404040]'
@@ -416,7 +414,7 @@ export default function ComoFuncionaSection() {
               O que você recebe
             </h3>
 
-          <div className="grid grid-cols-1 gap-8 mb-12 max-w-2xl mx-auto">
+          <div className="grid grid-cols-1 gap-8 mb-12 max-w-sm md:max-w-2xl mx-auto">
             {benefits.map((benefit, index) => {
               const videoUrls = [
                 "https://nxbcmrqcadrgzhrengsc.supabase.co/storage/v1/object/sign/documents%20vision-site/4-4-video-page-capt.mp4.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yOTNhNjgzZC1kYmQwLTRiZDctOGUzMy1hYjZmMjEwZGNhMjYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJkb2N1bWVudHMgdmlzaW9uLXNpdGUvNC00LXZpZGVvLXBhZ2UtY2FwdC5tcDQubXA0IiwiaWF0IjoxNzU5OTI4NzEzLCJleHAiOjIxMDY4MjQ3MTN9.wBOT4TzvdHLkx-nyUnwcfiS7ZfOnO4hu0wAvPs3sHNE",
