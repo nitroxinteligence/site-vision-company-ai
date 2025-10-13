@@ -42,7 +42,7 @@ export default function ContactSection() {
             <div className="flex justify-center">
               <button
                 type="button"
-                onClick={() => window.open('https://wa.me/5581992690667', '_blank')}
+                onClick={() => window.location.href = '/cpt'}
                 className="group relative overflow-hidden border border-white/30 bg-gradient-to-r from-white/20 to-white/10 px-4 py-2 text-base rounded-lg font-medium tracking-wide text-white backdrop-blur-sm hover:from-white/30 hover:to-white/20 transition-all duration-300"
               >
                 Quero minha consultoria gratuita

@@ -87,9 +87,20 @@ export const ContactModal: React.FC = () => {
     const isEmailValid = validateEmail(formData.email);
     if (!isFormValid || !isEmailValid) return;
     
-    console.log('Dados do formulário:', formData);
-    
-    window.open('https://wa.me/5581992690667', '_blank');
+    const message = `
+      Olá! Tenho interesse na consultoria da Vision AI.
+      Seguem meus dados:
+      Nome: ${formData.nome}
+      Email: ${formData.email}
+      Telefone: ${formData.telefone}
+      Atuação: ${formData.atuacao}
+      Prazo para assumir a franquia: ${formData.prazoFranquia}
+      Investimento: ${formData.investimento}
+    `;
+
+    const whatsappUrl = `https://wa.me/5581998132001?text=${encodeURIComponent(message)}`;
+
+    window.open(whatsappUrl, '_blank');
 
     closeModal();
     

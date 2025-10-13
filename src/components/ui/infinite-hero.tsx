@@ -130,7 +130,7 @@ export default function InfiniteHero() {
 					>
 						<button
 							type="button"
-							onClick={() => window.open('https://wa.me/5581992690667', '_blank')}
+							onClick={() => window.location.href = '/cpt'}
 							className="w-full sm:w-auto border border-white/30 bg-gradient-to-r from-white/20 to-white/10 px-6 py-3 text-base rounded-lg font-medium tracking-wide text-white backdrop-blur-sm hover:from-white/30 hover:to-white/20 transition-all duration-300"
 						>
 							Quero uma consultoria
