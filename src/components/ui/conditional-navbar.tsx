@@ -7,7 +7,7 @@ export function ConditionalNavbar() {
   const pathname = usePathname();
   
   // Ocultar navbar na página de captura e no formulário de agentes
-  if (pathname === '/cpt' || pathname === '/agent-form') {
+  if (pathname === '/cpt' || pathname === '/agent-form' || pathname === '/parabens') {
     return null;
   }
   
