@@ -1,3 +1,4 @@
+
 import React from 'react';
 import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
 
@@ -32,12 +33,16 @@ export default function ParabensPage() {
       <div className="absolute inset-0 bg-black/40" />
 
       <div className="relative z-10 max-w-4xl mx-auto px-6 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-12">
-          Parabéns! Primeira etapa concluída. Agora assista o vídeo abaixo!
+        <h1 className="text-5xl md:text-5xl font-light text-white mb-12">
+          Parabéns! Primeira etapa concluída. <span className="font-bold">Agora assista o vídeo abaixo!</span>
         </h1>
         
-        <div className="w-full aspect-video bg-black/50 border border-gray-700 rounded-lg mb-12 flex items-center justify-center backdrop-blur-sm">
-          <p className="text-gray-400">Seu vídeo aqui</p>
+        <div className="mx-auto mt-8 max-w-2xl aspect-video bg-gradient-to-br from-white/10 to-white/5 rounded-xl border border-white/20 backdrop-blur-sm flex items-center justify-center group cursor-pointer hover:border-white/30 hover:bg-white/15 transition-all duration-500 mb-12">
+          <video
+            src="https://nxbcmrqcadrgzhrengsc.supabase.co/storage/v1/object/public/documents%20vision-site/video-douglas.mp4?t=2024-07-29T18%3A01%3A15.421Z"
+            controls
+            className="w-full h-full rounded-xl"
+          />
         </div>
         
         <a
