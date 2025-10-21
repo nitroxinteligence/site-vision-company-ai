@@ -7,7 +7,7 @@ import * as gtag from '@/lib/gtag';
 
 declare global {
   interface Window {
-    dataLayer: any[];
+    dataLayer: Record<string, any>[];
   }
 }
 
