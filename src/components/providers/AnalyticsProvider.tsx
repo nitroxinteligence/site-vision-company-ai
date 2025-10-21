@@ -1,9 +1,9 @@
 "use client";
 
-import { usePathname, useSearchParams } from 'next/navigation';
 import Script from 'next/script';
-import { useEffect } from 'react';
+import { Suspense } from 'react';
 import * as gtag from '@/lib/gtag';
+import AnalyticsTracker from './AnalyticsTracker';
 
 declare global {
   interface Window {
@@ -13,33 +13,13 @@ declare global {
 
 const GTM_ID = 'GTM-5DC5JW25';
 
-const gtmPageview = (url: string) => {
-  if (typeof window.dataLayer !== 'undefined') {
-    window.dataLayer.push({
-      event: 'pageview',
-      page: url,
-    });
-  } else {
-    console.log({
-      event: 'pageview',
-      page: url,
-    });
-  }
-};
-
 export default function AnalyticsProvider() {
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    if (pathname) {
-      gtmPageview(pathname);
-      gtag.pageview(pathname);
-    }
-  }, [pathname, searchParams]);
-
   return (
     <>
+      <Suspense fallback={null}>
+        <AnalyticsTracker />
+      </Suspense>
+      
       {/* Google Tag Manager */}
       <noscript>
         <iframe
@@ -51,7 +31,7 @@ export default function AnalyticsProvider() {
       </noscript>
       <Script
         id="gtm-script"
-        strategy="afterInteractive"
+        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
           __html: `
             (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
