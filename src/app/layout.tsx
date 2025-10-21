@@ -1,4 +1,4 @@
-import GTMProvider from "@/components/providers/GTMProvider";
+import AnalyticsProvider from "@/components/providers/AnalyticsProvider";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
@@ -41,7 +41,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} font-sans antialiased`}
       >
-        <GTMProvider />
+        <AnalyticsProvider />
         <SmoothScrollProvider>
           <ConditionalNavbar />
           {children}
