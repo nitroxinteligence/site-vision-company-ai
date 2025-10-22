@@ -202,7 +202,7 @@ export default function Home() {
 
       {/* SEÇÃO 8. SOBRE - FUNDADORES */}
       <div id="fundadores">
-        <section className="relative w-full py-20" style={{ backgroundColor: '#0A0A0A', overflow: 'visible' }}>
+        <section className="relative w-full pt-32 pb-20" style={{ backgroundColor: '#0A0A0A', overflow: 'visible' }}>
         {/* Radial glow na lateral esquerda */}
         <div 
           className="absolute left-0 top-1/2 -translate-y-1/2 pointer-events-none"

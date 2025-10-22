@@ -128,7 +128,7 @@ export default function AnimatedAboutSection() {
 								<p className="text-body-md text-white/70 mb-4">
 									Vision AI nasceu para resolver o maior dilema do dono de negócio:
 								</p>
-								<p className="text-heading-3 text-white font-semibold mb-6 text-balance">
+								<p className="text-heading-3 text-white font-semibold mb-6 text-balance" style={{ lineHeight: '0.8' }}>
 									Crescer sem se tornar refém do próprio trabalho.
 								</p>
 								<p className="text-body-md text-white/70">

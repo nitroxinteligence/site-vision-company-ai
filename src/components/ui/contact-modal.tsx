@@ -6,6 +6,57 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { X } from 'lucide-react';
 
+// Estilos CSS para animações personalizadas
+const modalStyles = `
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translate3d(0, -20px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes fadeOutDown {
+    from {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate3d(0, 20px, 0);
+    }
+  }
+
+  .modal-fade-in {
+    animation: fadeInDown 0.15s ease-out forwards;
+  }
+
+  .modal-fade-out {
+    animation: fadeOutDown 0.15s ease-out forwards;
+  }
+
+  .overlay-fade-in {
+    animation: fadeIn 0.15s ease-out forwards;
+  }
+
+  .overlay-fade-out {
+    animation: fadeOut 0.15s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+`;
+
 interface FormData {
   nome: string;
   email: string;
@@ -18,6 +69,9 @@ interface FormData {
 export const ContactModal: React.FC = () => {
   const { isOpen, closeModal } = useModal();
   const [isVisible, setIsVisible] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [animationClass, setAnimationClass] = useState('');
+  const [overlayAnimationClass, setOverlayAnimationClass] = useState('');
   const [formData, setFormData] = useState<FormData>({
     nome: '',
     email: '',
@@ -28,15 +82,39 @@ export const ContactModal: React.FC = () => {
   });
   const [emailError, setEmailError] = useState('');
 
-  // Controla o fade in/out
+  // Injeta os estilos CSS no documento
+  useEffect(() => {
+    const styleElement = document.createElement('style');
+    styleElement.textContent = modalStyles;
+    document.head.appendChild(styleElement);
+    
+    return () => {
+      document.head.removeChild(styleElement);
+    };
+  }, []);
+
+  // Controla as animações de entrada e saída
   useEffect(() => {
     if (isOpen) {
       setIsVisible(true);
-    } else {
-      const timer = setTimeout(() => setIsVisible(false), 200);
+      setIsAnimating(true);
+      setAnimationClass('modal-fade-in');
+      setOverlayAnimationClass('overlay-fade-in');
+    } else if (isVisible) {
+      setIsAnimating(true);
+      setAnimationClass('modal-fade-out');
+      setOverlayAnimationClass('overlay-fade-out');
+      
+      const timer = setTimeout(() => {
+        setIsVisible(false);
+        setIsAnimating(false);
+        setAnimationClass('');
+        setOverlayAnimationClass('');
+      }, 150);
+      
       return () => clearTimeout(timer);
     }
-  }, [isOpen]);
+  }, [isOpen, isVisible]);
 
   // Validação do email
   const validateEmail = (email: string) => {
@@ -116,25 +194,30 @@ export const ContactModal: React.FC = () => {
   };
 
   const handleClose = () => {
-    setIsVisible(false);
-    setTimeout(() => closeModal(), 200);
+    setIsAnimating(true);
+    setAnimationClass('modal-fade-out');
+    setOverlayAnimationClass('overlay-fade-out');
+    
+    setTimeout(() => {
+      closeModal();
+      setIsVisible(false);
+      setIsAnimating(false);
+      setAnimationClass('');
+      setOverlayAnimationClass('');
+    }, 150);
   };
 
-  if (!isOpen && !isVisible) return null;
+  if (!isOpen && !isVisible && !isAnimating) return null;
 
   return (
-    <div className={`fixed inset-0 z-50 flex items-center justify-center transition-opacity duration-200 ${
-      isOpen && isVisible ? 'opacity-100' : 'opacity-0'
-    }`}>
+    <div className={`fixed inset-0 z-50 flex items-center justify-center ${overlayAnimationClass}`}>
       <div 
         className="absolute inset-0 bg-black/60 backdrop-blur-sm"
         onClick={handleClose}
       />
       
       <div 
-        className={`relative w-full max-w-md mx-4 rounded-2xl border transition-all duration-200 ${
-          isOpen && isVisible ? 'scale-100 opacity-100' : 'scale-95 opacity-0'
-        }`}
+        className={`relative w-full max-w-md mx-4 rounded-2xl border ${animationClass}`}
         style={{
           backgroundColor: '#141414',
           borderColor: '#323232',

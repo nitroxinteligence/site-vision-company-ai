@@ -58,23 +58,25 @@ export const AgentFeatures = ({ description, features, layout = "grid", imageUrl
               viewBox="0 0 20 20"
             >
               <defs>
-                <linearGradient id="checkboxGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#ffffff" />
-                  <stop offset="100%" stopColor="#9ca3af" />
+                <linearGradient id={`checkboxGradient-${index}`} x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop key={`stop-start-${index}`} offset="0%" stopColor="#ffffff" />
+                  <stop key={`stop-end-${index}`} offset="100%" stopColor="#9ca3af" />
                 </linearGradient>
               </defs>
               <rect 
+                key={`rect-${index}`}
                 x="2" 
                 y="2" 
                 width="16" 
                 height="16" 
                 rx="3" 
                 ry="3" 
-                fill="url(#checkboxGradient)" 
-                stroke="url(#checkboxGradient)" 
+                fill={`url(#checkboxGradient-${index})`} 
+                stroke={`url(#checkboxGradient-${index})`} 
                 strokeWidth="1"
               />
               <path 
+                key={`path-${index}`}
                 d="M6 10l2 2 6-6" 
                 stroke="#000000" 
                 strokeWidth="2" 

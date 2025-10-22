@@ -32,7 +32,12 @@ export function Navbar() {
                 style={{
                     animationFillMode: 'both'
                 }}>
-                <div className={cn('mx-auto mt-2 max-w-6xl px-6 lg:px-12 bg-black/20 navbar-backdrop', !isScrolled && 'not-scrolled', isScrolled && 'scrolled bg-black/30 backdrop-blur-lg max-w-4xl rounded-2xl lg:px-5')}>
+                <div 
+                    className={cn('mx-auto mt-2 max-w-6xl px-6 lg:px-12 transition-all duration-300', 
+                        isScrolled 
+                            ? 'bg-black/40 backdrop-blur-xl max-w-4xl rounded-2xl lg:px-5' 
+                            : 'bg-black/20 backdrop-blur-md'
+                    )}>
                     <div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
                         <div className="flex w-full justify-between lg:w-auto">
                             <Link
@@ -54,7 +59,7 @@ export function Navbar() {
                         <div className="absolute inset-0 m-auto hidden size-fit lg:block">
                             <ul className="flex gap-8 text-base">
                                 {menuItems.map((item, index) => (
-                                    <li key={index}>
+                                    <li key={`desktop-menu-${item.name}-${index}`}>
                                         <Link
                                             href={item.href}
                                             className="text-white/70 hover:text-white block duration-150 font-medium">
@@ -65,11 +70,12 @@ export function Navbar() {
                             </ul>
                         </div>
 
-                        <div className="bg-black/80 backdrop-blur-optimized group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border border-white/10 p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
+                        <div 
+                            className="bg-black/90 backdrop-blur-xl group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
                             <div className="lg:hidden">
                                 <ul className="space-y-6 text-lg">
                                     {menuItems.map((item, index) => (
-                                        <li key={index}>
+                                        <li key={`mobile-menu-${item.name}-${index}`}>
                                             <Link
                                                 href={item.href}
                                                 className="text-white/70 hover:text-white block duration-150 font-medium">

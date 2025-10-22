@@ -1,6 +1,7 @@
 "use client";
 import { Camera } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 interface DifferentialCardProps {
   title: string;
@@ -10,9 +11,47 @@ interface DifferentialCardProps {
 
 export const DifferentialCard = ({ title, description, videoUrl }: DifferentialCardProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const { ref: inViewRef, inView } = useInView({
+    threshold: 0.5, // Video plays when 50% is visible
+    triggerOnce: false,
+  });
+
+  // Effect to play/pause video based on visibility
+  useEffect(() => {
+    const video = videoRef.current;
+    if (video) {
+      if (inView) {
+        video.play().catch(error => {
+          console.error(`Video play failed for ${title}:`, error);
+        });
+      } else {
+        video.pause();
+        video.currentTime = 0; // Rewind when out of view
+      }
+    }
+  }, [inView, title]);
+
+  // Effect to ensure video loops
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleEnded = () => {
+      video.currentTime = 0;
+      video.play().catch(error => {
+        console.error(`Loop play failed for ${title}:`, error);
+      });
+    };
+
+    video.addEventListener('ended', handleEnded);
+    return () => {
+      video.removeEventListener('ended', handleEnded);
+    };
+  }, [title]);
 
   return (
     <div 
+      ref={inViewRef}
       className="w-full p-6 sm:p-8 md:p-12 rounded-2xl border relative min-h-80 flex flex-col"
       style={{ 
         backgroundColor: '#141414',
@@ -32,7 +71,6 @@ export const DifferentialCard = ({ title, description, videoUrl }: DifferentialC
           <video
             ref={videoRef}
             src={videoUrl}
-            autoPlay
             muted
             loop
             playsInline

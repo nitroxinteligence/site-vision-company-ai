@@ -43,7 +43,7 @@ export default function AiStatisticsSection() {
       <div className="container mx-auto px-4 sm:px-6 relative z-20">
         {/* Título Principal */}
         <div className="flex items-center justify-center mb-12">
-          <h2 className="text-heading-2 text-white text-center text-balance">
+          <h2 className="title-responsive-xl text-white text-center text-balance">
             Em 2023, apenas <span style={{ color: '#343434' }}>{percentage2023.value}</span><br className="hidden md:block" />
             das empresas usavam IA
           </h2>

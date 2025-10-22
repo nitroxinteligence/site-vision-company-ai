@@ -185,8 +185,8 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   // Renderização condicional para evitar problemas de hidratação
   if (!isClient) {
     return (
-      <h2 className={`my-5 ${containerClassName}`}>
-        <p className={`text-[clamp(1.6rem,4vw,3rem)] leading-[1.5] font-medium ${textClassName}`}>
+      <h2 className={`my-5 text-center ${containerClassName}`}>
+        <p className={`text-[clamp(1.6rem,4vw,3rem)] leading-[1.5] font-medium text-center ${textClassName}`}>
           {children}
         </p>
       </h2>
@@ -196,11 +196,11 @@ export const ScrollReveal: React.FC<ScrollRevealProps> = ({
   return (
     <h2 
       ref={containerRef} 
-      className={`my-5 ${containerClassName}`}
+      className={`my-5 text-center ${containerClassName}`}
       style={{ contain: 'layout style' }} // Otimização CSS
     >
       <p
-        className={`text-[clamp(1.6rem,4vw,3rem)] leading-[1.5] font-medium ${textClassName}`}
+        className={`text-[clamp(1.6rem,4vw,3rem)] leading-[1.5] font-medium text-center ${textClassName}`}
       >
         {splitText}
       </p>

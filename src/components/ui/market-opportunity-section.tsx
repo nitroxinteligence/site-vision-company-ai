@@ -183,7 +183,7 @@ export default function MarketOpportunitySection() {
         <div className="flex items-center justify-center mb-12">
           <h2 
             ref={h2Ref}
-            className={`text-heading-2 text-white text-center text-balance ${!isLoaded ? 'opacity-0' : ''}`}
+            className={`title-responsive-xl text-white text-center text-balance ${!isLoaded ? 'opacity-0' : ''}`}
           >
             Por que empreender <br className="hidden md:block" />com IA agora?
           </h2>
@@ -231,9 +231,9 @@ export default function MarketOpportunitySection() {
 
         {/* Bullet Points - Expansão do Mercado */}
         <div className="max-w-6xl mx-auto mb-16">
-          <h3 className="text-heading-3 text-white font-semibold text-center mb-12">
-            Um mercado em expansão exponencial
-          </h3>
+          <h3 className="title-responsive-lg text-white text-center mb-8">
+              Um mercado em expansão exponencial
+            </h3>
           
           <div 
             ref={bulletPointsRef}
@@ -325,11 +325,18 @@ export default function MarketOpportunitySection() {
         <div className="flex justify-center">
           <div ref={ctaRef} className={!isLoaded ? 'opacity-0' : ''}>
             <Button 
-              size="lg"
-              onClick={openModal}
-              className="border border-white/30 bg-gradient-to-r from-white/20 to-white/10 px-6 py-3 text-base rounded-lg font-medium tracking-wide text-white backdrop-blur-sm hover:border-white/50 hover:bg-white/20 hover:shadow-lg hover:shadow-white/10 transition-[border-color,background-color,box-shadow] duration-500"
-            >
-              Quero mais detalhes
+            size="lg"
+            onClick={openModal}
+            className="group relative w-[280px] hover:w-[330px] !bg-white hover:!bg-white text-black px-6 py-3 text-base rounded-lg font-medium tracking-wide shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] transition-all duration-500 overflow-hidden"
+          >
+              <span className="group-hover:mr-6 transition-all duration-500">
+                Quero mais detalhes
+              </span>
+              <div className="absolute right-6 top-1/2 -translate-y-1/2 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
             </Button>
           </div>
         </div>
@@ -354,7 +361,7 @@ export default function MarketOpportunitySection() {
           </div>
           
           <div className="flex items-center justify-center mb-12">
-            <h2 className="title-section text-white text-center">
+            <h2 className="title-responsive-xl text-white text-center">
               A IA está transformando<br />o mundo dos negócios
             </h2>
           </div>

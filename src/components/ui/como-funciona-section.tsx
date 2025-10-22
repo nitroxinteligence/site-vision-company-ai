@@ -272,7 +272,7 @@ export default function ComoFuncionaSection() {
         <div className="text-center mb-16 md:mb-24">
           <h2
             ref={titleRef}
-            className="text-heading-2 text-white text-center mb-6"
+            className="title-responsive-xl text-white text-center mb-6"
             style={{ opacity: isLoaded ? undefined : 1 }}
           >
             Como funciona
@@ -384,7 +384,7 @@ export default function ComoFuncionaSection() {
         <div ref={benefitsRef} className="relative text-center mb-16">
           
           <div className="relative z-10">
-            <h3 className="title-section text-white text-center mb-12">
+            <h3 className="title-responsive-xl text-white text-center mb-12">
               O que você recebe
             </h3>
 
@@ -411,12 +411,19 @@ export default function ComoFuncionaSection() {
         {/* CTA Button */}
         <div className="text-center">
           <div ref={ctaRef}>
-            <Button
-              size="lg"
-              onClick={openModal}
-              className="border border-white/30 bg-gradient-to-r from-white/20 to-white/10 px-6 py-3 text-base rounded-lg font-medium tracking-wide text-white backdrop-blur-sm hover:border-white/50 hover:bg-white/20 hover:shadow-lg hover:shadow-white/10 transition-[border-color,background-color,box-shadow] duration-500"
-            >
-              Quero saber mais
+            <Button 
+            size="lg"
+            onClick={openModal}
+            className="group relative w-[280px] hover:w-[330px] !bg-white hover:!bg-white text-black px-6 py-3 text-base rounded-lg font-medium tracking-wide shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] transition-all duration-500 overflow-hidden"
+          >
+              <span className="group-hover:mr-6 transition-all duration-500">
+                Quero saber mais
+              </span>
+              <div className="absolute right-6 top-1/2 -translate-y-1/2 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
             </Button>
           </div>
         </div>

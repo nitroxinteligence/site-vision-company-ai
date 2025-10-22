@@ -62,34 +62,34 @@ export function StatisticCard({ statistic, description }: StatisticCardProps) {
       ref={ref}
       className="flex flex-col items-center justify-center gap-6 p-8 rounded-2xl border h-80 w-full relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
       style={{ 
-        backgroundColor: '#141414',
-        borderColor: '#323232',
-        boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)'
+        backgroundColor: '#ffffff',
+        borderColor: '#e5e5e5',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
       }}
     >
       {/* Container do Ícone */}
       <div 
         className="p-4 border"
         style={{
-          backgroundColor: '#202020',
-          borderColor: '#3D3D3D',
+          backgroundColor: '#f8f9fa',
+          borderColor: '#d1d5db',
           borderRadius: '3px'
         }}
       >
-        <IconComponent size={32} className="text-white" />
+        <IconComponent size={32} className="text-gray-700" />
       </div>
 
       {/* Área de Texto */}
       <div className="text-center">
         <h3 
-          className="title-statistic text-white mb-4 font-medium" 
+          className="title-statistic text-black mb-4 font-medium" 
           style={{ 
             fontSize: /\d/.test(statistic) ? '58px' : '30px' // 58px para números, 30px para texto
           }}
         >
           <CountUpNumber value={statistic} shouldStart={isInView} />
         </h3>
-        <p className="text-card font-medium leading-relaxed text-base" style={{ color: '#929292' }}>
+        <p className="text-card font-medium leading-relaxed text-base" style={{ color: '#6b7280' }}>
           {description}
         </p>
       </div>

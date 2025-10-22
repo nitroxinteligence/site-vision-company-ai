@@ -61,7 +61,7 @@ const BlurText: React.FC<BlurTextProps> = ({
           transform: translateY(0);
         }
       `}</style>
-      <p ref={ref} className={cn("blur-text flex flex-wrap", className)}>
+      <p ref={ref} className={cn("blur-text flex flex-wrap justify-center text-center", className)}>
         {elements.map((segment, index) => (
           <span
             key={index}

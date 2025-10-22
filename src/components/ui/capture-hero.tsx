@@ -131,25 +131,20 @@ export default function CaptureHero() {
 							Alta margem. Zero equipe fixa. Operação global.
 						</p>
 
-						{/* Placeholder para vídeo */}
-						<div 
+						{/* Vídeo do YouTube */}
+						<div
 							ref={videoPlaceholderRef}
-							className="mx-auto mt-8 max-w-2xl aspect-video bg-gradient-to-br from-white/10 to-white/5 rounded-xl border border-white/20 backdrop-blur-sm flex items-center justify-center group cursor-pointer hover:border-white/30 hover:bg-white/15 transition-all duration-500"
-							onClick={openModal}
+							className="mx-auto mt-8 max-w-4xl aspect-video rounded-xl border border-white/20 overflow-hidden"
 						>
-							<div className="flex flex-col items-center justify-center space-y-3">
-								<div className="w-16 h-16 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
-									<svg className="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-										<path d="M8 5v14l11-7z"/>
-									</svg>
-								</div>
-								<div className="text-white/70 text-lg font-medium group-hover:text-white/90 transition-colors duration-300">
-									Vídeo de Apresentação
-								</div>
-								<div className="text-white/50 text-sm">
-									Clique para assistir
-								</div>
-							</div>
+							<iframe
+								width="100%"
+								height="100%"
+								src="https://www.youtube.com/embed/_G_qWXk1ntU?controls=1&rel=0"
+								title="YouTube video player"
+								frameBorder="0"
+								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+								allowFullScreen
+							></iframe>
 						</div>
 
 						<div
@@ -159,9 +154,16 @@ export default function CaptureHero() {
 							<Button 
 								size="lg"
 								onClick={openModal}
-								className="w-full sm:w-auto border border-white/30 bg-gradient-to-r from-white/20 to-white/10 px-6 py-3 text-base rounded-lg font-medium tracking-wide text-white backdrop-blur-sm hover:border-white/50 hover:bg-white/20 hover:shadow-lg hover:shadow-white/10 transition-[border-color,background-color,box-shadow] duration-500"
+								className="group relative w-[320px] hover:w-[370px] !bg-white hover:!bg-white text-black px-6 py-3 text-base rounded-lg font-medium tracking-wide shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] transition-all duration-500 overflow-hidden"
 							>
-								Quero fazer negócio com a Vision AI
+								<span className="group-hover:mr-6 transition-all duration-500">
+									Quero fazer negócio com a Vision AI
+								</span>
+								<div className="absolute right-6 top-1/2 -translate-y-1/2 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
+									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+										<path d="M5 12h14M12 5l7 7-7 7"/>
+									</svg>
+								</div>
 							</Button>
 						</div>
 					</div>

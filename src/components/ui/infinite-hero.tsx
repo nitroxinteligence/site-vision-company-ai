@@ -103,15 +103,21 @@ export default function InfiniteHero() {
 			</div>
 
 			<div 
-				className="relative z-10 flex h-full items-center justify-center text-center px-4 sm:px-6"
+				className="relative z-10 flex h-full items-start justify-center text-center px-4 sm:px-6 pt-24 sm:pt-32"
 				style={{ opacity: isLoaded ? 1 : 0 }}
 			>
 				<div>
 					<h1
 						ref={h1Ref}
-						className="text-heading-1 text-balance"
+						className="text-balance"
+						style={{ 
+							fontSize: 'clamp(3.5rem, 8vw, 6rem)', 
+							fontWeight: 500, 
+							lineHeight: 0.95, 
+							letterSpacing: '-0.025em' 
+						}}
 					>
-						Sua empresa na Era da IA
+						Sua empresa <br />na Era da IA
 					</h1>
 
 					<p
@@ -130,10 +136,15 @@ export default function InfiniteHero() {
 					>
 						<button
 							type="button"
-							onClick={() => window.location.href = '/cpt'}
-							className="w-full sm:w-auto border border-white/30 bg-gradient-to-r from-white/20 to-white/10 px-6 py-3 text-base rounded-lg font-medium tracking-wide text-white backdrop-blur-sm hover:from-white/30 hover:to-white/20 transition-all duration-300"
+							onClick={() => window.open('https://wa.me/5581998132001?text=Olá! Vim pelo Site da VISION AI e gostaria de saber mais sobre as soluções.', '_blank')}
+							className="group relative overflow-hidden bg-white py-3 text-base rounded-lg font-medium tracking-wide text-black transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] w-[240px] hover:w-[290px] flex items-center justify-center"
 						>
-							Quero uma consultoria
+							<span className="transition-all duration-300 group-hover:mr-6">Quero uma consultoria</span>
+							<div className="absolute right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
+								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+								</svg>
+							</div>
 						</button>
 
 						<button

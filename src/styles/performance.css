@@ -90,24 +90,40 @@
   backdrop-filter: blur(12px);
 }
 
+/* Garantir que as classes Tailwind de backdrop blur funcionem */
+.backdrop-blur-md {
+  -webkit-backdrop-filter: blur(12px) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.backdrop-blur-lg {
+  -webkit-backdrop-filter: blur(16px) !important;
+  backdrop-filter: blur(16px) !important;
+}
+
+.backdrop-blur-xl {
+  -webkit-backdrop-filter: blur(24px) !important;
+  backdrop-filter: blur(24px) !important;
+}
+
 /* Classe específica para navbar com transições otimizadas */
 .navbar-backdrop {
   contain: layout style;
   isolation: isolate;
   will-change: backdrop-filter, background-color, border-radius, max-width;
-  -webkit-backdrop-filter: blur(0px);
-  backdrop-filter: blur(0px);
-  transition: background-color 0.3s ease, border-radius 0.3s ease, max-width 0.3s ease;
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
 }
 
 .navbar-backdrop.scrolled {
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
 }
 
 .navbar-backdrop.not-scrolled {
-  -webkit-backdrop-filter: blur(4px);
-  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
 }
 
 /* Reduzir motion para usuários que preferem */

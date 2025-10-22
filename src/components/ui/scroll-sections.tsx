@@ -191,7 +191,7 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
   // Função para dividir texto em palavras
   const splitTextIntoWords = (text: string) => {
     return text.split(' ').map((word, index) => (
-      <span key={index} className="word inline-block mr-2">
+      <span key={`word-${word}-${index}`} className="word inline-block">
         {word}
       </span>
     ));
@@ -205,7 +205,7 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
     >
       {sections.map((section, index) => (
         <div
-          key={index}
+          key={`section-${section.title.replace(/\s+/g, '-').toLowerCase()}-${index}`}
           ref={(el) => {
             if (el) sectionsRef.current[index] = el;
           }}
@@ -215,14 +215,20 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
             index === 2 ? 'pb-0' : ''
           }`}
         >
-          <h2 className="mx-auto max-w-2xl lg:max-w-4xl text-[clamp(2.25rem,6vw,4rem)] font-medium leading-[0.95] tracking-tight text-center text-white mb-4">
-            {splitTextIntoWords(section.title)}
-          </h2>
-          {section.subtitle && (
-            <p className="mx-auto max-w-2xl md:text-balance text-sm/6 md:text-base/7 font-medium tracking-tight text-white/70 text-center">
-              {splitTextIntoWords(section.subtitle)}
-            </p>
-          )}
+          <div className="w-full flex flex-col items-center justify-center">
+            <h2 className="mx-auto max-w-2xl lg:max-w-4xl text-[clamp(2.25rem,6vw,4rem)] font-medium leading-[0.95] tracking-tight text-center text-white mb-4 w-full">
+              <div className="flex flex-wrap justify-center items-center gap-x-2">
+                {splitTextIntoWords(section.title)}
+              </div>
+            </h2>
+            {section.subtitle && (
+              <p className="mx-auto max-w-2xl md:text-balance text-sm/6 md:text-base/7 font-medium tracking-tight text-white/70 text-center w-full">
+                <div className="flex flex-wrap justify-center items-center gap-x-2">
+                  {splitTextIntoWords(section.subtitle)}
+                </div>
+              </p>
+            )}
+          </div>
         </div>
       ))}
     </div>

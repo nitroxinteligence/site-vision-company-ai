@@ -2,6 +2,30 @@
 @import "tw-animate-css";
 @import "../styles/performance.css";
 
+/* Fix for Tailwind CSS backdrop-filter undefined variables issue */
+:root {
+  --empty: ;
+  --color-1:hsl(0 100% 63%);
+  --color-2:hsl(270 100% 63%);
+  --color-3:hsl(210 100% 63%);
+  --color-4:hsl(195 100% 63%);
+  --color-5:hsl(90 100% 63%);
+}
+
+*,
+*::before,
+*::after {
+  --tw-backdrop-blur: var(--empty, /*!*/ /*!*/);
+  --tw-backdrop-brightness: var(--empty, /*!*/ /*!*/);
+  --tw-backdrop-contrast: var(--empty, /*!*/ /*!*/);
+  --tw-backdrop-grayscale: var(--empty, /*!*/ /*!*/);
+  --tw-backdrop-hue-rotate: var(--empty, /*!*/ /*!*/);
+  --tw-backdrop-invert: var(--empty, /*!*/ /*!*/);
+  --tw-backdrop-opacity: var(--empty, /*!*/ /*!*/);
+  --tw-backdrop-saturate: var(--empty, /*!*/ /*!*/);
+  --tw-backdrop-sepia: var(--empty, /*!*/ /*!*/);
+}
+
 /* Prevent FOUC (Flash of Unstyled Content) */
 html {
   background-color: #0A0A0A;
@@ -91,6 +115,29 @@ body {
     }
   100% {
     background-position: 0% 50%;
+    }
+  }
+  --animate-rainbow:rainbow var(--speed, 2s) infinite linear;
+  --color-color-5:var(----color-5);
+  --color-color-4:var(----color-4);
+  --color-color-3:var(----color-3);
+  --color-color-2:var(----color-2);
+  --color-color-1:var(----color-1);
+
+  @keyframes rainbow {
+    0% {
+      background-position: 0%;
+    }
+    100% {
+      background-position: 200%;
+    }
+  }
+  @keyframes rainbow {
+  0% {
+    background-position:0%;
+    }
+  100% {
+    background-position:200%;
     }
   }
 }
@@ -217,10 +264,63 @@ body {
 
   /* Classes Antigas (serão removidas gradualmente) */
   .title-hero { font-size: clamp(2.75rem, 7vw, 5rem); font-weight: 500; line-height: 0.95; letter-spacing: -0.025em; }
-  .title-section { font-size: clamp(2.75rem, 7vw, 5rem); font-weight: 500; line-height: 0.95; letter-spacing: -0.025em; }
-  .title-card { font-size: 1.125rem; font-weight: 500; letter-spacing: -0.025em; }
-  .title-timeline { font-size: 24px; font-weight: 600; letter-spacing: -0.025em; color: #898989; }
-  .title-statistic { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.025em; }
+.title-section { font-size: clamp(2.75rem, 7vw, 5rem); font-weight: 500; line-height: 0.95; letter-spacing: -0.025em; }
+/* Classes responsivas mobile-first para títulos */
+.title-responsive-xl { 
+  font-size: 32px; /* Mobile */
+  font-weight: 500; 
+  line-height: 1.2; /* Melhor legibilidade no mobile */
+  letter-spacing: -0.025em; 
+}
+
+.title-responsive-lg { 
+  font-size: 28px; /* Mobile */
+  font-weight: 500; 
+  line-height: 1.2; /* Melhor legibilidade no mobile */
+  letter-spacing: -0.025em; 
+}
+
+.title-responsive-md { 
+  font-size: 24px; /* Mobile */
+  font-weight: 500; 
+  line-height: 1.2; /* Melhor legibilidade no mobile */
+  letter-spacing: -0.025em; 
+}
+
+/* Tablet breakpoint (768px+) */
+@media (min-width: 768px) {
+  .title-responsive-xl { 
+    font-size: 48px; 
+    line-height: 1.1; /* Otimizado para tablet */
+  }
+  .title-responsive-lg { 
+    font-size: 40px; 
+    line-height: 1.1; /* Otimizado para tablet */
+  }
+  .title-responsive-md { 
+    font-size: 32px; 
+    line-height: 1.1; /* Otimizado para tablet */
+  }
+}
+
+/* Desktop breakpoint (1024px+) */
+@media (min-width: 1024px) {
+  .title-responsive-xl { 
+    font-size: 64px; 
+    line-height: 0.95; /* Impacto visual no desktop */
+  }
+  .title-responsive-lg { 
+    font-size: 52px; 
+    line-height: 0.95; /* Impacto visual no desktop */
+  }
+  .title-responsive-md { 
+    font-size: 42px; 
+    line-height: 0.95; /* Impacto visual no desktop */
+  }
+}
+.title-card { font-size: 1.125rem; font-weight: 500; letter-spacing: -0.025em; }
+.title-timeline { font-size: 24px; font-weight: 600; letter-spacing: -0.025em; color: #898989; }
+.title-statistic { font-size: clamp(1.5rem, 4vw, 2.25rem); font-weight: 500; line-height: 1.1; letter-spacing: -0.025em; }
   .text-description { font-size: clamp(1rem, 2.5vw, 1.125rem); font-weight: 500; line-height: 1.6; }
   .text-card { font-size: clamp(0.8rem, 1.8vw, 0.875rem); font-weight: 500; line-height: 1.5; }
   .text-feature { font-size: 14px; font-weight: 500; line-height: 1.4; }

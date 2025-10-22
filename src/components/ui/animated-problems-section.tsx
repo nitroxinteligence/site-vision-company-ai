@@ -107,22 +107,12 @@ export default function AnimatedProblemsSection() {
   	return (
   		<section 
   			ref={rootRef}
-  			className="relative w-full text-white py-16 md:py-24" 
+  			className="relative w-full text-black py-34 md:py-42" 
   			style={{ 
-  				backgroundColor: '#0a0a0a',
-  				borderBottom: '1px solid #323232'
+  				backgroundColor: '#ffffff',
+  				borderBottom: '1px solid #e5e5e5'
   			}}
   		>
-  			{/* Radial glow na parte inferior */}
-  			<div 
-  				className="absolute bottom-0 left-1/2 -translate-x-1/2 pointer-events-none w-full md:w-[60%]"
-  				style={{
-  					background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 15%, transparent 100%)',
-  					height: '90%',
-  					zIndex: 0
-  				}}
-  			/>
-  			
   			<div 
   				className="container mx-auto px-4 sm:px-6 relative z-10"
   				style={{ opacity: isLoaded ? 1 : 0 }}
@@ -133,13 +123,10 @@ export default function AnimatedProblemsSection() {
   						ref={badgeRef}
   						className="inline-flex items-center px-4 py-2 text-feature uppercase border"
   						style={{ 
-  							backgroundColor: '#0c0c0c',
-  							borderColor: '#323232',
+  							backgroundColor: '#f8f8f8',
+  							borderColor: '#d1d5db',
   							borderRadius: '6px',
-  							background: 'linear-gradient(to bottom, #ffffff, #000000)',
-  							WebkitBackgroundClip: 'text',
-  							WebkitTextFillColor: 'transparent',
-  							backgroundClip: 'text'
+  							color: '#374151'
   						}}
   					>
   						A SUA REALIDADE
@@ -159,120 +146,120 @@ export default function AnimatedProblemsSection() {
   					className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 max-w-7xl mx-auto"
   				>
   					{/* Card 1 */}
-  					<div 
-  						className="flex flex-col items-center justify-start gap-6 p-6 rounded-2xl border h-auto w-full relative"
-  						style={{ 
-  							backgroundColor: '#141414',
-  							borderColor: '#323232',
-  							boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)'
-  						}}
-  					>
-  						<div 
-  							className="p-3 border"
-  							style={{
-  								backgroundColor: '#202020',
-  								borderColor: '#3D3D3D',
-  								borderRadius: '5px'
-  							}}
-  						>
-  							<Users size={28} className="text-white" />
-  						</div>
-  						<div className="text-center">
-  							<h3 className="text-heading-3 font-medium text-white mb-2 text-balance">
-  								Equipes sobrecarregadas
-  							</h3>
-  							<p className="text-body-sm font-medium text-[#929292]">
-  								Funcionários fazendo tarefas repetitivas que poderiam ser automatizadas.
-  							</p>
-  						</div>
-  					</div>
+					<div 
+						className="flex flex-col items-center justify-start gap-6 p-6 rounded-2xl border h-auto w-full relative"
+						style={{ 
+							backgroundColor: '#ffffff',
+							borderColor: '#e5e5e5',
+							boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+						}}
+					>
+						<div 
+							className="p-3 border"
+							style={{
+								backgroundColor: '#f8f9fa',
+								borderColor: '#d1d5db',
+								borderRadius: '5px'
+							}}
+						>
+							<Users size={28} className="text-gray-700" />
+						</div>
+						<div className="text-center">
+							<h3 className="font-medium text-black mb-2 text-balance" style={{ fontSize: '1.5rem' }}>
+								Equipes sobrecarregadas
+							</h3>
+							<p className="text-body-sm font-medium text-gray-600">
+								Funcionários fazendo tarefas repetitivas que poderiam ser automatizadas.
+							</p>
+						</div>
+					</div>
   
   					{/* Card 2 */}
-  					<div 
-  						className="flex flex-col items-center justify-start gap-6 p-6 rounded-2xl border h-auto w-full relative"
-  						style={{ 
-  							backgroundColor: '#141414',
-  							borderColor: '#323232',
-  							boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)'
-  						}}
-  					>
-  						<div 
-  							className="p-3 border"
-  							style={{
-  								backgroundColor: '#202020',
-  								borderColor: '#3D3D3D',
-  								borderRadius: '5px'
-  							}}
-  						>
-  							<TrendingUp size={28} className="text-white" />
-  						</div>
-  						<div className="text-center">
-  							<h3 className="text-heading-3 font-medium text-white mb-2 text-balance">
-  								Crescimento limitado
-  							</h3>
-  							<p className="text-body-sm font-medium text-[#929292]">
-  								Receita estagnada porque não consegue escalar sem aumentar custos.
-  							</p>
-  						</div>
-  					</div>
+					<div 
+						className="flex flex-col items-center justify-start gap-6 p-6 rounded-2xl border h-auto w-full relative"
+						style={{ 
+							backgroundColor: '#ffffff',
+							borderColor: '#e5e5e5',
+							boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+						}}
+					>
+						<div 
+							className="p-3 border"
+							style={{
+								backgroundColor: '#f8f9fa',
+								borderColor: '#d1d5db',
+								borderRadius: '5px'
+							}}
+						>
+							<TrendingUp size={28} className="text-gray-700" />
+						</div>
+						<div className="text-center">
+							<h3 className="font-medium text-black mb-2 text-balance" style={{ fontSize: '1.5rem' }}>
+								Crescimento limitado
+							</h3>
+							<p className="text-body-sm font-medium text-gray-600">
+								Receita estagnada porque não consegue escalar sem aumentar custos.
+							</p>
+						</div>
+					</div>
   
   					{/* Card 3 */}
-  					<div 
-  						className="flex flex-col items-center justify-start gap-6 p-6 rounded-2xl border h-auto w-full relative"
-  						style={{ 
-  							backgroundColor: '#141414',
-  							borderColor: '#323232',
-  							boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)'
-  						}}
-  					>
-  						<div 
-  							className="p-3 border"
-  							style={{
-  								backgroundColor: '#202020',
-  								borderColor: '#3D3D3D',
-  								borderRadius: '5px'
-  							}}
-  						>
-  							<Clock size={28} className="text-white" />
-  						</div>
-  						<div className="text-center">
-  							<h3 className="text-heading-3 font-medium text-white mb-2 text-balance">
-  								Tempo desperdiçado
-  							</h3>
-  							<p className="text-body-sm font-medium text-[#929292]">
-  								Horas perdidas em processos manuais que deveriam ser instantâneos.
-  							</p>
-  						</div>
-  					</div>
+					<div 
+						className="flex flex-col items-center justify-start gap-6 p-6 rounded-2xl border h-auto w-full relative"
+						style={{ 
+							backgroundColor: '#ffffff',
+							borderColor: '#e5e5e5',
+							boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+						}}
+					>
+						<div 
+							className="p-3 border"
+							style={{
+								backgroundColor: '#f8f9fa',
+								borderColor: '#d1d5db',
+								borderRadius: '5px'
+							}}
+						>
+							<Clock size={28} className="text-gray-700" />
+						</div>
+						<div className="text-center">
+							<h3 className="font-medium text-black mb-2 text-balance" style={{ fontSize: '1.5rem' }}>
+								Tempo desperdiçado
+							</h3>
+							<p className="text-body-sm font-medium text-gray-600">
+								Horas perdidas em processos manuais que deveriam ser instantâneos.
+							</p>
+						</div>
+					</div>
   
   					{/* Card 4 */}
-  					<div 
-  						className="flex flex-col items-center justify-start gap-6 p-6 rounded-2xl border h-auto w-full relative"
-  						style={{ 
-  							backgroundColor: '#141414',
-  							borderColor: '#323232',
-  							boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)'
-  						}}
-  					>
-  						<div 
-  							className="p-3 border"
-  							style={{
-  								backgroundColor: '#202020',
-  								borderColor: '#3D3D3D',
-  								borderRadius: '5px'
-  							}}
-  						>
-  							<BarChart3 size={28} className="text-white" />
-  						</div>
-  						<div className="text-center">
-  							<h3 className="text-heading-3 font-medium text-white mb-2 text-balance">
-  								Dados desorganizados
-  							</h3>
-  							<p className="text-body-sm font-medium text-[#929292]">
-  								Informações espalhadas que impedem decisões rápidas e precisas.
-  							</p>
-  						</div>
-  					</div>
+					<div 
+						className="flex flex-col items-center justify-start gap-6 p-6 rounded-2xl border h-auto w-full relative"
+						style={{ 
+							backgroundColor: '#ffffff',
+							borderColor: '#e5e5e5',
+							boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
+						}}
+					>
+						<div 
+							className="p-3 border"
+							style={{
+								backgroundColor: '#f8f9fa',
+								borderColor: '#d1d5db',
+								borderRadius: '5px'
+							}}
+						>
+							<BarChart3 size={28} className="text-gray-700" />
+						</div>
+						<div className="text-center">
+							<h3 className="font-medium text-black mb-2 text-balance" style={{ fontSize: '1.5rem' }}>
+								Dados desorganizados
+							</h3>
+							<p className="text-body-sm font-medium text-gray-600">
+								Informações espalhadas que impedem decisões rápidas e precisas.
+							</p>
+						</div>
+					</div>
   				</div>
   			</div>
   		</section>

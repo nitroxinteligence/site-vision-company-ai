@@ -2,18 +2,14 @@
 
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
-import * as gtag from '@/lib/gtag';
 
 const gtmPageview = (url: string) => {
-  if (typeof window.dataLayer !== 'undefined') {
+  if (typeof window !== 'undefined' && typeof window.dataLayer !== 'undefined') {
     window.dataLayer.push({
-      event: 'pageview',
-      page: url,
-    });
-  } else {
-    console.log({
-      event: 'pageview',
-      page: url,
+      event: 'page_view',
+      page_location: window.location.href,
+      page_path: url,
+      page_title: document.title,
     });
   }
 };
@@ -25,7 +21,6 @@ export default function AnalyticsTracker() {
   useEffect(() => {
     if (pathname) {
       gtmPageview(pathname);
-      gtag.pageview(pathname);
     }
   }, [pathname, searchParams]);
 

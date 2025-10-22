@@ -58,7 +58,7 @@ const TimelineItem = ({ item }: TimelineItemProps) => {
         >
           {item.title}
         </h3>
-        {item.content}{" "}
+        {item.content}
       </div>
     </div>
   );

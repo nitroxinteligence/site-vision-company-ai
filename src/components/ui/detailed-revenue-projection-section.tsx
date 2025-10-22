@@ -77,7 +77,7 @@ export default function DetailedRevenueProjectionSection() {
     <section 
       ref={rootRef}
       className="relative py-28 overflow-hidden border-t"
-      style={{ backgroundColor: '#0c0c0c', borderColor: '#323232' }}
+      style={{ backgroundColor: 'white', borderColor: '#e5e5e5' }}
     >
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex justify-center mb-8">
@@ -85,13 +85,10 @@ export default function DetailedRevenueProjectionSection() {
             ref={badgeRef}
             className={`inline-flex items-center px-4 py-2 text-feature uppercase border ${!isLoaded ? 'opacity-0' : ''}`}
             style={{ 
-              backgroundColor: '#0c0c0c',
-              borderColor: '#323232',
+              backgroundColor: 'white',
+              borderColor: '#e5e5e5',
               borderRadius: '2px',
-              background: 'linear-gradient(to bottom, #ffffff, #000000)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
+              color: 'black'
             }}
           >
             PROJEÇÃO DE RECEITA
@@ -101,7 +98,7 @@ export default function DetailedRevenueProjectionSection() {
         <div className="flex items-center justify-center mb-16">
           <h2 
             ref={h2Ref}
-            className={`text-heading-2 text-white text-center ${!isLoaded ? 'opacity-0' : ''}`}
+            className={`title-responsive-xl text-black text-center ${!isLoaded ? 'opacity-0' : ''}`}
           >
             De 0 à 66 clientes <br />em 12 meses
           </h2>
@@ -115,26 +112,26 @@ export default function DetailedRevenueProjectionSection() {
             <div 
               className={`flex flex-col items-center justify-center p-8 h-64 w-full relative rounded-2xl border transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
               style={{ 
-                backgroundColor: '#141414',
-                borderColor: '#323232',
-                boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)',
+                backgroundColor: '#ffffff',
+                borderColor: '#e5e5e5',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
               }}
             >
               <div 
                 className="p-4 border mb-4"
                 style={{
-                  backgroundColor: '#202020',
-                  borderColor: '#3D3D3D',
+                  backgroundColor: '#f8f9fa',
+                  borderColor: '#d1d5db',
                   borderRadius: '3px',
                 }}
               >
-                <DollarSign size={32} className="text-white" />
+                <DollarSign size={32} className="text-gray-700" />
               </div>
               <div className="text-center">
-                <h3 className="font-bold mb-2 text-3xl text-white">
+                <h3 className="font-bold mb-2 text-3xl text-black">
                   {monthlyCounter.value}
                 </h3>
-                <p className="font-medium text-white/70">
+                <p className="font-medium text-gray-600">
                   Mensalidade por cliente
                 </p>
               </div>
@@ -143,26 +140,26 @@ export default function DetailedRevenueProjectionSection() {
             <div 
               className={`flex flex-col items-center justify-center p-8 h-64 w-full relative rounded-2xl border transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
               style={{ 
-                backgroundColor: '#141414',
-                borderColor: '#323232',
-                boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)',
+                backgroundColor: '#ffffff',
+                borderColor: '#e5e5e5',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
               }}
             >
               <div 
                 className="p-4 border mb-4"
                 style={{
-                  backgroundColor: '#202020',
-                  borderColor: '#3D3D3D',
+                  backgroundColor: '#f8f9fa',
+                  borderColor: '#d1d5db',
                   borderRadius: '3px',
                 }}
               >
-                <TrendingUp size={32} className="text-white" />
+                <TrendingUp size={32} className="text-gray-700" />
               </div>
               <div className="text-center">
-                <h3 className="font-bold mb-2 text-3xl text-white">
+                <h3 className="font-bold mb-2 text-3xl text-black">
                   {commissionCounter.value}
                 </h3>
-                <p className="font-medium text-white/70">
+                <p className="font-medium text-gray-600">
                   Comissão recorrente
                 </p>
               </div>
@@ -171,26 +168,26 @@ export default function DetailedRevenueProjectionSection() {
             <div 
               className={`flex flex-col items-center justify-center p-8 h-64 w-full relative rounded-2xl border transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
               style={{ 
-                backgroundColor: '#141414',
-                borderColor: '#323232',
-                boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)',
+                backgroundColor: '#ffffff',
+                borderColor: '#e5e5e5',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
               }}
             >
               <div 
                 className="p-4 border mb-4"
                 style={{
-                  backgroundColor: '#202020',
-                  borderColor: '#3D3D3D',
+                  backgroundColor: '#f8f9fa',
+                  borderColor: '#d1d5db',
                   borderRadius: '3px',
                 }}
               >
-                <Target size={32} className="text-white" />
+                <Target size={32} className="text-gray-700" />
               </div>
               <div className="text-center">
-                <h3 className="font-bold mb-2 text-3xl text-white">
+                <h3 className="font-bold mb-2 text-3xl text-black">
                   {mrrCounter.value}
                 </h3>
-                <p className="font-medium text-white/70">
+                <p className="font-medium text-gray-600">
                   MRR no mês 12
                 </p>
               </div>
@@ -199,26 +196,26 @@ export default function DetailedRevenueProjectionSection() {
             <div 
               className={`flex flex-col items-center justify-center p-8 h-64 w-full relative rounded-2xl border transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
               style={{ 
-                backgroundColor: '#141414',
-                borderColor: '#323232',
-                boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)',
+                backgroundColor: '#ffffff',
+                borderColor: '#e5e5e5',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
               }}
             >
               <div 
                 className="p-4 border mb-4"
                 style={{
-                  backgroundColor: '#202020',
-                  borderColor: '#3D3D3D',
+                  backgroundColor: '#f8f9fa',
+                  borderColor: '#d1d5db',
                   borderRadius: '3px',
                 }}
               >
-                <Calculator size={32} className="text-white" />
+                <Calculator size={32} className="text-gray-700" />
               </div>
               <div className="text-center">
-                <h3 className="font-bold mb-2 text-3xl text-white">
+                <h3 className="font-bold mb-2 text-3xl text-black">
                   {revenueCounter.value}
                 </h3>
-                <p className="font-medium text-white/70">
+                <p className="font-medium text-gray-600">
                   Faturamento mensal
                 </p>
               </div>
@@ -227,14 +224,14 @@ export default function DetailedRevenueProjectionSection() {
         </div>
 
         <div className="text-center mb-16">
-          <p className="text-white/80 font-medium text-lg italic">
+          <p className="text-black/80 font-medium text-lg italic">
             Obs.: recorrência é o que constrói <br />seu futuro!
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto mb-16">
-          <h3 className="text-white text-center font-semibold text-3xl mb-12">
-            Payback & ROI
+          <h3 className="title-responsive-xl text-black text-center mb-12">
+            Payback do investimento
           </h3>
           
           <div 
@@ -244,26 +241,26 @@ export default function DetailedRevenueProjectionSection() {
             <div 
               className={`flex flex-col items-center justify-center p-10 h-64 w-full relative rounded-2xl border transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
               style={{ 
-                backgroundColor: '#141414',
-                borderColor: '#323232',
-                boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)',
+                backgroundColor: '#ffffff',
+                borderColor: '#e5e5e5',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
               }}
             >
               <div 
                 className="p-4 border mb-6"
                 style={{
-                  backgroundColor: '#202020',
-                  borderColor: '#3D3D3D',
+                  backgroundColor: '#f8f9fa',
+                  borderColor: '#d1d5db',
                   borderRadius: '3px',
                 }}
               >
-                <DollarSign size={32} className="text-white" />
+                <DollarSign size={32} className="text-gray-700" />
               </div>
               <div className="text-center">
-                <h4 className="font-bold mb-2 text-2xl text-white">
+                <h4 className="font-bold mb-2 text-2xl text-black">
                   R$ 50.000
                 </h4>
-                <p className="font-medium text-white/70">
+                <p className="font-medium text-gray-600">
                   Investimento (promo)
                 </p>
               </div>
@@ -272,26 +269,26 @@ export default function DetailedRevenueProjectionSection() {
             <div 
               className={`flex flex-col items-center justify-center p-10 h-64 w-full relative rounded-2xl border transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer ${!isLoaded ? 'opacity-0' : ''}`}
               style={{ 
-                backgroundColor: '#141414',
-                borderColor: '#323232',
-                boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)',
+                backgroundColor: '#ffffff',
+                borderColor: '#e5e5e5',
+                boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
               }}
             >
               <div 
                 className="p-4 border mb-6"
                 style={{
-                  backgroundColor: '#202020',
-                  borderColor: '#3D3D3D',
+                  backgroundColor: '#f8f9fa',
+                  borderColor: '#d1d5db',
                   borderRadius: '3px',
                 }}
               >
-                <Clock size={32} className="text-white" />
+                <Clock size={32} className="text-gray-700" />
               </div>
               <div className="text-center">
-                <h4 className="font-bold mb-2 text-2xl text-white">
+                <h4 className="font-bold mb-2 text-2xl text-black">
                   4 meses
                 </h4>
-                <p className="font-medium text-white/70">
+                <p className="font-medium text-gray-600">
                   Payback com rampa progressiva
                 </p>
               </div>
@@ -301,12 +298,19 @@ export default function DetailedRevenueProjectionSection() {
 
         <div className="text-center mb-16">
           <div ref={ctaRef}>
-            <Button
-              size="lg"
-              onClick={openModal}
-              className="border border-white/30 bg-gradient-to-r from-white/20 to-white/10 px-6 py-3 text-base rounded-lg font-medium tracking-wide text-white backdrop-blur-sm hover:border-white/50 hover:bg-white/20 hover:shadow-lg hover:shadow-white/10 transition-[border-color,background-color,box-shadow] duration-500"
-            >
-              Quero fazer negócio com a Vision AI
+            <Button 
+            size="lg"
+            onClick={openModal}
+            className="group relative w-[320px] hover:w-[370px] !bg-white hover:!bg-white text-black border border-gray-300 hover:border-gray-400 px-6 py-3 text-base rounded-lg font-medium tracking-wide shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_25px_-5px_rgba(0,0,0,0.1)] transition-all duration-500 overflow-hidden"
+          >
+              <span className="group-hover:mr-6 transition-all duration-500">
+                Quero fazer negócio com a Vision AI
+              </span>
+              <div className="absolute right-6 top-1/2 -translate-y-1/2 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
             </Button>
           </div>
         </div>
