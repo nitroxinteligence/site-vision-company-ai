@@ -354,28 +354,27 @@ export const ContactModal: React.FC = () => {
                 </SelectContent>
               </Select>
             </div>
-          </form>
-        </div>
 
-        <div className="sticky bottom-0 p-6 pt-4 border-t" style={{ 
-          backgroundColor: '#141414',
-          borderColor: '#323232'
-        }}>
-          <Button
-            onClick={handleSubmit}
-            disabled={!isFormValid}
-            size="lg"
-            className={`w-full border px-6 py-3 text-base rounded-lg font-medium tracking-wide text-white backdrop-blur-sm transition-all duration-300 ${
-              isFormValid 
-                ? 'border-white/50 bg-gradient-to-r from-white/20 to-white/10 hover:border-white/70 hover:bg-white/25 hover:shadow-lg hover:shadow-white/20 shadow-white/10' 
-                : 'border-gray-600/30 bg-gray-800/20 text-gray-400 cursor-not-allowed'
-            }`}
-            style={isFormValid ? {
-              boxShadow: '0 0 20px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
-            } : {}}
-          >
-            Enviar informações
-          </Button>
+            <div className="sticky bottom-0 pt-4 border-t" style={{ 
+              borderColor: '#323232'
+            }}>
+              <Button
+                type="submit"
+                disabled={!isFormValid}
+                size="lg"
+                className={`w-full border px-6 py-3 text-base rounded-lg font-medium tracking-wide text-white backdrop-blur-sm transition-all duration-300 ${
+                  isFormValid 
+                    ? 'border-white/50 bg-gradient-to-r from-white/20 to-white/10 hover:border-white/70 hover:bg-white/25 hover:shadow-lg hover:shadow-white/20 shadow-white/10' 
+                    : 'border-gray-600/30 bg-gray-800/20 text-gray-400 cursor-not-allowed'
+                }`}
+                style={isFormValid ? {
+                  boxShadow: '0 0 20px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+                } : {}}
+              >
+                Enviar informações
+              </Button>
+            </div>
+          </form>
         </div>
       </div>
     </div>
