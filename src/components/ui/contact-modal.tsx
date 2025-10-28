@@ -66,6 +66,21 @@ interface FormData {
   investimento: string;
 }
 
+// Função para enviar eventos para o dataLayer
+const pushToDataLayer = (eventData: any) => {
+  if (typeof window !== 'undefined' && (window as any).dataLayer) {
+    (window as any).dataLayer.push(eventData);
+    console.log('DataLayer Event:', eventData); // Para debug
+  }
+};
+
+// Função para calcular progresso do formulário
+const calculateFormProgress = (formData: FormData) => {
+  const totalFields = Object.keys(formData).length;
+  const filledFields = Object.values(formData).filter(value => value.trim() !== '').length;
+  return Math.round((filledFields / totalFields) * 100);
+};
+
 export const ContactModal: React.FC = () => {
   const { isOpen, closeModal } = useModal();
   const [isVisible, setIsVisible] = useState(false);
@@ -116,54 +131,295 @@ export const ContactModal: React.FC = () => {
     }
   }, [isOpen, isVisible]);
 
-  // Validação do email
+  // Validação do email com tracking
   const validateEmail = (email: string) => {
-    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    const isValid = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    
+    if (email && !isValid) {
       setEmailError('Por favor, insira um email válido.');
+      
+      // Track email validation error
+      pushToDataLayer({
+        event: 'email_validation_error',
+        form_name: 'contact_modal',
+        field_name: 'email',
+        email_value: email,
+        error_message: 'Invalid email format',
+        timestamp: new Date().toISOString()
+      });
+      
       return false;
-    } else {
+    } else if (email && isValid) {
       setEmailError('');
+      
+      // Track successful email validation
+      pushToDataLayer({
+        event: 'email_validation_success',
+        form_name: 'contact_modal',
+        field_name: 'email',
+        email_value: email,
+        timestamp: new Date().toISOString()
+      });
+      
       return true;
     }
+    
+    setEmailError('');
+    return true;
   };
 
   // Verifica se todos os campos estão preenchidos e se o email é válido
   const isFormValid = Object.values(formData).every(value => value.trim() !== '') && formData.telefone.replace(/\D/g, '').length >= 10 && emailError === '';
 
+  // Função para formatar telefone com +55 automático
   const formatPhoneNumber = (value: string) => {
-    const digits = value.replace(/\D/g, '');
-    if (digits.length <= 2) return `(${digits}`;
-    if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
-    if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
-    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7, 11)}`;
+    // Remove todos os caracteres não numéricos
+    const numbers = value.replace(/\D/g, '');
+    
+    // Se não há números, retorna vazio
+    if (!numbers) return '';
+    
+    // Se começa com 55, mantém como está
+    if (numbers.startsWith('55')) {
+      // Formata: +55 (XX) XXXXX-XXXX
+      if (numbers.length <= 2) return `+${numbers}`;
+      if (numbers.length <= 4) return `+${numbers.slice(0, 2)} (${numbers.slice(2)}`;
+      if (numbers.length <= 9) return `+${numbers.slice(0, 2)} (${numbers.slice(2, 4)}) ${numbers.slice(4)}`;
+      if (numbers.length <= 13) {
+        return `+${numbers.slice(0, 2)} (${numbers.slice(2, 4)}) ${numbers.slice(4, 9)}-${numbers.slice(9, 13)}`;
+      }
+      // Limita a 13 dígitos (55 + 11 dígitos do número)
+      return `+${numbers.slice(0, 2)} (${numbers.slice(2, 4)}) ${numbers.slice(4, 9)}-${numbers.slice(9, 13)}`;
+    } else {
+      // Adiciona +55 automaticamente
+      const fullNumber = '55' + numbers;
+      if (fullNumber.length <= 2) return `+${fullNumber}`;
+      if (fullNumber.length <= 4) return `+${fullNumber.slice(0, 2)} (${fullNumber.slice(2)}`;
+      if (fullNumber.length <= 9) return `+${fullNumber.slice(0, 2)} (${fullNumber.slice(2, 4)}) ${fullNumber.slice(4)}`;
+      if (fullNumber.length <= 13) {
+        return `+${fullNumber.slice(0, 2)} (${fullNumber.slice(2, 4)}) ${fullNumber.slice(4, 9)}-${fullNumber.slice(9, 13)}`;
+      }
+      // Limita a 13 dígitos (55 + 11 dígitos do número)
+      return `+${fullNumber.slice(0, 2)} (${fullNumber.slice(2, 4)}) ${fullNumber.slice(4, 9)}-${fullNumber.slice(9, 13)}`;
+    }
+  };
+
+  // Handler específico para o campo telefone
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formattedPhone = formatPhoneNumber(e.target.value);
+    
+    setFormData(prev => ({ ...prev, telefone: formattedPhone }));
+    
+    // Track phone field interaction
+    pushToDataLayer({
+      event: 'form_field_change',
+      form_name: 'contact_modal',
+      field_name: 'telefone',
+      field_type: 'tel',
+      field_value: formattedPhone,
+      form_progress: calculateFormProgress({ ...formData, telefone: formattedPhone }),
+      timestamp: new Date().toISOString()
+    });
+  };
+
+  // Função para lidar com foco nos campos
+  const handleFieldFocus = (fieldName: string, fieldType: 'input' | 'select') => {
+    pushToDataLayer({
+      event: 'form_field_focus',
+      form_name: 'contact_modal',
+      field_name: fieldName,
+      field_type: fieldType,
+      form_progress: calculateFormProgress(formData),
+      timestamp: new Date().toISOString()
+    });
+  };
+
+  // Função para lidar com blur nos campos
+  const handleFieldBlur = (fieldName: string, fieldValue: string, fieldType: 'input' | 'select') => {
+    const isFilled = fieldValue.trim() !== '';
+    
+    pushToDataLayer({
+      event: 'form_field_blur',
+      form_name: 'contact_modal',
+      field_name: fieldName,
+      field_type: fieldType,
+      field_filled: isFilled,
+      field_value_length: fieldValue.length,
+      form_progress: calculateFormProgress(formData),
+      timestamp: new Date().toISOString()
+    });
+
+    // Se o campo foi preenchido, enviar evento específico
+    if (isFilled) {
+      pushToDataLayer({
+        event: 'form_field_completed',
+        form_name: 'contact_modal',
+        field_name: fieldName,
+        field_type: fieldType,
+        field_value: fieldName === 'email' ? fieldValue : fieldName === 'telefone' ? fieldValue : 'filled', // Não enviar dados sensíveis completos
+        form_progress: calculateFormProgress(formData),
+        timestamp: new Date().toISOString()
+      });
+    }
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
+    let processedValue = value;
 
     if (name === 'telefone') {
-      const formattedValue = formatPhoneNumber(value);
-      setFormData(prev => ({ ...prev, [name]: formattedValue }));
-    } else {
-      setFormData(prev => ({ ...prev, [name]: value }));
+      processedValue = formatPhoneNumber(value);
     }
 
+    setFormData(prev => {
+      const newFormData = { ...prev, [name]: processedValue };
+      
+      // Track field change
+      pushToDataLayer({
+        event: 'form_field_change',
+        form_name: 'contact_modal',
+        field_name: name,
+        field_type: 'input',
+        field_value_length: processedValue.length,
+        form_progress: calculateFormProgress(newFormData),
+        timestamp: new Date().toISOString()
+      });
+
+      return newFormData;
+    });
+
     if (name === 'email') {
-      validateEmail(value);
+      validateEmail(processedValue);
     }
   };
 
-  const handleSelectChange = (name: keyof FormData, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
+  // Handlers específicos para campos select com tracking
+  const handleSelectChange = (field: string, value: string) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    
+    // Track select field interaction
+    pushToDataLayer({
+      event: 'form_field_select',
+      form_name: 'contact_modal',
+      field_name: field,
+      field_value: value,
+      field_type: 'select',
+      form_progress: calculateFormProgress({ ...formData, [field]: value }),
+      timestamp: new Date().toISOString()
+    });
+
+    // Track specific business insights
+    if (field === 'investimento') {
+      pushToDataLayer({
+        event: 'investment_level_selected',
+        investment_range: value,
+        lead_value_indicator: getConversionValue(value),
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    if (field === 'atuacao') {
+      pushToDataLayer({
+        event: 'business_area_selected',
+        business_area: value,
+        target_audience: value,
+        timestamp: new Date().toISOString()
+      });
+    }
+
+    if (field === 'prazoFranquia') {
+      pushToDataLayer({
+        event: 'franchise_timeline_selected',
+        timeline: value,
+        urgency_level: value === 'Imediatamente' ? 'high' : value === 'Em até 3 meses' ? 'medium' : 'low',
+        timestamp: new Date().toISOString()
+      });
+    }
+  };
+
+  // Função para calcular qualidade do lead
+  const calculateLeadQuality = (data: FormData) => {
+    let score = 0;
+    
+    // Pontuação baseada no investimento
+    if (data.investimento === 'mais-140mil') score += 40;
+    else if (data.investimento === '70mil-140mil') score += 30;
+    else if (data.investimento === 'ate-70mil') score += 20;
+    
+    // Pontuação baseada no prazo
+    if (data.prazoFranquia === 'ate-30-dias') score += 30;
+    else if (data.prazoFranquia === 'ate-60-dias') score += 25;
+    else if (data.prazoFranquia === 'ate-90-dias') score += 20;
+    else score += 10;
+    
+    // Pontuação baseada na atuação
+    if (data.atuacao === 'empresario') score += 20;
+    else if (data.atuacao === 'autonomo') score += 15;
+    else score += 10;
+    
+    // Pontuação por ter email e telefone válidos
+    if (data.email && !emailError) score += 10;
+    
+    return Math.min(score, 100);
+  };
+
+  // Função para calcular valor da conversão
+  const getConversionValue = (investimento: string) => {
+    switch (investimento) {
+      case 'mais-140mil': return 140000;
+      case '70mil-140mil': return 105000;
+      case 'ate-70mil': return 70000;
+      default: return 0;
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const isEmailValid = validateEmail(formData.email);
-    if (!isFormValid || !isEmailValid) return;
+    
+    if (!isFormValid || !isEmailValid) {
+      // Track failed submit attempt
+      pushToDataLayer({
+        event: 'form_submit_failed',
+        form_name: 'contact_modal',
+        failure_reason: !isEmailValid ? 'invalid_email' : 'incomplete_form',
+        form_progress: calculateFormProgress(formData),
+        filled_fields: Object.entries(formData).filter(([_, value]) => value.trim() !== '').map(([key, _]) => key),
+        timestamp: new Date().toISOString()
+      });
+      return;
+    }
+
+    // Track successful form submission
+    pushToDataLayer({
+      event: 'form_submit_success',
+      form_name: 'contact_modal',
+      form_data: {
+        nome: formData.nome,
+        email: formData.email,
+        telefone: formData.telefone,
+        atuacao: formData.atuacao,
+        prazo_franquia: formData.prazoFranquia,
+        investimento: formData.investimento
+      },
+      form_progress: 100,
+      lead_quality_score: calculateLeadQuality(formData),
+      timestamp: new Date().toISOString()
+    });
+
+    // Track conversion event
+    pushToDataLayer({
+      event: 'conversion',
+      conversion_type: 'lead_generation',
+      conversion_value: getConversionValue(formData.investimento),
+      lead_source: 'contact_modal',
+      user_profile: {
+        atuacao: formData.atuacao,
+        prazo_franquia: formData.prazoFranquia,
+        investimento: formData.investimento
+      },
+      timestamp: new Date().toISOString()
+    });
     
     const message = `
       Olá! Tenho interesse na consultoria da Vision AI.
@@ -192,6 +448,32 @@ export const ContactModal: React.FC = () => {
     });
     setEmailError('');
   };
+
+  // Track modal open
+  useEffect(() => {
+    if (isOpen && isVisible) {
+      pushToDataLayer({
+        event: 'modal_open',
+        modal_name: 'contact_modal',
+        modal_type: 'lead_generation',
+        timestamp: new Date().toISOString()
+      });
+    }
+  }, [isOpen, isVisible]);
+
+  // Track form progress changes
+  useEffect(() => {
+    const progress = calculateFormProgress(formData);
+    if (progress > 0 && progress < 100) {
+      pushToDataLayer({
+        event: 'form_progress_update',
+        form_name: 'contact_modal',
+        form_progress: progress,
+        filled_fields: Object.entries(formData).filter(([_, value]) => value.trim() !== '').map(([key, _]) => key),
+        timestamp: new Date().toISOString()
+      });
+    }
+  }, [formData]);
 
   const handleClose = () => {
     setIsAnimating(true);
@@ -269,15 +551,34 @@ export const ContactModal: React.FC = () => {
                   id="telefone"
                   name="telefone"
                   value={formData.telefone}
-                  onChange={handleInputChange}
+                  onChange={handlePhoneChange}
+                  onFocus={(e) => {
+                    pushToDataLayer({
+                      event: 'form_field_focus',
+                      form_name: 'contact_modal',
+                      field_name: 'telefone',
+                      field_type: 'tel',
+                      timestamp: new Date().toISOString()
+                    });
+                  }}
+                  onBlur={(e) => {
+                    pushToDataLayer({
+                      event: 'form_field_blur',
+                      form_name: 'contact_modal',
+                      field_name: 'telefone',
+                      field_type: 'tel',
+                      field_filled: e.target.value.trim() !== '',
+                      timestamp: new Date().toISOString()
+                    });
+                  }}
                   required
                   className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors placeholder-[#404040]"
                   style={{
                     backgroundColor: '#202020',
                     borderColor: '#3D3D3D',
                   }}
-                  placeholder="(11) 99999-9999"
-                  maxLength={15}
+                  placeholder="+55 (11) 99999-9999"
+                  maxLength={19}
                 />
               </div>
             </div>
