@@ -66,10 +66,16 @@ interface FormData {
   investimento: string;
 }
 
+// Interface para eventos do dataLayer
+interface DataLayerEvent {
+  event: string;
+  [key: string]: unknown;
+}
+
 // Função para enviar eventos para o dataLayer
-const pushToDataLayer = (eventData: any) => {
-  if (typeof window !== 'undefined' && (window as any).dataLayer) {
-    (window as any).dataLayer.push(eventData);
+const pushToDataLayer = (eventData: DataLayerEvent) => {
+  if (typeof window !== 'undefined' && (window as unknown as { dataLayer?: DataLayerEvent[] }).dataLayer) {
+    (window as unknown as { dataLayer: DataLayerEvent[] }).dataLayer.push(eventData);
     console.log('DataLayer Event:', eventData); // Para debug
   }
 };
@@ -222,47 +228,6 @@ export const ContactModal: React.FC = () => {
     });
   };
 
-  // Função para lidar com foco nos campos
-  const handleFieldFocus = (fieldName: string, fieldType: 'input' | 'select') => {
-    pushToDataLayer({
-      event: 'form_field_focus',
-      form_name: 'contact_modal',
-      field_name: fieldName,
-      field_type: fieldType,
-      form_progress: calculateFormProgress(formData),
-      timestamp: new Date().toISOString()
-    });
-  };
-
-  // Função para lidar com blur nos campos
-  const handleFieldBlur = (fieldName: string, fieldValue: string, fieldType: 'input' | 'select') => {
-    const isFilled = fieldValue.trim() !== '';
-    
-    pushToDataLayer({
-      event: 'form_field_blur',
-      form_name: 'contact_modal',
-      field_name: fieldName,
-      field_type: fieldType,
-      field_filled: isFilled,
-      field_value_length: fieldValue.length,
-      form_progress: calculateFormProgress(formData),
-      timestamp: new Date().toISOString()
-    });
-
-    // Se o campo foi preenchido, enviar evento específico
-    if (isFilled) {
-      pushToDataLayer({
-        event: 'form_field_completed',
-        form_name: 'contact_modal',
-        field_name: fieldName,
-        field_type: fieldType,
-        field_value: fieldName === 'email' ? fieldValue : fieldName === 'telefone' ? fieldValue : 'filled', // Não enviar dados sensíveis completos
-        form_progress: calculateFormProgress(formData),
-        timestamp: new Date().toISOString()
-      });
-    }
-  };
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     let processedValue = value;
@@ -384,7 +349,7 @@ export const ContactModal: React.FC = () => {
         form_name: 'contact_modal',
         failure_reason: !isEmailValid ? 'invalid_email' : 'incomplete_form',
         form_progress: calculateFormProgress(formData),
-        filled_fields: Object.entries(formData).filter(([_, value]) => value.trim() !== '').map(([key, _]) => key),
+        filled_fields: Object.entries(formData).filter(([, value]) => value.trim() !== '').map(([key]) => key),
         timestamp: new Date().toISOString()
       });
       return;
@@ -469,7 +434,7 @@ export const ContactModal: React.FC = () => {
         event: 'form_progress_update',
         form_name: 'contact_modal',
         form_progress: progress,
-        filled_fields: Object.entries(formData).filter(([_, value]) => value.trim() !== '').map(([key, _]) => key),
+        filled_fields: Object.entries(formData).filter(([, value]) => value.trim() !== '').map(([key]) => key),
         timestamp: new Date().toISOString()
       });
     }
@@ -552,7 +517,7 @@ export const ContactModal: React.FC = () => {
                   name="telefone"
                   value={formData.telefone}
                   onChange={handlePhoneChange}
-                  onFocus={(e) => {
+                  onFocus={() => {
                     pushToDataLayer({
                       event: 'form_field_focus',
                       form_name: 'contact_modal',
