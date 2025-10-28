@@ -98,7 +98,7 @@ export default function CaptureHero() {
 	return (
 			<div
 				ref={rootRef}
-				className="relative min-h-svh w-full overflow-hidden text-white pt-24 pb-16 md:pt-32 md:pb-20"
+				className="relative min-h-svh w-full overflow-x-hidden text-white pt-8 pb-16 md:pt-12 md:pb-20"
 				style={{ backgroundColor: '#0A0A0A' }}
 			>
 				{/* WebGL Shader Background */}
@@ -107,7 +107,7 @@ export default function CaptureHero() {
 				</div>
 
 				<div 
-					className="relative z-10 flex h-full items-center justify-center text-center px-4 sm:px-6"
+					className="relative z-10 flex justify-center text-center px-4 sm:px-6 pt-4 md:pt-6"
 					style={{ opacity: isLoaded ? 1 : 0 }}
 				>
 					<div>
@@ -136,15 +136,21 @@ export default function CaptureHero() {
 							ref={videoPlaceholderRef}
 							className="mx-auto mt-8 max-w-4xl aspect-video rounded-xl border border-white/20 overflow-hidden"
 						>
-							<iframe
-								width="100%"
-								height="100%"
-								src="https://www.youtube.com/embed/_G_qWXk1ntU?controls=1&rel=0"
-								title="YouTube video player"
-								frameBorder="0"
-								allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-								allowFullScreen
-							></iframe>
+							{/* Container wrapper para ocultar logo do YouTube */}
+							<div className="relative w-full h-full overflow-hidden">
+								{/* Container expandido para ocultar logos laterais */}
+								<div className="relative w-[300%] h-full -left-[100%]">
+									<iframe
+										width="100%"
+										height="100%"
+										src="https://www.youtube.com/embed/_G_qWXk1ntU?controls=0&rel=0&wmode=transparent"
+										title="YouTube video player"
+										frameBorder="0"
+										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+										allowFullScreen
+									></iframe>
+								</div>
+							</div>
 						</div>
 
 						<div
@@ -154,7 +160,7 @@ export default function CaptureHero() {
 							<Button 
 								size="lg"
 								onClick={openModal}
-								className="group relative w-[320px] hover:w-[370px] !bg-white hover:!bg-white text-black px-6 py-3 text-base rounded-lg font-medium tracking-wide shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] transition-all duration-500 overflow-hidden"
+								className="group relative w-[380px] hover:w-[420px] !bg-white hover:!bg-white text-black px-6 py-8 text-base rounded-lg font-medium tracking-wide shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] transition-all duration-500 overflow-hidden"
 							>
 								<span className="group-hover:mr-6 transition-all duration-500">
 									Quero fazer negócio com a Vision AI

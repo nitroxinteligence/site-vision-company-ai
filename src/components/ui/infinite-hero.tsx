@@ -137,7 +137,7 @@ export default function InfiniteHero() {
 						<button
 							type="button"
 							onClick={() => window.open('https://wa.me/5581998132001?text=Olá! Vim pelo Site da VISION AI e gostaria de saber mais sobre as soluções.', '_blank')}
-							className="group relative overflow-hidden bg-white py-3 text-base rounded-lg font-medium tracking-wide text-black transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] w-[240px] hover:w-[290px] flex items-center justify-center"
+							className="group relative overflow-hidden bg-white py-5 text-base rounded-lg font-medium tracking-wide text-black transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] w-[320px] hover:w-[360px] flex items-center justify-center"
 						>
 							<span className="transition-all duration-300 group-hover:mr-6">Quero uma consultoria</span>
 							<div className="absolute right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">

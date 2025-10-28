@@ -414,7 +414,7 @@ export default function ComoFuncionaSection() {
             <Button 
             size="lg"
             onClick={openModal}
-            className="group relative w-[280px] hover:w-[330px] !bg-white hover:!bg-white text-black px-6 py-3 text-base rounded-lg font-medium tracking-wide shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] transition-all duration-500 overflow-hidden"
+            className="group relative w-[380px] hover:w-[420px] !bg-white hover:!bg-white text-black px-6 py-8 text-base rounded-lg font-medium tracking-wide shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] transition-all duration-500 overflow-hidden"
           >
               <span className="group-hover:mr-6 transition-all duration-500">
                 Quero saber mais

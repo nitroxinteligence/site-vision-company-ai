@@ -301,7 +301,7 @@ export default function DetailedRevenueProjectionSection() {
             <Button 
             size="lg"
             onClick={openModal}
-            className="group relative w-[320px] hover:w-[370px] !bg-white hover:!bg-white text-black border border-gray-300 hover:border-gray-400 px-6 py-3 text-base rounded-lg font-medium tracking-wide shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_25px_-5px_rgba(0,0,0,0.1)] transition-all duration-500 overflow-hidden"
+            className="group relative w-[380px] hover:w-[420px] !bg-black hover:!bg-black text-white border border-gray-700 hover:border-gray-600 px-6 py-8 text-base rounded-lg font-medium tracking-wide shadow-[0_4px_6px_-1px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_25px_-5px_rgba(0,0,0,0.4)] transition-all duration-500 overflow-hidden"
           >
               <span className="group-hover:mr-6 transition-all duration-500">
                 Quero fazer negócio com a Vision AI
