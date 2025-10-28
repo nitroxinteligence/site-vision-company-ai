@@ -18,6 +18,7 @@ export default function CaptureHero() {
 	const ctaRef = useRef<HTMLDivElement>(null);
 	const videoPlaceholderRef = useRef<HTMLDivElement>(null); // Ref for video placeholder
 	const [isLoaded, setIsLoaded] = useState(false);
+	const [showVideo, setShowVideo] = useState(false); // Estado para controlar thumbnail/vídeo
 	const { openModal } = useModal();
 
 	useGSAP(
@@ -131,26 +132,55 @@ export default function CaptureHero() {
 							Alta margem. Zero equipe fixa. Operação global.
 						</p>
 
-						{/* Vídeo do YouTube */}
+						{/* Vídeo do YouTube com Thumbnail */}
 						<div
 							ref={videoPlaceholderRef}
-							className="mx-auto mt-8 max-w-4xl aspect-video rounded-xl border border-white/20 overflow-hidden"
+							className="mx-auto mt-8 max-w-4xl aspect-video rounded-2xl overflow-hidden relative shadow-2xl"
+							style={{ border: '1px solid #222222' }}
 						>
-							{/* Container wrapper para ocultar logo do YouTube */}
-							<div className="relative w-full h-full overflow-hidden">
-								{/* Container expandido para ocultar logos laterais */}
-								<div className="relative w-[300%] h-full -left-[100%]">
-									<iframe
-										width="100%"
-										height="100%"
-										src="https://www.youtube.com/embed/_G_qWXk1ntU?controls=0&rel=0&wmode=transparent"
-										title="YouTube video player"
-										frameBorder="0"
-										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-										allowFullScreen
-									></iframe>
+							{!showVideo ? (
+								// Thumbnail personalizada
+								<div 
+									className="relative w-full h-full cursor-pointer group"
+									onClick={() => setShowVideo(true)}
+								>
+									<img
+										src="https://ckwjxuxatlqnuxbfltul.supabase.co/storage/v1/object/sign/docs-site-vision-ai/Thumbnail%20%20Vision%20AI.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wZmZiNWI3ZC0wNWJkLTQxNTQtYTFlZS1kM2Y5MWFhMjc4ZDIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJkb2NzLXNpdGUtdmlzaW9uLWFpL1RodW1ibmFpbCAgVmlzaW9uIEFJLnBuZyIsImlhdCI6MTc2MTY3ODYzNCwiZXhwIjoyMTA4NTc0NjM0fQ.XIkcornQr-RakkkF6SaFt3aDSDQF36Q0dtEi1rYhVLw"
+										alt="Vision AI - Thumbnail do vídeo"
+										className="w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.02]"
+									/>
+									{/* Botão de play */}
+									<div className="absolute inset-0 flex items-center justify-center">
+										<div className="w-20 h-20 bg-white/95 rounded-full flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.3)] transition-all duration-300 group-hover:bg-white group-hover:scale-110 group-hover:shadow-[0_12px_48px_rgba(0,0,0,0.4)]">
+											<svg 
+												className="w-8 h-8 text-black ml-1" 
+												fill="currentColor" 
+												viewBox="0 0 24 24"
+											>
+												<path d="M8 5v14l11-7z"/>
+											</svg>
+										</div>
+									</div>
+									{/* Overlay escuro sutil */}
+									<div className="absolute inset-0 bg-black/10 group-hover:bg-black/5 transition-all duration-500"></div>
 								</div>
-							</div>
+							) : (
+								// Vídeo do YouTube
+								<div className="relative w-full h-full overflow-hidden">
+									{/* Container expandido para ocultar logos laterais */}
+									<div className="relative w-[300%] h-full -left-[100%]">
+										<iframe
+											width="100%"
+											height="100%"
+											src="https://www.youtube.com/embed/_G_qWXk1ntU?controls=0&rel=0&wmode=transparent&autoplay=1"
+											title="YouTube video player"
+											frameBorder="0"
+											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+											allowFullScreen
+										></iframe>
+									</div>
+								</div>
+							)}
 						</div>
 
 						<div
