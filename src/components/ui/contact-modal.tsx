@@ -87,6 +87,11 @@ const calculateFormProgress = (formData: FormData) => {
   return Math.round((filledFields / totalFields) * 100);
 };
 
+// Função para remover formatação do telefone (apenas números)
+const removePhoneFormatting = (phone: string) => {
+  return phone.replace(/\D/g, '');
+};
+
 export const ContactModal: React.FC = () => {
   const { isOpen, closeModal } = useModal();
   const [isVisible, setIsVisible] = useState(false);
@@ -362,7 +367,7 @@ export const ContactModal: React.FC = () => {
       form_data: {
         nome: formData.nome,
         email: formData.email,
-        telefone: formData.telefone,
+        telefone: removePhoneFormatting(formData.telefone),
         atuacao: formData.atuacao,
         prazo_franquia: formData.prazoFranquia,
         investimento: formData.investimento
