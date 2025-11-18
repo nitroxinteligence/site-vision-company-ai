@@ -30,7 +30,7 @@ export default function AgentFormPage() {
   const [agentType, setAgentType] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [fullFormData, setFullFormData] = useState<FormData>({} as FormData);
-  const [isVideoVisible, setIsVideoVisible] = useState(true);
+  // removido: const [isVideoVisible, setIsVideoVisible] = useState(true);
 
   const agentOptions = [
     "Agente SDR", "Agente Closer", "Agente CS", "Agente Financeiro",
@@ -178,8 +178,8 @@ export default function AgentFormPage() {
                 <FirstStepForm key="step1" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
                 <ThirdStepForm key="step2" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
                 <FourthStepForm key="step3" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
-                <PerfilClienteIdealForm key="step4" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
-                <FifthStepForm key="step5" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
+                // Removido: import { PerfilClienteIdealForm } from "@/components/agent-form/perfil-cliente-ideal-form";
+                // Removido: import { FifthStepForm } from "@/components/agent-form/fifth-step-form";
                 <InformationStepForm key="step6" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
                 <SeventhStepForm key="step7" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
                 <EighthStepForm key="step8" onSave={handleSaveStepData} onNext={() => {}} submissionId={submissionId} formData={fullFormData} />,
@@ -196,27 +196,6 @@ export default function AgentFormPage() {
 
   return (
     <>
-      {isVideoVisible ? (
-        <div style={{ position: 'fixed', top: '20px', right: '20px', width: '180px', height: '100px', backgroundColor: '#1C1C1C', borderRadius: '8px', border: '1px solid #272727', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.5)' }}>
-          <button
-            onClick={() => setIsVideoVisible(false)}
-            style={{ position: 'absolute', top: '4px', right: '4px', background: 'rgba(0,0,0,0.7)', border: 'none', color: 'white', borderRadius: '50%', width: '20px', height: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', fontSize: '12px' }}
-            aria-label="Fechar tutorial"
-          >
-            X
-          </button>
-          <div style={{ width: '40px', height: '40px', backgroundColor: 'rgba(0, 0, 0, 0.5)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 5V19L19 12L8 5Z" fill="white"/></svg>
-          </div>
-        </div>
-      ) : (
-        <button
-          onClick={() => setIsVideoVisible(true)}
-          style={{ position: 'fixed', top: '20px', right: '20px', zIndex: 1000, background: '#1C1C1C', border: '1px solid #272727', color: 'white', borderRadius: '8px', padding: '8px 16px', cursor: 'pointer', fontSize: '14px' }}
-        >
-          Tutorial
-        </button>
-      )}
       {renderContent()}
     </>
   );

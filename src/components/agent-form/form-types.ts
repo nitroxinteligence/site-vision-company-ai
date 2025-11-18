@@ -49,14 +49,14 @@ export const formSchema = z.object({
   arquivos_base_conhecimento: z.array(z.string()).optional(),
 
   // Seventh Step
-  sistemas_atuais: z.string().min(1, { message: "Sistema utilizado atualmente é obrigatório" }),
-  campos_personalizados_relevantes: z.string().min(5, { message: "Campos personalizados são obrigatórios" }),
-  regras_movimentacao_etapas: z.string().min(5, { message: "Regras de movimentação são obrigatórias" }),
+  sistemas_atuais: z.string().optional(),
+  campos_personalizados_relevantes: z.string().optional(),
+  regras_movimentacao_etapas: z.string().optional(),
 
   // Eighth Step
-  ferramenta_agendamento: z.string().min(1, { message: "Ferramenta de agendamento é obrigatória" }),
-  disponibilidade_agendamento: z.string().min(5, { message: "Horários disponíveis são obrigatórios" }),
-  info_necessaria_agendamento: z.string().min(5, { message: "Informações para agendamento são obrigatórias" }),
+  ferramenta_agendamento: z.string().optional(),
+  disponibilidade_agendamento: z.string().optional(),
+  info_necessaria_agendamento: z.string().optional(),
 
   // Ninth Step
   regras_operacao: z.string().min(5, { message: "Por favor, forneça informações sobre as regras de operação" }),
@@ -65,7 +65,7 @@ export const formSchema = z.object({
   expectativa_tempo_resposta: z.string().min(5, { message: "Por favor, forneça informações sobre o tempo de resposta" }),
 
   // Thirteenth Step
-  links_importantes: z.string().min(1, { message: "Este campo é obrigatório" }),
+  links_importantes: z.string().optional(),
 
   // Sixteenth Step
   info_adicional_final: z.string().optional(),
