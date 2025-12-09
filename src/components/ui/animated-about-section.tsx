@@ -146,7 +146,7 @@ export default function AnimatedAboutSection() {
 								<p
 									className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white font-semibold mb-6"
 									style={{
-										lineHeight: '0.0',
+										lineHeight: '1.0',
 										hyphens: 'none',
 										WebkitHyphens: 'none',
 										textWrap: 'balance',
