@@ -96,24 +96,24 @@ export function AnimatedAIWorkSection({ title, statistics }: AnimatedAIWorkSecti
   );
 
   return (
-    <section 
+    <section
       ref={rootRef}
-      className="text-black py-38" 
+      className="text-black py-16 sm:py-24 md:py-38"
       style={{ backgroundColor: '#ffffff' }}
     >
-      <div className="container mx-auto px-4 sm:px-6">
-        <div 
-          className="border rounded-2xl p-6 sm:p-10 md:p-16 mx-2 md:mx-4 max-w-8xl mx-auto min-h-96"
+      <div className="w-full px-4 sm:px-6 md:px-8 lg:px-12">
+        <div
+          className="border rounded-2xl p-6 sm:p-10 md:p-16 w-full"
           style={{ borderColor: '#e5e5e5' }}
         >
           {/* Fallback content visible immediately */}
           {!isLoaded && (
             <>
-              <h2 className="title-section text-black text-center mb-16 text-balance">
+              <h2 className="title-section text-black text-center mb-10 sm:mb-14 md:mb-16 px-2 sm:px-4">
                 {title}
               </h2>
-              
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12">
                 {statistics.map((stat, index) => (
                   <StatisticCard 
                     key={`fallback-${index}`}
@@ -126,16 +126,16 @@ export function AnimatedAIWorkSection({ title, statistics }: AnimatedAIWorkSecti
           )}
 
           {/* Animated content */}
-          <h2 
+          <h2
             ref={titleRef}
-            className={`title-section text-black text-center mb-16 text-balance ${!isLoaded ? 'opacity-0 absolute' : ''}`}
+            className={`title-section text-black text-center mb-10 sm:mb-14 md:mb-16 px-2 sm:px-4 ${!isLoaded ? 'opacity-0 absolute' : ''}`}
           >
             {title}
           </h2>
-          
-          <div 
+
+          <div
             ref={cardsRef}
-            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 ${!isLoaded ? 'opacity-0 absolute' : ''}`}
+            className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 md:gap-12 ${!isLoaded ? 'opacity-0 absolute' : ''}`}
           >
             {statistics.map((stat, index) => (
               <StatisticCard 

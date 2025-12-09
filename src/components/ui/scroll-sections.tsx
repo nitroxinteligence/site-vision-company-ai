@@ -209,21 +209,21 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
           ref={(el) => {
             if (el) sectionsRef.current[index] = el;
           }}
-          className={`absolute inset-0 flex flex-col items-center justify-center text-center px-8 ${
+          className={`absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-8 ${
             index === 0 ? 'pt-0' : ''
           } ${
             index === 2 ? 'pb-0' : ''
           }`}
         >
           <div className="w-full flex flex-col items-center justify-center">
-            <h2 className="mx-auto max-w-2xl lg:max-w-4xl text-[clamp(2.25rem,6vw,4rem)] font-medium leading-[0.95] tracking-tight text-center text-white mb-4 w-full">
-              <div className="flex flex-wrap justify-center items-center gap-x-2">
+            <h2 className="mx-auto max-w-2xl lg:max-w-4xl text-[clamp(1.75rem,5vw,4rem)] font-medium leading-[1.1] tracking-tight text-center text-white mb-4 w-full">
+              <div className="flex flex-wrap justify-center items-center gap-x-1.5 sm:gap-x-2">
                 {splitTextIntoWords(section.title)}
               </div>
             </h2>
             {section.subtitle && (
               <p className="mx-auto max-w-2xl md:text-balance text-sm/6 md:text-base/7 font-medium tracking-tight text-white/70 text-center w-full">
-                <div className="flex flex-wrap justify-center items-center gap-x-2">
+                <div className="flex flex-wrap justify-center items-center gap-x-1.5 sm:gap-x-2">
                   {splitTextIntoWords(section.subtitle)}
                 </div>
               </p>

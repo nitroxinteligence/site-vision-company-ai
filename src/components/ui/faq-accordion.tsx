@@ -85,8 +85,8 @@ export default function FAQAccordion() {
               <h2 className="text-heading-2 text-white text-center">
                 Perguntas Frequentes
               </h2>
-              <p className="text-body-lg text-white/70 text-center max-w-2xl mx-auto">
-                Respostas para as principais dúvidas sobre implementação<br /> e resultados com IA.
+              <p className="text-body-lg text-white/70 text-center max-w-2xl mx-auto text-balance">
+                Respostas para as principais dúvidas sobre implementação e resultados com IA.
               </p>
             </div>
           </header>

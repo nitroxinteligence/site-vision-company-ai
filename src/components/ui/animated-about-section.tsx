@@ -86,19 +86,25 @@ export default function AnimatedAboutSection() {
 	);
 
 	return (
-		<section 
+		<section
 			ref={rootRef}
-			className="relative w-full text-white py-16 md:py-24" 
+			className="relative w-full text-white py-16 md:py-24"
 			style={{ backgroundColor: '#0a0a0a' }}
 		>
-			<div 
-				className="container mx-auto px-4 sm:px-6"
+			<div
+				className="container mx-auto px-4 sm:px-6 md:px-8"
 				style={{ opacity: isLoaded ? 1 : 0 }}
 			>
 				<div className="flex items-center justify-center mb-12">
-					<h2 
+					<h2
 						ref={h2Ref}
-						className="text-heading-2 text-center text-balance"
+						className="text-heading-2 text-center"
+						style={{
+							hyphens: 'none',
+							WebkitHyphens: 'none',
+							textWrap: 'balance',
+							lineHeight: '1.3'
+						} as React.CSSProperties}
 					>
 						Empresários ajudando empresários a crescer com IA
 					</h2>
@@ -112,26 +118,52 @@ export default function AnimatedAboutSection() {
 							borderColor: '#141414'
 						}}
 					>
-						<div 
+						<div
 							ref={cardRef}
 							className="w-full p-6 sm:p-8 md:p-12 rounded-2xl border relative min-h-[20rem]"
-							style={{ 
+							style={{
 								backgroundColor: '#141414',
 								borderColor: '#323232',
-								boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)'
+								boxShadow: 'inset 30px 30px 60px rgba(255, 255, 255, 0.08)',
+								hyphens: 'none',
+								WebkitHyphens: 'none'
 							}}
 						>
-							<div 
+							<div
 								ref={pRef}
 								className="text-center max-w-3xl mx-auto"
 							>
-								<p className="text-body-md text-white/70 mb-4">
+								<p
+									className="text-body-md text-white/70 mb-4"
+									style={{
+										hyphens: 'none',
+										WebkitHyphens: 'none',
+										lineHeight: '1.6'
+									}}
+								>
 									Vision AI nasceu para resolver o maior dilema do dono de negócio:
 								</p>
-								<p className="text-heading-3 text-white font-semibold mb-6 text-balance" style={{ lineHeight: '0.8' }}>
+								<p
+									className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white font-semibold mb-6"
+									style={{
+										lineHeight: '0.0',
+										hyphens: 'none',
+										WebkitHyphens: 'none',
+										textWrap: 'balance',
+										whiteSpace: 'normal'
+									} as React.CSSProperties}
+								>
 									Crescer sem se tornar refém do próprio trabalho.
 								</p>
-								<p className="text-body-md text-white/70">
+								<p
+									className="text-body-md text-white/70"
+									style={{
+										hyphens: 'none',
+										WebkitHyphens: 'none',
+										lineHeight: '1.6',
+										textWrap: 'pretty'
+									} as React.CSSProperties}
+								>
 									Combinamos experiência prática de mais de 10 anos escalando empresas reais com a tecnologia de IA mais avançada do mercado, desenvolvida sob medida para cada negócio. Nosso time é especialista em transformar processos complexos em operações leves, lucrativas e escaláveis.
 								</p>
 							</div>

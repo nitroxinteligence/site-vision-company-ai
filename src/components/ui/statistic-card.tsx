@@ -58,10 +58,10 @@ export function StatisticCard({ statistic, description }: StatisticCardProps) {
   const { ref, isInView } = useInView({ threshold: 0.3, triggerOnce: true });
   
   return (
-    <div 
+    <div
       ref={ref}
-      className="flex flex-col items-center justify-center gap-6 p-8 rounded-2xl border h-80 w-full relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
-      style={{ 
+      className="flex flex-col items-center justify-center gap-4 sm:gap-6 p-6 sm:p-8 rounded-2xl border min-h-[280px] sm:h-80 w-full relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
+      style={{
         backgroundColor: '#ffffff',
         borderColor: '#e5e5e5',
         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)'
@@ -81,15 +81,15 @@ export function StatisticCard({ statistic, description }: StatisticCardProps) {
 
       {/* Área de Texto */}
       <div className="text-center">
-        <h3 
-          className="title-statistic text-black mb-4 font-medium" 
-          style={{ 
-            fontSize: /\d/.test(statistic) ? '58px' : '30px' // 58px para números, 30px para texto
+        <h3
+          className="title-statistic text-black mb-3 sm:mb-4 font-medium"
+          style={{
+            fontSize: /\d/.test(statistic) ? 'clamp(40px, 8vw, 58px)' : 'clamp(24px, 5vw, 30px)'
           }}
         >
           <CountUpNumber value={statistic} shouldStart={isInView} />
         </h3>
-        <p className="text-card font-medium leading-relaxed text-base" style={{ color: '#6b7280' }}>
+        <p className="text-card font-medium leading-relaxed text-sm sm:text-base px-2" style={{ color: '#6b7280' }}>
           {description}
         </p>
       </div>

@@ -134,8 +134,8 @@ export default function AnimatedAgentsSection() {
       className="relative w-full text-white"
       style={{ backgroundColor: "#0A0A0A" }}
     >
-      <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10">
-        <div className="text-center mb-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
+        <div className="text-center mb-12 md:mb-16">
           {/* Badge */}
           <div
             ref={badgeRef}
@@ -155,21 +155,23 @@ export default function AnimatedAgentsSection() {
           </div>
 
           {/* Título */}
-          <h2 
-            ref={h2Ref} 
-            className="title-section text-white text-center"
-            style={{ opacity: isLoaded ? undefined : 1 }}
+          <h2
+            ref={h2Ref}
+            className="title-section text-white text-center max-w-4xl mx-auto"
+            style={{
+              opacity: isLoaded ? undefined : 1,
+              textWrap: 'balance' as const
+            }}
           >
-            Agentes inteligentes <br />
-            que trabalham por você
+            Agentes inteligentes que trabalham por você
           </h2>
         </div>
 
         {/* Card com padding e margem bem estruturadas */}
-        <div className="flex justify-center mb-16">
+        <div className="flex justify-center mb-12 md:mb-16">
           <div
             ref={cardRef}
-            className="flex flex-col items-center justify-center max-w-4xl w-full px-10 py-6 rounded-2xl border relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
+            className="flex flex-col items-center justify-center max-w-4xl w-full px-6 sm:px-8 md:px-10 py-6 md:py-8 rounded-2xl border relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
             style={{
               backgroundColor: "#141414",
               borderColor: "#323232",
@@ -179,15 +181,16 @@ export default function AnimatedAgentsSection() {
           >
             <p
               ref={pRef}
-              className="text-description text-white/70 text-center max-w-lg mx-auto font-medium leading-relaxed"
-              style={{ opacity: isLoaded ? undefined : 1 }}
+              className="text-description text-white/70 text-center max-w-2xl mx-auto font-medium leading-relaxed"
+              style={{
+                opacity: isLoaded ? undefined : 1,
+                textWrap: 'balance' as const
+              }}
             >
-              Colocamos a inteligência artificial para assumir tarefas
-              repetitivas, melhorar atendimento e aumentar vendas.
+              Colocamos a inteligência artificial para assumir tarefas repetitivas, melhorar atendimento e aumentar vendas.
               <br />
               <br />
-              Você reduz custos, ganha tempo e escala com qualidade sem precisar
-              aumentar equipe.
+              Você reduz custos, ganha tempo e escala com qualidade sem precisar aumentar equipe.
             </p>
           </div>
         </div>
@@ -195,8 +198,8 @@ export default function AnimatedAgentsSection() {
 
       {/* Fallback para performance */}
       {!isLoaded && (
-        <div className="max-w-7xl mx-auto px-4 md:px-8 lg:px-10">
-          <div className="text-center mb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-10">
+          <div className="text-center mb-12 md:mb-16">
             <div
               className="inline-flex items-center px-4 py-2 text-feature uppercase border mb-6"
               style={{
@@ -211,27 +214,30 @@ export default function AnimatedAgentsSection() {
             >
               A nova forma de crescer
             </div>
-            <h2 className="title-section text-white text-center">
-              Agentes inteligentes <br />
-              que trabalham por você
+            <h2
+              className="title-section text-white text-center max-w-4xl mx-auto"
+              style={{ textWrap: 'balance' as const }}
+            >
+              Agentes inteligentes que trabalham por você
             </h2>
           </div>
-          <div className="flex justify-center mb-16">
+          <div className="flex justify-center mb-12 md:mb-16">
             <div
-              className="flex flex-col items-center justify-center max-w-4xl w-full px-10 py-6 rounded-2xl border relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
+              className="flex flex-col items-center justify-center max-w-4xl w-full px-6 sm:px-8 md:px-10 py-6 md:py-8 rounded-2xl border relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
               style={{
                 backgroundColor: "#141414",
                 borderColor: "#323232",
                 boxShadow: "inset 30px 30px 60px rgba(255, 255, 255, 0.08)",
               }}
             >
-              <p className="text-description text-white/70 text-center max-w-lg mx-auto font-medium leading-relaxed">
-                Colocamos a inteligência artificial para assumir tarefas
-                repetitivas, melhorar atendimento e aumentar vendas.
+              <p
+                className="text-description text-white/70 text-center max-w-2xl mx-auto font-medium leading-relaxed"
+                style={{ textWrap: 'balance' as const }}
+              >
+                Colocamos a inteligência artificial para assumir tarefas repetitivas, melhorar atendimento e aumentar vendas.
                 <br />
                 <br />
-                Você reduz custos, ganha tempo e escala com qualidade sem
-                precisar aumentar equipe.
+                Você reduz custos, ganha tempo e escala com qualidade sem precisar aumentar equipe.
               </p>
             </div>
           </div>

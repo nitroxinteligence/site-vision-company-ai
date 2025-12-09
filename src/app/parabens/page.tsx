@@ -1,6 +1,14 @@
-
 import React from 'react';
+import type { Metadata } from 'next';
 import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
+
+export const metadata: Metadata = {
+  title: "Cadastro Realizado | Vision AI",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 export default function ParabensPage() {
   return (

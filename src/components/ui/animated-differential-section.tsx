@@ -113,21 +113,21 @@ export const AnimatedDifferentialSection = ({
   );
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      className="relative w-full text-white py-40" 
+      className="relative w-full text-white py-20 md:py-32 lg:py-40"
       style={{ backgroundColor: '#0A0A0A' }}
     >
       {/* Radial glow de fundo */}
-      <div 
+      <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background: 'radial-gradient(circle at center, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 15%, transparent 40%)',
           zIndex: 0
         }}
       />
-      
-      <div className="container mx-auto px-6 relative z-10">
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Badge acima do título */}
         <div className="flex items-center justify-center mb-8">
           <div 
@@ -148,12 +148,12 @@ export const AnimatedDifferentialSection = ({
         
         {/* Título centralizado */}
         <div className="flex items-center justify-center mb-16">
-          <h2 
+          <h2
             ref={titleRef}
-            className="title-section text-white text-center"
+            className="title-section text-white text-center text-balance"
             style={{ opacity: isLoaded ? undefined : 1 }}
           >
-            Por que Vision AI <br />é diferente
+            Por que Vision AI é diferente
           </h2>
         </div>
         
@@ -179,7 +179,7 @@ export const AnimatedDifferentialSection = ({
         {/* Fallback para performance */}
         {!isLoaded && (
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <div className="container mx-auto px-6">
+            <div className="container mx-auto px-4 md:px-6">
               <div className="flex items-center justify-center mb-8">
                 <div 
                   className="px-4 py-2 rounded-sm border text-sm font-medium"
@@ -197,7 +197,7 @@ export const AnimatedDifferentialSection = ({
                 </div>
               </div>
               <div className="flex items-center justify-center mb-16">
-                <h2 className="title-section text-white text-center">
+                <h2 className="title-section text-white text-center text-balance">
                   {title}
                 </h2>
               </div>

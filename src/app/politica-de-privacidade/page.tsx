@@ -3,6 +3,9 @@
 import { useRouter } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 
+// Metadata movida para layout.tsx ou como generateMetadata em arquivo separado
+// pois este componente é 'use client'
+
 export default function PoliticaPrivacidade() {
   const router = useRouter();
 

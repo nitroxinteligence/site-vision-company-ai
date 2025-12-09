@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { ConditionalNavbar } from "@/components/ui/conditional-navbar";
+import { generateStructuredData } from "@/lib/structured-data";
 // Teste de scroll em desenvolvimento
 import "@/lib/scroll-test";
 // Inicialização do GSAP
@@ -15,26 +16,75 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Vision AI - Sua empresa na Era da IA",
-  description: "Soluções avançadas de IA.",
-  keywords: "inteligência artificial, agentes de IA, IA, machine learning",
-  authors: [{ name: "Vision AI Team" }],
+  metadataBase: new URL('https://visioncompany.ai'),
+  title: {
+    default: "Vision AI | Agentes de IA para Empresas - Automatize e Escale",
+    template: "%s | Vision AI",
+  },
+  description: "Agentes de IA personalizados para automatizar processos, reduzir custos operacionais e escalar seu negócio. Consultoria gratuita para empresas que querem crescer com inteligência artificial.",
+  keywords: [
+    "IA para empresas",
+    "Automação com IA",
+    "Agentes de IA",
+    "inteligência artificial empresarial",
+    "automação de processos",
+    "agentes inteligentes",
+    "IA corporativa",
+    "machine learning",
+    "chatbot empresarial",
+    "automação comercial",
+  ],
+  authors: [{ name: "Vision AI", url: "https://visioncompany.ai" }],
+  creator: "Vision AI",
+  publisher: "Vision AI",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
   icons: {
     icon: '/favicon.svg',
     shortcut: '/favicon.svg',
     apple: '/favicon.svg',
   },
   openGraph: {
-    title: "Vision AI - Sua empresa na Era da IA",
-    description: "Soluções avançadas de IA.",
     type: "website",
     locale: "pt_BR",
+    alternateLocale: "en_US",
+    url: "https://visioncompany.ai",
+    siteName: "Vision AI",
+    title: "Vision AI | Agentes de IA para Empresas - Automatize e Escale",
+    description: "Agentes de IA personalizados para automatizar processos, reduzir custos operacionais e escalar seu negócio. Consultoria gratuita.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Vision AI - Agentes de IA para Empresas",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Vision AI - Sua empresa na Era da IA",
-    description: "Soluções avançadas de IA.",
+    title: "Vision AI | Agentes de IA para Empresas",
+    description: "Automatize processos e escale seu negócio com agentes de IA personalizados.",
+    images: ["/og-image.png"],
+    creator: "@visioncompanyai",
   },
+  alternates: {
+    canonical: "https://visioncompany.ai",
+    languages: {
+      "pt-BR": "https://visioncompany.ai",
+      "en": "https://visioncompany.ai/en",
+    },
+  },
+  category: "technology",
 };
 
 export const viewport = {
@@ -65,6 +115,15 @@ export default function RootLayout({
           }}
         />
         {/* End Google Tag Manager */}
+
+        {/* JSON-LD Structured Data */}
+        {generateStructuredData().map((schema, index) => (
+          <script
+            key={index}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          />
+        ))}
       </head>
       <body
         className={`${inter.variable} font-sans antialiased`}

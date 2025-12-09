@@ -12,7 +12,7 @@ export const MinimalistTextEffect = ({
     const svgRef = useRef<SVGSVGElement>(null);
     const [cursor, setCursor] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
-    const [ripplePosition, setRipplePosition] = useState({ cx: "50%", cy: "50%" });
+    const [ripplePosition, setRipplePosition] = useState({ cx: "50%", cy: "50%", r: "30%" });
 
 
     useEffect(() => {
@@ -24,6 +24,7 @@ export const MinimalistTextEffect = ({
             setRipplePosition({
                 cx: `${cxPercentage}%`,
                 cy: `${cyPercentage}%`,
+                r: "30%",
             });
         }
     }, [cursor]);
@@ -74,6 +75,8 @@ export const MinimalistTextEffect = ({
                     <motion.radialGradient
                         id="inverseMask"
                         gradientUnits="userSpaceOnUse"
+                        cx="50%"
+                        cy="50%"
                         r="30%"
                         animate={ripplePosition}
                         transition={{
@@ -109,7 +112,8 @@ export const MinimalistTextEffect = ({
                     fill="url(#linearGradient)"
                     mask="url(#revealMask)"
                     className="font-sans font-semibold tracking-wider"
-                    style={{ fontSize: 48 }}
+                    style={{ fontSize: 48, opacity: 0.1 }}
+                    initial={{ opacity: 0.1 }}
                     animate={{
                         opacity: isHovered ? 1 : 0.1,
                     }}
