@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import { useGSAP } from "@/lib/gsap-config";
 
 interface ScrollSectionsProps {
@@ -13,20 +13,24 @@ interface ScrollSectionsProps {
 
 export default function ScrollSections({ sections, className = "" }: ScrollSectionsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const sectionsRef = useRef<HTMLDivElement[]>([]);
+  const sectionsRef = useRef<Array<HTMLDivElement | null>>([]);
 
   const { gsap, ScrollTrigger } = useGSAP();
 
-  useEffect(() => {
-    if (!containerRef.current || sectionsRef.current.length === 0) return;
+  useLayoutEffect(() => {
+    if (!containerRef.current) return;
+    if (sectionsRef.current.length !== sections.length) return;
+    if (sectionsRef.current.some((section) => !section)) return;
 
     const container = containerRef.current;
-    const sectionElements = sectionsRef.current.filter(Boolean);
-
-    if (sectionElements.length === 0) return;
+    const sectionElements = sectionsRef.current.slice();
+    if (sectionElements.length < 3) return;
+    if (sectionElements.some((section) => !section)) return;
+    const resolvedSections = sectionElements as HTMLDivElement[];
+    const scrollDistance = Math.max(1, resolvedSections.length - 1) * 100;
 
     // Adicionar will-change para otimização de hardware
-    sectionElements.forEach(section => {
+    resolvedSections.forEach(section => {
       section.style.willChange = 'transform, opacity';
     });
 
@@ -36,7 +40,7 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
         trigger: container,
         pin: true,
         start: "top top",
-        end: "+=200%", // Reduzido de 400% para 200% - menos cálculos
+        end: `+=${scrollDistance}%`, // Reduzido de 400% para 200% - menos cálculos
         scrub: 0.5, // Reduzido de 1 para 0.5 - mais responsivo
         anticipatePin: 1,
         invalidateOnRefresh: true,
@@ -46,7 +50,7 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
     });
 
     // Configurar estado inicial - substituindo blur por alternativas mais leves
-    sectionElements.forEach((section, index) => {
+    resolvedSections.forEach((section, index) => {
       if (index === 0) {
         gsap.set(section, { 
           opacity: 1, 
@@ -67,7 +71,7 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
     });
 
     // Preparar palavras de todas as seções
-    const allSectionWords = sectionElements.map(section => 
+    const allSectionWords = resolvedSections.map(section => 
       section.querySelectorAll('.word')
     );
 
@@ -111,7 +115,7 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
       .to({}, { duration: 0.3 })
       
       // Transição para seção 2 - sem blur
-      .to(sectionElements[0], {
+      .to(resolvedSections[0], {
         opacity: 0,
         scale: 0.9,
         rotationX: -15, // Substitui blur por rotação 3D
@@ -120,7 +124,7 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
         ease: "power2.inOut",
         force3D: true
       })
-      .to(sectionElements[1], {
+      .to(resolvedSections[1], {
         opacity: 1,
         scale: 1,
         rotationX: 0,
@@ -148,7 +152,7 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
       .to({}, { duration: 0.3 })
       
       // Transição para seção 3 - sem blur
-      .to(sectionElements[1], {
+      .to(resolvedSections[1], {
         opacity: 0,
         scale: 0.9,
         rotationX: -15,
@@ -157,7 +161,7 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
         ease: "power2.inOut",
         force3D: true
       })
-      .to(sectionElements[2], {
+      .to(resolvedSections[2], {
         opacity: 1,
         scale: 1,
         rotationX: 0,
@@ -181,10 +185,16 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
       })
       .addLabel("end");
 
+    const refreshId = requestAnimationFrame(() => ScrollTrigger.refresh());
+
     // Cleanup
     return () => {
+      cancelAnimationFrame(refreshId);
+      tl.scrollTrigger?.kill();
       tl.kill();
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+      resolvedSections.forEach(section => {
+        section.style.willChange = "";
+      });
     };
   }, [sections, gsap, ScrollTrigger]);
 
@@ -207,7 +217,7 @@ export default function ScrollSections({ sections, className = "" }: ScrollSecti
         <div
           key={`section-${section.title.replace(/\s+/g, '-').toLowerCase()}-${index}`}
           ref={(el) => {
-            if (el) sectionsRef.current[index] = el;
+            sectionsRef.current[index] = el;
           }}
           className={`absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-8 ${
             index === 0 ? 'pt-0' : ''

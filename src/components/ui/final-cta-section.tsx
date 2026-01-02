@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
 import AnimatedGradientBackground from "@/components/ui/animated-gradient-background";
 import { useModal } from "@/components/providers/modal-provider";
+import { useTranslations } from "@/components/providers/language-provider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -15,6 +16,8 @@ export default function FinalCtaSection() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const { openModal } = useModal();
+  const copy = useTranslations();
+  const finalCta = copy.home.cpt.finalCta;
 
   useGSAP(
     () => {
@@ -87,10 +90,10 @@ export default function FinalCtaSection() {
         {/* Título Principal */}
         <div ref={titleRef} className="mb-16 max-w-8xl mx-auto text-center">
           <h1 className="title-responsive-xl text-white mb-4">
-            Esse valor de investimento pode aumentar a qualquer momento.
+            {finalCta.titleLine1}
           </h1>
           <h2 className="title-responsive-xl text-white">
-            Aplique agora!
+            {finalCta.titleLine2}
           </h2>
         </div>
 
@@ -102,7 +105,7 @@ export default function FinalCtaSection() {
             className="group relative w-[380px] hover:w-[420px] !bg-white hover:!bg-white text-black px-6 py-8 text-base rounded-lg font-medium tracking-wide shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] transition-all duration-500 overflow-hidden"
           >
             <span className="group-hover:mr-6 transition-all duration-500">
-              Quero saber mais
+              {finalCta.cta}
             </span>
             <div className="absolute right-6 top-1/2 -translate-y-1/2 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

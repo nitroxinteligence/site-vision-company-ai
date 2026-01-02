@@ -8,12 +8,16 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/components/providers/modal-provider";
 import { DollarSign, TrendingUp, Clock, Target } from 'lucide-react';
+import { useTranslations } from "@/components/providers/language-provider";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function RevenueProjectionSection() {
   const { openModal } = useModal();
   const [isLoaded, setIsLoaded] = useState(false);
+  const copy = useTranslations();
+  const revenue = copy.home.cpt.revenue;
+  const fallback = revenue.fallback;
   const rootRef = useRef<HTMLElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
   const h2Ref = useRef<HTMLHeadingElement>(null);
@@ -145,7 +149,7 @@ export default function RevenueProjectionSection() {
               backgroundClip: 'text'
             }}
           >
-            PROJEÇÃO DE RECEITA
+            {revenue.badge}
           </div>
         </div>
 
@@ -155,7 +159,7 @@ export default function RevenueProjectionSection() {
             ref={h2Ref}
             className={`title-responsive-xl text-black text-center ${!isLoaded ? 'opacity-0' : ''}`}
           >
-            Fature R$ 21.850,00 a partir do 3º mês com receita recorrente!
+            {revenue.title}
           </h2>
         </div>
 
@@ -165,7 +169,7 @@ export default function RevenueProjectionSection() {
             ref={introTextRef}
             className={`title-responsive-lg text-black text-center ${!isLoaded ? 'opacity-0' : ''}`}
           >
-            O que esse mercado pode te proporcionar...
+            {revenue.intro}
           </h3>
         </div>
 
@@ -196,10 +200,10 @@ export default function RevenueProjectionSection() {
               </div>
               <div className="text-center">
                 <h3 className="font-medium text-black mb-2 text-balance" style={{ fontSize: '1.5rem' }}>
-                  Renda recorrente e crescente
+                  {revenue.bullets[0].title}
                 </h3>
                 <p className="text-body-sm font-medium text-gray-600">
-                  Clientes pagam mensalidades.
+                  {revenue.bullets[0].description}
                 </p>
               </div>
             </div>
@@ -225,10 +229,10 @@ export default function RevenueProjectionSection() {
               </div>
               <div className="text-center">
                 <h3 className="font-medium text-black mb-2 text-balance" style={{ fontSize: '1.5rem' }}>
-                  Escalabilidade sem barreiras
+                  {revenue.bullets[1].title}
                 </h3>
                 <p className="text-body-sm font-medium text-gray-600">
-                  Você pode atender empresas no Mundo inteiro, sem sair de casa.
+                  {revenue.bullets[1].description}
                 </p>
               </div>
             </div>
@@ -254,10 +258,16 @@ export default function RevenueProjectionSection() {
               </div>
               <div className="text-center">
                 <h3 className="font-medium text-black mb-2 text-balance" style={{ fontSize: '1.5rem' }}>
-                  Liberdade<br /> de tempo
+                  {revenue.bullets[2].title}
+                  {revenue.bullets[2].titleLine2 ? (
+                    <>
+                      <br />
+                      {revenue.bullets[2].titleLine2}
+                    </>
+                  ) : null}
                 </h3>
                 <p className="text-body-sm font-medium text-gray-600">
-                  Trabalhe de onde quiser, sem funcionários fixos.
+                  {revenue.bullets[2].description}
                 </p>
               </div>
             </div>
@@ -283,10 +293,16 @@ export default function RevenueProjectionSection() {
               </div>
               <div className="text-center">
                 <h3 className="font-medium text-black mb-2 text-balance" style={{ fontSize: '1.5rem' }}>
-                  Mercado<br /> em expansão
+                  {revenue.bullets[3].title}
+                  {revenue.bullets[3].titleLine2 ? (
+                    <>
+                      <br />
+                      {revenue.bullets[3].titleLine2}
+                    </>
+                  ) : null}
                 </h3>
                 <p className="text-body-sm font-medium text-gray-600">
-                  Seja pioneiro em um mercado que cresce exponencialmente.
+                  {revenue.bullets[3].description}
                 </p>
               </div>
             </div>
@@ -303,7 +319,7 @@ export default function RevenueProjectionSection() {
               className="group relative w-[380px] hover:w-[420px] !bg-black hover:!bg-black text-white border border-gray-700 hover:border-gray-600 px-6 py-8 text-base rounded-lg font-medium tracking-wide shadow-[0_4px_6px_-1px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_25px_-5px_rgba(0,0,0,0.4)] transition-all duration-500 overflow-hidden"
             >
               <span className="group-hover:mr-6 transition-all duration-500">
-                Quero ser pioneiro no mercado de IA
+                {revenue.cta}
               </span>
               <div className="absolute right-6 top-1/2 -translate-y-1/2 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -329,19 +345,19 @@ export default function RevenueProjectionSection() {
                    WebkitTextFillColor: 'transparent',
                    backgroundClip: 'text'
                  }}>
-              PROJEÇÃO DE RECEITA
+              {revenue.badge}
             </div>
           </div>
           
           <div className="flex items-center justify-center mb-12">
             <h2 className="title-responsive-xl text-black text-center">
-              O que você ganha quando<br />a IA trabalha por você
+              {fallback.title}
             </h2>
           </div>
           
           <div className="flex justify-center mb-16">
             <p className="text-description text-black/70 text-center max-w-4xl mx-auto font-medium leading-relaxed">
-              Não é só sobre tecnologia. É sobre transformar sua vida. Quando você tem sistemas inteligentes cuidando do seu negócio, você finalmente consegue o que sempre quis: mais dinheiro, menos trabalho e tempo para viver.
+              {fallback.description}
             </p>
           </div>
           
@@ -356,10 +372,10 @@ export default function RevenueProjectionSection() {
                 </div>
                 <div>
                   <h4 className="text-black font-medium mb-2" style={{ fontSize: '18px' }}>
-                    Renda recorrente previsível
+                    {fallback.bullets[0].title}
                   </h4>
                   <p className="text-gray-600 font-medium leading-relaxed" style={{ fontSize: '14px' }}>
-                    Sistemas automatizados geram receita 24/7, mesmo quando você está dormindo ou viajando.
+                    {fallback.bullets[0].description}
                   </p>
                 </div>
               </div>
@@ -372,10 +388,10 @@ export default function RevenueProjectionSection() {
                 </div>
                 <div>
                   <h4 className="text-black font-medium mb-2" style={{ fontSize: '18px' }}>
-                    Crescimento sem limite
+                    {fallback.bullets[1].title}
                   </h4>
                   <p className="text-gray-600 font-medium leading-relaxed" style={{ fontSize: '14px' }}>
-                    Escale para milhões sem contratar mais funcionários ou aumentar sua carga de trabalho.
+                    {fallback.bullets[1].description}
                   </p>
                 </div>
               </div>
@@ -388,10 +404,10 @@ export default function RevenueProjectionSection() {
                 </div>
                 <div>
                   <h4 className="text-black font-medium mb-2" style={{ fontSize: '18px' }}>
-                    Liberdade total de tempo
+                    {fallback.bullets[2].title}
                   </h4>
                   <p className="text-gray-600 font-medium leading-relaxed" style={{ fontSize: '14px' }}>
-                    Trabalhe quando quiser, de onde quiser. Sua empresa funciona perfeitamente sem você.
+                    {fallback.bullets[2].description}
                   </p>
                 </div>
               </div>
@@ -404,10 +420,10 @@ export default function RevenueProjectionSection() {
                 </div>
                 <div>
                   <h4 className="text-black font-medium mb-2" style={{ fontSize: '18px' }}>
-                    Sonhos finalmente realizáveis
+                    {fallback.bullets[3].title}
                   </h4>
                   <p className="text-gray-600 font-medium leading-relaxed" style={{ fontSize: '14px' }}>
-                    Aquela viagem, aquela casa, aquele tempo com a família. Tudo se torna possível.
+                    {fallback.bullets[3].description}
                   </p>
                 </div>
               </div>
@@ -420,7 +436,7 @@ export default function RevenueProjectionSection() {
               disabled
               className="border border-black/30 bg-gradient-to-r from-black/20 to-black/10 px-6 py-3 text-base rounded-lg font-medium tracking-wide text-black/50 backdrop-blur-sm cursor-not-allowed opacity-50"
             >
-              Quero transformar minha vida com IA
+              {fallback.cta}
             </Button>
           </div>
         </div>

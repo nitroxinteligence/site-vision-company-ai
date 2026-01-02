@@ -3,11 +3,14 @@
 import { useRef } from 'react';
 
 import { useCountUp } from '@/hooks/useCountUp';
+import { useTranslations } from '@/components/providers/language-provider';
 
 export default function AiStatisticsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const percentage2023Ref = useRef<HTMLDivElement>(null);
   const percentage2030Ref = useRef<HTMLDivElement>(null);
+  const copy = useTranslations();
+  const stats = copy.home.cpt.stats;
 
   // Hooks de contagem para os percentuais
   const percentage2023 = useCountUp({ 
@@ -44,16 +47,26 @@ export default function AiStatisticsSection() {
         {/* Título Principal */}
         <div className="flex items-center justify-center mb-12">
           <h2 className="title-responsive-xl text-white text-center text-balance">
-            Em 2023, apenas <span style={{ color: '#343434' }}>{percentage2023.value}</span><br className="hidden md:block" />
-            das empresas usavam IA
+            {stats.titlePrefix}{" "}
+            <span style={{ color: '#343434' }}>{percentage2023.value}</span>
+            <br className="hidden md:block" />
+            {stats.titleSuffix}
           </h2>
         </div>
 
         {/* Texto Introdutório */}
         <div className="flex justify-center mb-12">
           <p className="text-body-lg text-white/70 text-center max-w-4xl mx-auto font-medium leading-relaxed text-balance">
-            Até 2030, a previsão é que <span className="text-white font-semibold" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.3)' }}>{percentage2030.value}</span> utilizem diariamente.<br className="hidden md:block" />
-            Esta é a sua oportunidade de estar à frente da curva.
+            {stats.introPrefix}{" "}
+            <span
+              className="text-white font-semibold"
+              style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.3)' }}
+            >
+              {percentage2030.value}
+            </span>{" "}
+            {stats.introSuffix}
+            <br className="hidden md:block" />
+            {stats.introFootnote}
           </p>
         </div>
 
@@ -79,7 +92,7 @@ export default function AiStatisticsSection() {
                  <div className="flex flex-col sm:flex-row justify-center items-center space-y-8 sm:space-y-0 sm:space-x-8 mb-8">
                     <div className="text-center">
                       <div ref={percentage2023Ref} className="text-7xl md:text-5xl font-bold mb-2" style={{ color: '#343434' }}>{percentage2023.value}</div>
-                      <div className="text-sm text-white/70">2023</div>
+                      <div className="text-sm text-white/70">{stats.year2023}</div>
                     </div>
                    
                    <div className="flex items-center">
@@ -89,12 +102,12 @@ export default function AiStatisticsSection() {
                    
                    <div className="text-center">
                      <div ref={percentage2030Ref} className="text-7xl md:text-5xl font-bold text-white mb-2" style={{ textShadow: '0 0 10px rgba(255, 255, 255, 0.3)' }}>{percentage2030.value}</div>
-                     <div className="text-sm text-white/70">2030</div>
+                     <div className="text-sm text-white/70">{stats.year2030}</div>
                    </div>
                  </div>
                 
                 <p className="text-description text-white/70 font-medium leading-relaxed text-balance">
-                  O mercado de IA está em crescimento exponencial. Empresas que adotarem essa tecnologia agora terão vantagem competitiva significativa nos próximos anos.
+                  {stats.body}
                 </p>
               </div>
             </div>

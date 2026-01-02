@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import { WebGLShader } from "./web-gl-shader";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/components/providers/modal-provider";
+import { useTranslations } from "@/components/providers/language-provider";
 
 gsap.registerPlugin(SplitText);
 
@@ -20,6 +21,8 @@ export default function CaptureHero() {
 	const [isLoaded, setIsLoaded] = useState(false);
 	const [showVideo, setShowVideo] = useState(false); // Estado para controlar thumbnail/vídeo
 	const { openModal } = useModal();
+	const copy = useTranslations();
+	const hero = copy.home.cpt.hero;
 
 	useGSAP(
 		() => {
@@ -116,20 +119,20 @@ export default function CaptureHero() {
 							ref={h1Ref}
 							className="text-heading-1 text-balance"
 						>
-							De zero a R$ 70.610/mês <br className="md:hidden" />em 12 meses.
+							{hero.titleLine1} <br className="md:hidden" />{hero.titleLine2}
 						</h1>
 						<h2
 							ref={h2Ref}
 							className="text-heading-3 mx-auto mt-4 max-w-3xl text-white/80 text-balance"
 						>
-							A 1ª franquia de agência de IA do mundo.
+							{hero.subtitle}
 						</h2>
 						
 						<p
 							ref={pRef}
 							className="text-body-lg mx-auto mt-6 max-w-3xl text-balance text-white/80"
 						>
-							Alta margem. Zero equipe fixa. Operação global.
+							{hero.description}
 						</p>
 
 						{/* Vídeo do YouTube com Thumbnail */}
@@ -146,7 +149,7 @@ export default function CaptureHero() {
 								>
 									<img
 										src="https://ckwjxuxatlqnuxbfltul.supabase.co/storage/v1/object/sign/docs-site-vision-ai/Thumbnail%20%20Vision%20AI.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8wZmZiNWI3ZC0wNWJkLTQxNTQtYTFlZS1kM2Y5MWFhMjc4ZDIiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJkb2NzLXNpdGUtdmlzaW9uLWFpL1RodW1ibmFpbCAgVmlzaW9uIEFJLnBuZyIsImlhdCI6MTc2MTY3ODYzNCwiZXhwIjoyMTA4NTc0NjM0fQ.XIkcornQr-RakkkF6SaFt3aDSDQF36Q0dtEi1rYhVLw"
-										alt="Vision AI - Thumbnail do vídeo"
+										alt={hero.videoAlt}
 										className="w-full h-full object-cover transition-all duration-500 group-hover:scale-[1.02]"
 									/>
 									{/* Botão de play */}
@@ -173,7 +176,7 @@ export default function CaptureHero() {
 											width="100%"
 											height="100%"
 											src="https://www.youtube.com/embed/_G_qWXk1ntU?controls=0&rel=0&wmode=transparent&autoplay=1"
-											title="YouTube video player"
+											title={hero.videoTitle}
 											frameBorder="0"
 											allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 											allowFullScreen
@@ -193,7 +196,7 @@ export default function CaptureHero() {
 								className="group relative w-[380px] hover:w-[420px] !bg-white hover:!bg-white text-black px-6 py-8 text-base rounded-lg font-medium tracking-wide shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] transition-all duration-500 overflow-hidden"
 							>
 								<span className="group-hover:mr-6 transition-all duration-500">
-									Quero fazer negócio com a Vision AI
+									{hero.cta}
 								</span>
 								<div className="absolute right-6 top-1/2 -translate-y-1/2 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
 									<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

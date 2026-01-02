@@ -7,6 +7,7 @@ import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
 import { useModal } from "@/components/providers/modal-provider";
+import { useTranslations } from "@/components/providers/language-provider";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -20,6 +21,8 @@ export default function MarketOpportunitySection() {
   const bulletPointsRef = useRef<HTMLDivElement>(null);
   const ctaRef = useRef<HTMLDivElement>(null);
   const { openModal } = useModal();
+  const copy = useTranslations();
+  const content = copy.home.cpt.marketOpportunity;
   
   // Refs para os vídeos
   const video1Ref = useRef<HTMLVideoElement>(null);
@@ -175,7 +178,7 @@ export default function MarketOpportunitySection() {
               backgroundClip: 'text'
             }}
           >
-            OPORTUNIDADE DE MERCADO
+            {content.badge}
           </div>
         </div>
 
@@ -185,7 +188,7 @@ export default function MarketOpportunitySection() {
             ref={h2Ref}
             className={`title-responsive-xl text-white text-center text-balance ${!isLoaded ? 'opacity-0' : ''}`}
           >
-            Por que empreender <br className="hidden md:block" />com IA agora?
+            {content.titleLine1} <br className="hidden md:block" />{content.titleLine2}
           </h2>
         </div>
 
@@ -195,7 +198,7 @@ export default function MarketOpportunitySection() {
             ref={introTextRef}
             className={`text-body-lg text-white/70 text-center max-w-4xl mx-auto font-medium leading-relaxed text-balance ${!isLoaded ? 'opacity-0' : ''}`}
           >
-            O mercado de Inteligência Artificial deve movimentar mais de US$ 1,8 trilhão até 2030. Grande fatia desse mercado será SUA! Quem entra cedo, colhe os maiores frutos.
+            {content.intro}
           </p>
         </div>
 
@@ -221,8 +224,8 @@ export default function MarketOpportunitySection() {
                   ref={visionAITextRef}
                   className={`text-body-lg text-white/70 font-medium leading-relaxed text-balance ${!isLoaded ? 'opacity-0' : ''}`}
                 >
-                  A Vision AI é a primeira franquia de agência de IA do mundo. Isso significa que você não está só abrindo um negócio: <br className="hidden md:block" />
-                  Você está empreendendo em um setor que ainda está em fase inicial e tem MUITO PRA CRESCER.
+                  {content.visionLead} <br className="hidden md:block" />
+                  {content.visionFollowUp}
                 </p>
               </div>
             </div>
@@ -232,7 +235,7 @@ export default function MarketOpportunitySection() {
         {/* Bullet Points - Expansão do Mercado */}
         <div className="max-w-6xl mx-auto mb-16">
           <h3 className="title-responsive-lg text-white text-center mb-8">
-              Um mercado em expansão exponencial
+              {content.marketHeading}
             </h3>
           
           <div 
@@ -267,14 +270,14 @@ export default function MarketOpportunitySection() {
                   preload="metadata"
                 >
                   <source src="https://nxbcmrqcadrgzhrengsc.supabase.co/storage/v1/object/sign/documents%20vision-site/2-video-page-capt.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yOTNhNjgzZC1kYmQwLTRiZDctOGUzMy1hYjZmMjEwZGNhMjYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJkb2N1bWVudHMgdmlzaW9uLXNpdGUvMi12aWRlby1wYWdlLWNhcHQubXA0IiwiaWF0IjoxNzU5OTI3MDE0LCJleHAiOjIxMDY4MjMwMTR9.kgIVGsC-Yhflw4oUHLV3rzLBf-NGdEKMsYqwbTHPWYY" type="video/mp4" />
-                  Seu navegador não suporta vídeos.
+                  {copy.common.videoFallback}
                 </video>
               </div>
 
               {/* Conteúdo do card */}
               <div className="flex-1 flex flex-col justify-center text-center">
                 <p className="text-body-md text-white/70 font-medium leading-relaxed">
-                  Isso abre espaço para milhares de agências que vão implementar soluções de IA.
+                  {content.cards[0].text}
                 </p>
               </div>
             </div>
@@ -307,14 +310,14 @@ export default function MarketOpportunitySection() {
                   preload="metadata"
                 >
                   <source src="https://nxbcmrqcadrgzhrengsc.supabase.co/storage/v1/object/sign/documents%20vision-site/1-video-page-capt.mp4?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV8yOTNhNjgzZC1kYmQwLTRiZDctOGUzMy1hYjZmMjEwZGNhMjYiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJkb2N1bWVudHMgdmlzaW9uLXNpdGUvMS12aWRlby1wYWdlLWNhcHQubXA0IiwiaWF0IjoxNzU5OTI3MDQyLCJleHAiOjIxMDY4MjMwNDJ9.dzDsTXBAqXCQ86YvGedmkaOSAgdhl6XQ-eJ5atSq4JM" type="video/mp4" />
-                  Seu navegador não suporta vídeos.
+                  {copy.common.videoFallback}
                 </video>
               </div>
 
               {/* Conteúdo do card */}
               <div className="flex-1 flex flex-col justify-center text-center">
                 <p className="text-body-md text-white/70 font-medium leading-relaxed">
-                  Você, um franqueado VISION AI, entra com vantagem competitiva única: produto pronto, suporte e marca forte.
+                  {content.cards[1].text}
                 </p>
               </div>
             </div>
@@ -330,7 +333,7 @@ export default function MarketOpportunitySection() {
             className="group relative w-[380px] hover:w-[420px] !bg-white hover:!bg-white text-black px-6 py-8 text-base rounded-lg font-medium tracking-wide shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] transition-all duration-500 overflow-hidden"
           >
               <span className="group-hover:mr-6 transition-all duration-500">
-                Quero mais detalhes
+                {content.cta}
               </span>
               <div className="absolute right-6 top-1/2 -translate-y-1/2 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -356,13 +359,13 @@ export default function MarketOpportunitySection() {
                    WebkitTextFillColor: 'transparent',
                    backgroundClip: 'text'
                  }}>
-              OPORTUNIDADE DE MERCADO
+              {content.badge}
             </div>
           </div>
           
           <div className="flex items-center justify-center mb-12">
             <h2 className="title-responsive-xl text-white text-center">
-              A IA está transformando<br />o mundo dos negócios
+              {content.fallbackTitle}
             </h2>
           </div>
           

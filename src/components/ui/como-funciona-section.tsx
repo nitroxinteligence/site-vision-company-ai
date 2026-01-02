@@ -9,6 +9,7 @@ import { useInView } from "react-intersection-observer";
 import { Button } from "@/components/ui/button";
 import { Users, Cog, CreditCard, TrendingUp } from "lucide-react";
 import { useModal } from "@/components/providers/modal-provider";
+import { useTranslations } from "@/components/providers/language-provider";
 
 // Registrar plugins GSAP
 if (typeof window !== "undefined") {
@@ -22,52 +23,19 @@ interface TimelineStep {
   icon: React.ReactNode;
 }
 
-const timelineSteps: TimelineStep[] = [
-  {
-    id: 1,
-    title: "Você capta e cuida do relacionamento",
-    description: "Foque no que você faz de melhor: construir relacionamentos e captar novos clientes.",
-    icon: <Users className="w-6 h-6" />
-  },
-  {
-    id: 2,
-    title: "A franqueadora desenvolve e faz a manutenção da IA",
-    description: "Nossa equipe técnica cuida de toda a tecnologia, atualizações e melhorias dos sistemas.",
-    icon: <Cog className="w-6 h-6" />
-  },
-  {
-    id: 3,
-    title: "O cliente paga implementação + mensalidade",
-    description: "Modelo de receita recorrente com implementação inicial e mensalidades previsíveis.",
-    icon: <CreditCard className="w-6 h-6" />
-  },
-  {
-    id: 4,
-    title: "Você recebe suas comissões recorrentes",
-    description: "Ganhe comissões mensais recorrentes de todos os seus clientes ativos.",
-    icon: <TrendingUp className="w-6 h-6" />
-  }
-];
-
-const benefits = [
-  "Produtos prontos de atendimento, vendas e gestão com IA",
-  "Treinamento completo",
-  "Acompanhamento do crescimento e reuniões periódicas"
-];
-
 // Componente separado para cada item de benefício
 interface BenefitItemProps {
   benefit: string;
   videoUrl: string;
-  index: number;
+  videoLabel: string;
+  videoFallback: string;
 }
 
-function BenefitItem({ benefit, videoUrl, index }: BenefitItemProps) {
+function BenefitItem({ benefit, videoUrl, videoLabel, videoFallback }: BenefitItemProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   return (
     <div
-      key={index}
       className="benefit-item flex flex-col p-10 rounded-2xl border h-full min-h-[400px] relative transition-transform duration-300 ease-in-out hover:-translate-y-2 cursor-pointer"
       style={{
         backgroundColor: '#141414',
@@ -82,7 +50,7 @@ function BenefitItem({ benefit, videoUrl, index }: BenefitItemProps) {
           backgroundColor: '#202020',
           borderColor: '#3D3D3D'
         }}
-        aria-label={`Vídeo para ${benefit}`}
+        aria-label={`${videoLabel} ${benefit}`}
       >
         <video 
            ref={videoRef}
@@ -95,7 +63,7 @@ function BenefitItem({ benefit, videoUrl, index }: BenefitItemProps) {
            preload="metadata"
          >
            <source src={videoUrl} type="video/mp4" />
-           Seu navegador não suporta vídeos.
+           {videoFallback}
          </video>
       </div>
       
@@ -130,6 +98,10 @@ export default function ComoFuncionaSection() {
   const ctaRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const { openModal } = useModal();
+  const copy = useTranslations();
+  const howItWorks = copy.home.cpt.howItWorks;
+  const videoLabel = howItWorks.benefitVideoLabel;
+  const videoFallback = copy.common.videoFallback;
   
   // Criar refs para cada etapa
   const step1 = useStepTracking();
@@ -138,6 +110,19 @@ export default function ComoFuncionaSection() {
   const step4 = useStepTracking();
   
   const stepRefs = [step1, step2, step3, step4];
+  const timelineIcons = [
+    <Users key="users" className="w-6 h-6" />,
+    <Cog key="cog" className="w-6 h-6" />,
+    <CreditCard key="credit" className="w-6 h-6" />,
+    <TrendingUp key="trend" className="w-6 h-6" />,
+  ];
+  const timelineSteps: TimelineStep[] = howItWorks.steps.map((step, index) => ({
+    id: index + 1,
+    title: step.title,
+    description: step.description,
+    icon: timelineIcons[index],
+  }));
+  const benefits = howItWorks.benefits;
 
   useGSAP(
     () => {
@@ -275,14 +260,14 @@ export default function ComoFuncionaSection() {
             className="title-responsive-xl text-white text-center mb-6"
             style={{ opacity: isLoaded ? undefined : 1 }}
           >
-            Como funciona
+            {howItWorks.title}
           </h2>
           <p
             ref={subtitleRef}
             className="text-body-lg text-gray-300 max-w-3xl mx-auto leading-relaxed"
             style={{ opacity: isLoaded ? undefined : 1 }}
           >
-            Um modelo de negócio simples e eficiente que permite você focar no relacionamento enquanto nós cuidamos da tecnologia.
+            {howItWorks.subtitle}
           </p>
         </div>
 
@@ -385,7 +370,7 @@ export default function ComoFuncionaSection() {
           
           <div className="relative z-10">
             <h3 className="title-responsive-xl text-white text-center mb-12">
-              O que você recebe
+              {howItWorks.benefitsTitle}
             </h3>
 
           <div className="grid grid-cols-1 gap-8 mb-12 max-w-sm md:max-w-2xl mx-auto">
@@ -401,7 +386,8 @@ export default function ComoFuncionaSection() {
                   key={index}
                   benefit={benefit}
                   videoUrl={videoUrls[index]}
-                  index={index}
+                  videoLabel={videoLabel}
+                  videoFallback={videoFallback}
                 />
               );
             })}
@@ -417,7 +403,7 @@ export default function ComoFuncionaSection() {
             className="group relative w-[380px] hover:w-[420px] !bg-white hover:!bg-white text-black px-6 py-8 text-base rounded-lg font-medium tracking-wide shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] transition-all duration-500 overflow-hidden"
           >
               <span className="group-hover:mr-6 transition-all duration-500">
-                Quero saber mais
+                {howItWorks.cta}
               </span>
               <div className="absolute right-6 top-1/2 -translate-y-1/2 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

@@ -4,6 +4,7 @@ import "./globals.css";
 import { SmoothScrollProvider } from "@/components/providers/smooth-scroll-provider";
 import { ConditionalNavbar } from "@/components/ui/conditional-navbar";
 import { generateStructuredData } from "@/lib/structured-data";
+import { LanguageProvider } from "@/components/providers/language-provider";
 // Teste de scroll em desenvolvimento
 import "@/lib/scroll-test";
 // Inicialização do GSAP
@@ -139,10 +140,12 @@ export default function RootLayout({
         </noscript>
         {/* End Google Tag Manager (noscript) */}
         
-        <SmoothScrollProvider>
-          <ConditionalNavbar />
-          {children}
-        </SmoothScrollProvider>
+        <LanguageProvider>
+          <SmoothScrollProvider>
+            <ConditionalNavbar />
+            {children}
+          </SmoothScrollProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

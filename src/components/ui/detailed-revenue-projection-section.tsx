@@ -9,11 +9,14 @@ import { Button } from "@/components/ui/button";
 import { TrendingUp, DollarSign, Clock, Target, Calculator } from 'lucide-react';
 import { useCountUp } from "@/hooks/useCountUp";
 import { useModal } from "@/components/providers/modal-provider";
+import { useTranslations } from "@/components/providers/language-provider";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export default function DetailedRevenueProjectionSection() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const copy = useTranslations();
+  const detailed = copy.home.cpt.detailedRevenue;
   const rootRef = useRef<HTMLElement>(null);
   const badgeRef = useRef<HTMLDivElement>(null);
   const h2Ref = useRef<HTMLHeadingElement>(null);
@@ -91,7 +94,7 @@ export default function DetailedRevenueProjectionSection() {
               color: 'black'
             }}
           >
-            PROJEÇÃO DE RECEITA
+            {detailed.badge}
           </div>
         </div>
 
@@ -100,7 +103,7 @@ export default function DetailedRevenueProjectionSection() {
             ref={h2Ref}
             className={`title-responsive-xl text-black text-center ${!isLoaded ? 'opacity-0' : ''}`}
           >
-            De 0 à 66 clientes <br />em 12 meses
+            {detailed.titleLine1} <br />{detailed.titleLine2}
           </h2>
         </div>
 
@@ -132,7 +135,7 @@ export default function DetailedRevenueProjectionSection() {
                   {monthlyCounter.value}
                 </h3>
                 <p className="font-medium text-gray-600">
-                  Mensalidade por cliente
+                  {detailed.metrics[0]}
                 </p>
               </div>
             </div>
@@ -160,7 +163,7 @@ export default function DetailedRevenueProjectionSection() {
                   {commissionCounter.value}
                 </h3>
                 <p className="font-medium text-gray-600">
-                  Comissão recorrente
+                  {detailed.metrics[1]}
                 </p>
               </div>
             </div>
@@ -188,7 +191,7 @@ export default function DetailedRevenueProjectionSection() {
                   {mrrCounter.value}
                 </h3>
                 <p className="font-medium text-gray-600">
-                  MRR no mês 12
+                  {detailed.metrics[2]}
                 </p>
               </div>
             </div>
@@ -216,7 +219,7 @@ export default function DetailedRevenueProjectionSection() {
                   {revenueCounter.value}
                 </h3>
                 <p className="font-medium text-gray-600">
-                  Faturamento mensal
+                  {detailed.metrics[3]}
                 </p>
               </div>
             </div>
@@ -225,13 +228,13 @@ export default function DetailedRevenueProjectionSection() {
 
         <div className="text-center mb-16">
           <p className="text-black/80 font-medium text-lg italic">
-            Obs.: recorrência é o que constrói <br />seu futuro!
+            {detailed.note}
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto mb-16">
           <h3 className="title-responsive-xl text-black text-center mb-12">
-            Payback do investimento
+            {detailed.paybackTitle}
           </h3>
           
           <div 
@@ -258,10 +261,10 @@ export default function DetailedRevenueProjectionSection() {
               </div>
               <div className="text-center">
                 <h4 className="font-bold mb-2 text-2xl text-black">
-                  R$ 50.000
+                  {detailed.payback[0].value}
                 </h4>
                 <p className="font-medium text-gray-600">
-                  Investimento (promo)
+                  {detailed.payback[0].label}
                 </p>
               </div>
             </div>
@@ -286,10 +289,10 @@ export default function DetailedRevenueProjectionSection() {
               </div>
               <div className="text-center">
                 <h4 className="font-bold mb-2 text-2xl text-black">
-                  4 meses
+                  {detailed.payback[1].value}
                 </h4>
                 <p className="font-medium text-gray-600">
-                  Payback com rampa progressiva
+                  {detailed.payback[1].label}
                 </p>
               </div>
             </div>
@@ -304,7 +307,7 @@ export default function DetailedRevenueProjectionSection() {
             className="group relative w-[380px] hover:w-[420px] !bg-black hover:!bg-black text-white border border-gray-700 hover:border-gray-600 px-6 py-8 text-base rounded-lg font-medium tracking-wide shadow-[0_4px_6px_-1px_rgba(0,0,0,0.3)] hover:shadow-[0_8px_25px_-5px_rgba(0,0,0,0.4)] transition-all duration-500 overflow-hidden"
           >
               <span className="group-hover:mr-6 transition-all duration-500">
-                Quero fazer negócio com a Vision AI
+                {detailed.cta}
               </span>
               <div className="absolute right-6 top-1/2 -translate-y-1/2 translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
