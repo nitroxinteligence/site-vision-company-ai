@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 interface CustomSelectProps {
-  options: string[];
+  options: ReadonlyArray<string>;
   value: string;
   onChange: (value: string) => void;
   placeholder: string;

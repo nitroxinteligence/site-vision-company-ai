@@ -1,33 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-
-const faqs = [
-  {
-    question: "Preciso de equipe técnica para implementar?",
-    answer:
-      "Não, você não precisa se preocupar com isso. Cuidamos de toda a implementação e configuração dos agentes inteligentes. Nossa equipe especializada garante que tudo funcione perfeitamente sem que você precise de conhecimento técnico.",
-    meta: "Implementação",
-  },
-  {
-    question: "A IA vai substituir meu time?",
-    answer:
-      "Não, nossa IA não substitui pessoas. Ela libera seu time das tarefas repetitivas e operacionais para que possam focar no que realmente gera valor: estratégia, relacionamento e crescimento do negócio.",
-    meta: "Equipe",
-  },
-  {
-    question: "Quanto tempo leva para ver resultados?",
-    answer:
-      "Os primeiros resultados aparecem entre 30 e 90 dias. Isso inclui redução de custos operacionais, melhoria na taxa de resposta e aumento na eficiência dos processos. O tempo varia conforme a complexidade do seu negócio.",
-    meta: "Resultados",
-  },
-  {
-    question: "Funciona para qualquer segmento?",
-    answer:
-      "Sim, já aplicamos nossa tecnologia em dezenas de setores diferentes. Nossos agentes inteligentes são desenvolvidos sob medida para cada tipo de negócio, adaptando-se às particularidades do seu mercado e operação.",
-    meta: "Segmentos",
-  },
-];
+import { useTranslations } from "@/components/providers/language-provider";
 
 const palette = {
   surface: "text-neutral-100",
@@ -44,6 +18,8 @@ const palette = {
 
 export default function FAQAccordion() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const copy = useTranslations();
+  const faqs = copy.home.faq.items;
 
   const toggleQuestion = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);
@@ -80,13 +56,13 @@ export default function FAQAccordion() {
                   backgroundClip: 'text'
                 }}
               >
-                FAQ
+                {copy.home.faq.badge}
               </div>
               <h2 className="text-heading-2 text-white text-center">
-                Perguntas Frequentes
+                {copy.home.faq.title}
               </h2>
               <p className="text-body-lg text-white/70 text-center max-w-2xl mx-auto text-balance">
-                Respostas para as principais dúvidas sobre implementação e resultados com IA.
+                {copy.home.faq.description}
               </p>
             </div>
           </header>

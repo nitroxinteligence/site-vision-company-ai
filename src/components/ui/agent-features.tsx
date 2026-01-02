@@ -1,15 +1,18 @@
 "use client";
 
 import Image from 'next/image';
+import { useTranslations } from "@/components/providers/language-provider";
 
 interface AgentFeaturesProps {
   description: string;
-  features: string[];
+  features: ReadonlyArray<string>;
   layout?: "grid" | "single";
   imageUrl?: string;
 }
 
 export const AgentFeatures = ({ description, features, layout = "grid", imageUrl }: AgentFeaturesProps) => {
+  const copy = useTranslations();
+
   return (
     <div>
       {/* Caixa para imagem */}
@@ -23,7 +26,7 @@ export const AgentFeatures = ({ description, features, layout = "grid", imageUrl
         {imageUrl ? (
           <Image 
             src={imageUrl} 
-            alt="Agent illustration" 
+            alt={copy.common.agentIllustrationAlt}
             width={400}
             height={300}
             className="w-4/5 h-full object-contain"
@@ -31,7 +34,7 @@ export const AgentFeatures = ({ description, features, layout = "grid", imageUrl
         ) : (
           <div className="text-neutral-500 text-center">
             <div className="text-4xl mb-2">📷</div>
-            <p className="text-sm">Imagem será adicionada aqui</p>
+            <p className="text-sm">{copy.common.imagePlaceholder}</p>
           </div>
         )}
       </div>

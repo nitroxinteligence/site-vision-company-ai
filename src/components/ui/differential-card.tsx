@@ -2,6 +2,7 @@
 import { Camera } from 'lucide-react';
 import { useRef, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useTranslations } from "@/components/providers/language-provider";
 
 interface DifferentialCardProps {
   title: string;
@@ -11,6 +12,7 @@ interface DifferentialCardProps {
 
 export const DifferentialCard = ({ title, description, videoUrl }: DifferentialCardProps) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const copy = useTranslations();
   const { ref: inViewRef, inView } = useInView({
     threshold: 0.5, // Video plays when 50% is visible
     triggerOnce: false,
@@ -84,7 +86,7 @@ export const DifferentialCard = ({ title, description, videoUrl }: DifferentialC
         ) : (
           <div className="flex flex-col items-center gap-2 text-white/50">
             <Camera size={32} />
-            <span className="text-sm">Imagem será adicionada</span>
+            <span className="text-sm">{copy.common.imagePlaceholder}</span>
           </div>
         )}
       </div>

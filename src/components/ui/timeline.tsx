@@ -7,6 +7,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useTranslations } from "@/components/providers/language-provider";
 
 interface TimelineEntry {
   title: string;
@@ -70,12 +71,13 @@ const TimelineItem = ({ item }: TimelineItemProps) => {
   );
 };
 
-export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
+export const Timeline = ({ data }: { data: ReadonlyArray<TimelineEntry> }) => {
   const ref = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const h2Ref = useRef<HTMLHeadingElement>(null);
   const pRef = useRef<HTMLParagraphElement>(null);
+  const copy = useTranslations();
 
   // Animações GSAP para título e texto
   useGSAP(
@@ -168,14 +170,14 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
           className="title-section text-white mb-2 max-w-4xl mx-auto text-center"
           style={{ opacity: isLoaded ? undefined : 1 }}
         >
-          Soluções Vision AI
+          {copy.home.timeline.heading}
         </h2>
         <p 
           ref={pRef} 
           className="text-description text-neutral-300 max-w-2xl mx-auto text-center"
           style={{ opacity: isLoaded ? undefined : 1 }}
         >
-          Automatize, escale e personalize o relacionamento com excelência.
+          {copy.home.timeline.subheading}
         </p>
       </div>
 

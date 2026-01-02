@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { useRef, useState } from "react";
 import { WebGLShader } from "./web-gl-shader";
+import { useTranslations } from "@/components/providers/language-provider";
 
 gsap.registerPlugin(SplitText);
 
@@ -15,6 +16,7 @@ export default function InfiniteHero() {
 	const pRef = useRef<HTMLParagraphElement>(null);
 	const ctaRef = useRef<HTMLDivElement>(null);
 	const [isLoaded, setIsLoaded] = useState(false);
+	const copy = useTranslations();
 
 	useGSAP(
 		() => {
@@ -118,7 +120,7 @@ export default function InfiniteHero() {
 							marginBottom: 'clamp(1rem, 2vw, 1.5rem)'
 						}}
 					>
-						Sua empresa na Era da IA
+						{copy.home.hero.title}
 					</h1>
 
 					<p
@@ -129,7 +131,7 @@ export default function InfiniteHero() {
 							lineHeight: 1.6
 						}}
 					>
-						Somos quem tira o peso das suas costas: reduz custo, automatiza processos e gera vendas, enquanto você curte liberdade com quem ama.
+						{copy.home.hero.description}
 					</p>
 
 					<div
@@ -138,10 +140,15 @@ export default function InfiniteHero() {
 					>
 						<button
 							type="button"
-							onClick={() => window.open('https://wa.me/5581998132001?text=Olá! Vim pelo Site da VISION AI e gostaria de saber mais sobre as soluções.', '_blank')}
+							onClick={() => {
+								const whatsappUrl = `https://wa.me/5581998132001?text=${encodeURIComponent(copy.common.whatsappMessage)}`;
+								window.open(whatsappUrl, "_blank");
+							}}
 							className="group relative overflow-hidden bg-white py-4 sm:py-5 text-sm sm:text-base rounded-lg font-medium tracking-wide text-black transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] w-full sm:w-[320px] sm:hover:w-[360px] max-w-[360px] flex items-center justify-center"
 						>
-							<span className="transition-all duration-300 group-hover:mr-6">Quero uma consultoria</span>
+							<span className="transition-all duration-300 group-hover:mr-6">
+								{copy.home.hero.ctaPrimary}
+							</span>
 							<div className="absolute right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
 								<svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 									<path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -159,7 +166,7 @@ export default function InfiniteHero() {
 							}}
 							className="group relative px-6 py-3 sm:px-4 sm:py-2 text-sm sm:text-base font-medium tracking-wide text-white/90 transition-[filter,color] duration-500 hover:drop-shadow-[0_0_6px_rgba(255,255,255,0.6)] hover:text-white cursor-pointer w-full sm:w-auto max-w-[360px]"
 						>
-							Conheça nossas soluções
+							{copy.home.hero.ctaSecondary}
 						</button>
 					</div>
 				</div>

@@ -5,6 +5,7 @@ import { useModal } from '@/components/providers/modal-provider';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { X } from 'lucide-react';
+import { useTranslations } from "@/components/providers/language-provider";
 
 // Estilos CSS para animações personalizadas
 const modalStyles = `
@@ -94,6 +95,7 @@ const removePhoneFormatting = (phone: string) => {
 
 export const ContactModal: React.FC = () => {
   const { isOpen, closeModal } = useModal();
+  const copy = useTranslations();
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [animationClass, setAnimationClass] = useState('');
@@ -107,6 +109,9 @@ export const ContactModal: React.FC = () => {
     investimento: ''
   });
   const [emailError, setEmailError] = useState('');
+  const roleOptions = copy.contactModal.options.role;
+  const timelineOptions = copy.contactModal.options.timeline;
+  const investmentOptions = copy.contactModal.options.investment;
 
   // Injeta os estilos CSS no documento
   useEffect(() => {
@@ -147,7 +152,7 @@ export const ContactModal: React.FC = () => {
     const isValid = email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     
     if (email && !isValid) {
-      setEmailError('Por favor, insira um email válido.');
+      setEmailError(copy.contactModal.validation.email);
       
       // Track email validation error
       pushToDataLayer({
@@ -343,6 +348,13 @@ export const ContactModal: React.FC = () => {
     }
   };
 
+  const resolveOptionLabel = (
+    options: ReadonlyArray<{ value: string; label: string }>,
+    value: string
+  ) => {
+    return options.find((option) => option.value === value)?.label ?? value;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const isEmailValid = validateEmail(formData.email);
@@ -391,16 +403,16 @@ export const ContactModal: React.FC = () => {
       timestamp: new Date().toISOString()
     });
     
-    const message = `
-      Olá! Tenho interesse na consultoria da Vision AI.
-      Seguem meus dados:
-      Nome: ${formData.nome}
-      Email: ${formData.email}
-      Telefone: ${formData.telefone}
-      Atuação: ${formData.atuacao}
-      Prazo para assumir a franquia: ${formData.prazoFranquia}
-      Investimento: ${formData.investimento}
-    `;
+    const message = [
+      copy.contactModal.whatsapp.intro,
+      copy.contactModal.whatsapp.details,
+      `${copy.contactModal.whatsapp.fields.name}: ${formData.nome}`,
+      `${copy.contactModal.whatsapp.fields.email}: ${formData.email}`,
+      `${copy.contactModal.whatsapp.fields.phone}: ${formData.telefone}`,
+      `${copy.contactModal.whatsapp.fields.role}: ${resolveOptionLabel(roleOptions, formData.atuacao)}`,
+      `${copy.contactModal.whatsapp.fields.timeline}: ${resolveOptionLabel(timelineOptions, formData.prazoFranquia)}`,
+      `${copy.contactModal.whatsapp.fields.investment}: ${resolveOptionLabel(investmentOptions, formData.investimento)}`,
+    ].join("\n");
 
     const whatsappUrl = `https://wa.me/5581998132001?text=${encodeURIComponent(message)}`;
 
@@ -494,7 +506,7 @@ export const ContactModal: React.FC = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label htmlFor="nome" className="block text-sm font-medium text-white mb-2">
-                  Nome
+                  {copy.contactModal.labels.name}
                 </label>
                 <input
                   type="text"
@@ -508,13 +520,13 @@ export const ContactModal: React.FC = () => {
                     backgroundColor: '#202020',
                     borderColor: '#3D3D3D',
                   }}
-                  placeholder="Seu nome"
+                  placeholder={copy.contactModal.placeholders.name}
                 />
               </div>
 
               <div>
                 <label htmlFor="telefone" className="block text-sm font-medium text-white mb-2">
-                  Telefone
+                  {copy.contactModal.labels.phone}
                 </label>
                 <input
                   type="tel"
@@ -547,7 +559,7 @@ export const ContactModal: React.FC = () => {
                     backgroundColor: '#202020',
                     borderColor: '#3D3D3D',
                   }}
-                  placeholder="+55 (11) 99999-9999"
+                  placeholder={copy.contactModal.placeholders.phone}
                   maxLength={19}
                 />
               </div>
@@ -555,7 +567,7 @@ export const ContactModal: React.FC = () => {
 
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-white mb-2">
-                Email
+                {copy.contactModal.labels.email}
               </label>
               <input
                 type="email"
@@ -570,58 +582,61 @@ export const ContactModal: React.FC = () => {
                   backgroundColor: '#202020',
                   borderColor: emailError ? '#f87171' : '#3D3D3D',
                 }}
-                placeholder="seu@email.com"
+                placeholder={copy.contactModal.placeholders.email}
               />
               {emailError && <p className="text-red-500 text-xs mt-1">{emailError}</p>}
             </div>
 
             <div>
               <label htmlFor="atuacao" className="block text-sm font-medium text-white mb-2">
-                Qual sua atuação hoje?
+                {copy.contactModal.labels.role}
               </label>
               <Select name="atuacao" value={formData.atuacao} onValueChange={(value) => handleSelectChange('atuacao', value)}>
                 <SelectTrigger className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors placeholder-[#404040]" style={{ backgroundColor: '#202020', borderColor: '#3D3D3D' }}>
-                  <SelectValue placeholder="Selecione uma opção" />
+                  <SelectValue placeholder={copy.contactModal.placeholders.select} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="empregado-clt">Empregado CLT</SelectItem>
-                  <SelectItem value="autonomo">Autônomo</SelectItem>
-                  <SelectItem value="empresario">Empresário(a)</SelectItem>
-                  <SelectItem value="dono-casa">Dono(a) de casa</SelectItem>
-                  <SelectItem value="servidor-publico">Servidor público</SelectItem>
+                  {roleOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
 
             <div>
               <label htmlFor="prazoFranquia" className="block text-sm font-medium text-white mb-2">
-                Quando você pretende assumir a sua franquia?
+                {copy.contactModal.labels.timeline}
               </label>
               <Select name="prazoFranquia" value={formData.prazoFranquia} onValueChange={(value) => handleSelectChange('prazoFranquia', value)}>
                 <SelectTrigger className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors placeholder-[#404040]" style={{ backgroundColor: '#202020', borderColor: '#3D3D3D' }}>
-                  <SelectValue placeholder="Selecione uma opção" />
+                  <SelectValue placeholder={copy.contactModal.placeholders.select} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="ate-30-dias">Em até 30 dias</SelectItem>
-                  <SelectItem value="ate-60-dias">Em até 60 dias</SelectItem>
-                  <SelectItem value="ate-90-dias">Em até 90 dias</SelectItem>
-                  <SelectItem value="preciso-mais-tempo">Preciso de mais tempo</SelectItem>
+                  {timelineOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
 
             <div>
               <label htmlFor="investimento" className="block text-sm font-medium text-white mb-2">
-                Quanto tem para investir?
+                {copy.contactModal.labels.investment}
               </label>
               <Select name="investimento" value={formData.investimento} onValueChange={(value) => handleSelectChange('investimento', value)}>
                 <SelectTrigger className="w-full px-4 py-3 rounded-lg border bg-transparent text-white focus:outline-none focus:ring-2 focus:ring-white/20 focus:border-white/30 transition-colors placeholder-[#404040]" style={{ backgroundColor: '#202020', borderColor: '#3D3D3D' }}>
-                  <SelectValue placeholder="Selecione uma opção" />
+                  <SelectValue placeholder={copy.contactModal.placeholders.select} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="ate-70mil">Tenho até 70mil</SelectItem>
-                  <SelectItem value="70mil-140mil">Tenho entre 70mil e 140mil</SelectItem>
-                  <SelectItem value="mais-140mil">Tenho mais de 140mil</SelectItem>
+                  {investmentOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>
@@ -642,7 +657,7 @@ export const ContactModal: React.FC = () => {
                   boxShadow: '0 0 20px rgba(255, 255, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
                 } : {}}
               >
-                Enviar informações
+                {copy.contactModal.submit}
               </Button>
             </div>
           </form>

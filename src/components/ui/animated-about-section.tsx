@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { useRef, useState } from "react";
+import { useTranslations } from "@/components/providers/language-provider";
 
 export default function AnimatedAboutSection() {
 	const rootRef = useRef<HTMLDivElement>(null);
@@ -11,6 +12,7 @@ export default function AnimatedAboutSection() {
 	const pRef = useRef<HTMLParagraphElement>(null);
 	const cardRef = useRef<HTMLDivElement>(null);
 	const [isLoaded, setIsLoaded] = useState(false);
+	const copy = useTranslations();
 
 	useGSAP(
 		() => {
@@ -106,7 +108,7 @@ export default function AnimatedAboutSection() {
 							lineHeight: '1.3'
 						} as React.CSSProperties}
 					>
-						Empresários ajudando empresários a crescer com IA
+						{copy.home.about.title}
 					</h2>
 				</div>
 				
@@ -141,7 +143,7 @@ export default function AnimatedAboutSection() {
 										lineHeight: '1.6'
 									}}
 								>
-									Vision AI nasceu para resolver o maior dilema do dono de negócio:
+									{copy.home.about.intro}
 								</p>
 								<p
 									className="text-xl sm:text-2xl md:text-3xl lg:text-4xl text-white font-semibold mb-6"
@@ -153,7 +155,7 @@ export default function AnimatedAboutSection() {
 										whiteSpace: 'normal'
 									} as React.CSSProperties}
 								>
-									Crescer sem se tornar refém do próprio trabalho.
+									{copy.home.about.highlight}
 								</p>
 								<p
 									className="text-body-md text-white/70"
@@ -164,7 +166,7 @@ export default function AnimatedAboutSection() {
 										textWrap: 'pretty'
 									} as React.CSSProperties}
 								>
-									Combinamos experiência prática de mais de 10 anos escalando empresas reais com a tecnologia de IA mais avançada do mercado, desenvolvida sob medida para cada negócio. Nosso time é especialista em transformar processos complexos em operações leves, lucrativas e escaláveis.
+									{copy.home.about.description}
 								</p>
 							</div>
 						</div>

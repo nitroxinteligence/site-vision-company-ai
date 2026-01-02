@@ -1,6 +1,10 @@
 "use client";
 
+import { useTranslations } from "@/components/providers/language-provider";
+
 export default function ContactSection() {
+  const copy = useTranslations();
+
   return (
     <section
       className="relative w-full h-screen bg-cover bg-center flex flex-col items-center justify-center"
@@ -32,20 +36,26 @@ export default function ContactSection() {
             }}
           >
             <h2 className="title-section text-white text-center mb-6 max-w-3xl mx-auto" style={{ textWrap: 'balance' }}>
-              Mais escala, mais lucro, mais liberdade.
+              {copy.home.contact.title}
             </h2>
             
             <p className="text-description text-white/70 text-center mb-8 max-w-2xl mx-auto">
-              Se você quer crescer sem abrir mão da sua qualidade de vida, fale com a Vision AI.
+              {copy.home.contact.descriptionLine1} <br />
+              {copy.home.contact.descriptionLine2}
             </p>
             
             <div className="flex justify-center">
               <button
                 type="button"
-                onClick={() => window.open('https://wa.me/5581998132001?text=Olá! Vim pelo Site da VISION AI e gostaria de saber mais sobre as soluções.', '_blank')}
+                onClick={() => {
+                  const whatsappUrl = `https://wa.me/5581998132001?text=${encodeURIComponent(copy.common.whatsappMessage)}`;
+                  window.open(whatsappUrl, "_blank");
+                }}
                 className="group relative overflow-hidden bg-white py-5 text-base rounded-lg font-medium tracking-wide text-black transition-all duration-300 shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] w-full sm:w-auto sm:min-w-[320px] sm:max-w-[360px] max-w-[320px] mx-auto flex items-center justify-center"
               >
-                <span className="transition-all duration-300 group-hover:mr-6">Quero minha consultoria gratuita</span>
+                <span className="transition-all duration-300 group-hover:mr-6">
+                  {copy.home.contact.cta}
+                </span>
                 <div className="absolute right-6 opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-x-4 group-hover:translate-x-0">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>

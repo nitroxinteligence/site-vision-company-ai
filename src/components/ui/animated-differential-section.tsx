@@ -6,6 +6,7 @@ import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState } from "react";
 import { DifferentialCard } from "./differential-card";
+import { useTranslations } from "@/components/providers/language-provider";
 
 interface DifferentialData {
   title: string;
@@ -15,7 +16,7 @@ interface DifferentialData {
 
 interface AnimatedDifferentialSectionProps {
   title: string;
-  differentials: DifferentialData[];
+  differentials: ReadonlyArray<DifferentialData>;
 }
 
 export const AnimatedDifferentialSection = ({ 
@@ -28,6 +29,7 @@ export const AnimatedDifferentialSection = ({
   const containerRef = useRef<HTMLElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const copy = useTranslations();
 
   useGSAP(
     () => {
@@ -142,7 +144,7 @@ export const AnimatedDifferentialSection = ({
               backgroundClip: 'text'
             }}
           >
-            NOSSOS DIFERENCIAIS
+            {copy.home.differentials.badge}
           </div>
         </div>
         
@@ -153,7 +155,7 @@ export const AnimatedDifferentialSection = ({
             className="title-section text-white text-center text-balance"
             style={{ opacity: isLoaded ? undefined : 1 }}
           >
-            Por que Vision AI é diferente
+            {title}
           </h2>
         </div>
         
@@ -193,7 +195,7 @@ export const AnimatedDifferentialSection = ({
                     backgroundClip: 'text'
                   }}
                 >
-                  NOSSOS DIFERENCIAIS
+                  {copy.home.differentials.badge}
                 </div>
               </div>
               <div className="flex items-center justify-center mb-16">

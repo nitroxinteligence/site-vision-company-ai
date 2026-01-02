@@ -8,11 +8,23 @@ interface StatisticCardProps {
   description: string;
 }
 
-const getIcon = (description: string) => {
-  if (description.includes('custos')) return TrendingDown;
-  if (description.includes('taxa de resposta') || description.includes('receita')) return TrendingUp;
-  if (description.includes('receita')) return BarChart3;
-  if (description.includes('Empresários')) return Users;
+const getIcon = (statistic: string, description: string) => {
+  const content = `${statistic} ${description}`.toLowerCase();
+
+  if (content.includes("custos") || content.includes("cost")) return TrendingDown;
+  if (content.includes("taxa de resposta") || content.includes("response rate")) {
+    return TrendingUp;
+  }
+  if (content.includes("receita") || content.includes("revenue")) return BarChart3;
+  if (
+    content.includes("empresários") ||
+    content.includes("entrepreneurs") ||
+    content.includes("equipes") ||
+    content.includes("teams")
+  ) {
+    return Users;
+  }
+
   return BarChart3;
 };
 
@@ -54,7 +66,7 @@ const CountUpNumber = ({ value, shouldStart }: { value: string; shouldStart: boo
 };
 
 export function StatisticCard({ statistic, description }: StatisticCardProps) {
-  const IconComponent = getIcon(description);
+  const IconComponent = getIcon(statistic, description);
   const { ref, isInView } = useInView({ threshold: 0.3, triggerOnce: true });
   
   return (

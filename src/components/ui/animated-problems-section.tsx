@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { Users, TrendingUp, Clock, BarChart3 } from 'lucide-react';
+import { useTranslations } from "@/components/providers/language-provider";
 
 export default function AnimatedProblemsSection() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -12,6 +13,7 @@ export default function AnimatedProblemsSection() {
   const badgeRef = useRef<HTMLDivElement>(null);
   const h2Ref = useRef<HTMLHeadingElement>(null);
   const cardsRef = useRef<HTMLDivElement>(null);
+  const copy = useTranslations();
 
   useGSAP(
     () => {
@@ -129,14 +131,14 @@ export default function AnimatedProblemsSection() {
   							color: '#374151'
   						}}
   					>
-  						A SUA REALIDADE
+  						{copy.home.problems.badge}
   					</div>
   				</div>
   				
   				{/* Título */}
   				<div className="flex items-center justify-center mb-12 md:mb-16">
   					<h2 ref={h2Ref} className="text-heading-2 text-center text-balance">
-  						Por que a maioria dos empresários travam?
+  						{copy.home.problems.title}
   					</h2>
   				</div>
   				
@@ -166,10 +168,10 @@ export default function AnimatedProblemsSection() {
 						</div>
 						<div className="text-center">
 							<h3 className="font-medium text-black mb-2 text-balance" style={{ fontSize: '1.5rem' }}>
-								Equipes sobrecarregadas
+								{copy.home.problems.cards[0].title}
 							</h3>
 							<p className="text-body-sm font-medium text-gray-600">
-								Funcionários fazendo tarefas repetitivas que poderiam ser automatizadas.
+								{copy.home.problems.cards[0].description}
 							</p>
 						</div>
 					</div>
@@ -195,10 +197,10 @@ export default function AnimatedProblemsSection() {
 						</div>
 						<div className="text-center">
 							<h3 className="font-medium text-black mb-2 text-balance" style={{ fontSize: '1.5rem' }}>
-								Crescimento limitado
+								{copy.home.problems.cards[1].title}
 							</h3>
 							<p className="text-body-sm font-medium text-gray-600">
-								Receita estagnada porque não consegue escalar sem aumentar custos.
+								{copy.home.problems.cards[1].description}
 							</p>
 						</div>
 					</div>
@@ -224,10 +226,10 @@ export default function AnimatedProblemsSection() {
 						</div>
 						<div className="text-center">
 							<h3 className="font-medium text-black mb-2 text-balance" style={{ fontSize: '1.5rem' }}>
-								Tempo desperdiçado
+								{copy.home.problems.cards[2].title}
 							</h3>
 							<p className="text-body-sm font-medium text-gray-600">
-								Horas perdidas em processos manuais que deveriam ser instantâneos.
+								{copy.home.problems.cards[2].description}
 							</p>
 						</div>
 					</div>
@@ -253,10 +255,10 @@ export default function AnimatedProblemsSection() {
 						</div>
 						<div className="text-center">
 							<h3 className="font-medium text-black mb-2 text-balance" style={{ fontSize: '1.5rem' }}>
-								Dados desorganizados
+								{copy.home.problems.cards[3].title}
 							</h3>
 							<p className="text-body-sm font-medium text-gray-600">
-								Informações espalhadas que impedem decisões rápidas e precisas.
+								{copy.home.problems.cards[3].description}
 							</p>
 						</div>
 					</div>

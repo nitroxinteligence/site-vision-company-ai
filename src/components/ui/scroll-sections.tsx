@@ -3,11 +3,13 @@
 import React, { useLayoutEffect, useRef } from "react";
 import { useGSAP } from "@/lib/gsap-config";
 
+interface ScrollSection {
+  title: string;
+  subtitle?: string;
+}
+
 interface ScrollSectionsProps {
-  sections: {
-    title: string;
-    subtitle?: string;
-  }[];
+  sections: ReadonlyArray<ScrollSection>;
   className?: string;
 }
 

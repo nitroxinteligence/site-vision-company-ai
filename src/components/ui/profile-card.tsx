@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useRef } from 'react';
+import { useTranslations } from "@/components/providers/language-provider";
 
 interface ProfileCardProps {
   name: string;
@@ -14,6 +15,7 @@ interface ProfileCardProps {
 
 export function ProfileCard({ name, role, description, imageAlt, videoUrl, videoScale = 2.1, videoTranslateY = '20%' }: ProfileCardProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const copy = useTranslations();
 
   return (
     <div 
@@ -31,7 +33,7 @@ export function ProfileCard({ name, role, description, imageAlt, videoUrl, video
           backgroundColor: '#202020',
           borderColor: '#3D3D3D'
         }}
-        aria-label={imageAlt || `Vídeo de ${name}`}
+        aria-label={imageAlt || `${copy.common.videoLabelPrefix} ${name}`}
       >
         {videoUrl ? (
           <video 
@@ -49,7 +51,7 @@ export function ProfileCard({ name, role, description, imageAlt, videoUrl, video
             }}
           >
             <source src={videoUrl} type="video/mp4" />
-            Seu navegador não suporta vídeos.
+            {copy.common.videoFallback}
           </video>
         ) : (
           <div className="w-full h-full flex items-center justify-center">
@@ -67,7 +69,7 @@ export function ProfileCard({ name, role, description, imageAlt, videoUrl, video
                   />
                 </svg>
               </div>
-              <span className="text-sm">Imagem</span>
+              <span className="text-sm">{copy.common.imageLabel}</span>
             </div>
           </div>
         )}

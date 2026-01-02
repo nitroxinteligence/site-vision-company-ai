@@ -4,29 +4,15 @@ import { Button, buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { MenuToggleIcon } from '@/components/ui/menu-toggle-icon';
 import { useScroll } from '@/components/ui/use-scroll';
+import { LanguageSwitcher } from '@/components/ui/language-switcher';
+import { useTranslations } from '@/components/providers/language-provider';
 
 export function Header() {
 	const [open, setOpen] = React.useState(false);
 	const scrolled = useScroll(10);
+	const copy = useTranslations();
 
-	const links = [
-		{
-			label: 'Soluções',
-			href: '#solucoes',
-		},
-		{
-			label: 'Diferenciais',
-			href: '#diferenciais',
-		},
-		{
-			label: 'Fundadores',
-			href: '#fundadores',
-		},
-		{
-			label: 'Dúvidas',
-			href: '#duvidas',
-		},
-	];
+	const links = copy.nav.links;
 
 	React.useEffect(() => {
 		if (open) {
@@ -56,24 +42,27 @@ export function Header() {
 		>
 			<nav
 				className={cn(
-					'flex h-16 w-full items-center justify-between px-4 md:h-14 md:transition-all md:ease-out',
+					'grid h-16 w-full grid-cols-[auto_1fr_auto] items-center px-4 md:h-14 md:transition-all md:ease-out',
 					{
 						'md:px-2': scrolled,
 					},
 				)}
 			>
 				<div className="text-xl font-bold text-white">Vision AI</div>
-				<div className="hidden items-center gap-2 md:flex">
+				<div className="hidden items-center justify-center gap-2 md:flex">
 					{links.map((link, i) => (
 						<a key={i} className={buttonVariants({ variant: 'ghost' })} href={link.href}>
 							{link.label}
 						</a>
 					))}
 				</div>
-				<Button size="icon" variant="outline" onClick={() => setOpen(!open)} className="md:hidden">
-					<MenuToggleIcon open={open} className="size-5" duration={300} />
-				</Button>
+				<div className="flex items-center justify-end gap-2">
+					<Button size="icon" variant="outline" onClick={() => setOpen(!open)} className="md:hidden">
+						<MenuToggleIcon open={open} className="size-5" duration={300} />
+					</Button>
+				</div>
 			</nav>
+			<LanguageSwitcher className="fixed top-4 right-16 z-50 md:right-6" />
 
 			<div
 				className={cn(

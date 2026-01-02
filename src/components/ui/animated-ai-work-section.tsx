@@ -13,7 +13,7 @@ interface StatisticData {
 
 interface AnimatedAIWorkSectionProps {
   title: string;
-  statistics: StatisticData[];
+  statistics: ReadonlyArray<StatisticData>;
 }
 
 export function AnimatedAIWorkSection({ title, statistics }: AnimatedAIWorkSectionProps) {

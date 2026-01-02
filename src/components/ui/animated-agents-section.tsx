@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { SplitText } from "gsap/SplitText";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useRef, useState } from "react";
+import { useTranslations } from "@/components/providers/language-provider";
 
 export default function AnimatedAgentsSection() {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -13,6 +14,7 @@ export default function AnimatedAgentsSection() {
   const h2Ref = useRef<HTMLHeadingElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const pRef = useRef<HTMLParagraphElement>(null);
+  const copy = useTranslations();
 
   useGSAP(
     () => {
@@ -151,7 +153,7 @@ export default function AnimatedAgentsSection() {
               opacity: isLoaded ? undefined : 1,
             }}
           >
-            A nova forma de crescer
+            {copy.home.agents.badge}
           </div>
 
           {/* Título */}
@@ -163,7 +165,7 @@ export default function AnimatedAgentsSection() {
               textWrap: 'balance' as const
             }}
           >
-            Agentes inteligentes que trabalham por você
+            {copy.home.agents.title}
           </h2>
         </div>
 
@@ -187,10 +189,10 @@ export default function AnimatedAgentsSection() {
                 textWrap: 'balance' as const
               }}
             >
-              Colocamos a inteligência artificial para assumir tarefas repetitivas, melhorar atendimento e aumentar vendas.
+              {copy.home.agents.descriptionLines[0]}
               <br />
               <br />
-              Você reduz custos, ganha tempo e escala com qualidade sem precisar aumentar equipe.
+              {copy.home.agents.descriptionLines[1]}
             </p>
           </div>
         </div>
@@ -212,13 +214,13 @@ export default function AnimatedAgentsSection() {
                 backgroundClip: 'text',
               }}
             >
-              A nova forma de crescer
+              {copy.home.agents.badge}
             </div>
             <h2
               className="title-section text-white text-center max-w-4xl mx-auto"
               style={{ textWrap: 'balance' as const }}
             >
-              Agentes inteligentes que trabalham por você
+              {copy.home.agents.title}
             </h2>
           </div>
           <div className="flex justify-center mb-12 md:mb-16">
@@ -234,10 +236,10 @@ export default function AnimatedAgentsSection() {
                 className="text-description text-white/70 text-center max-w-2xl mx-auto font-medium leading-relaxed"
                 style={{ textWrap: 'balance' as const }}
               >
-                Colocamos a inteligência artificial para assumir tarefas repetitivas, melhorar atendimento e aumentar vendas.
+                {copy.home.agents.descriptionLines[0]}
                 <br />
                 <br />
-                Você reduz custos, ganha tempo e escala com qualidade sem precisar aumentar equipe.
+                {copy.home.agents.descriptionLines[1]}
               </p>
             </div>
           </div>
