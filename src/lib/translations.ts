@@ -1124,4 +1124,4 @@ export const translations = {
 } as const;
 
 export type Locale = keyof typeof translations;
-export type Translations = (typeof translations)["pt-BR"];
+export type Translations = (typeof translations)[Locale];
